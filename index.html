@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Dropbox Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/dropbox@10.34.0/dist/Dropbox-sdk.min.js"></script>
+    <script src="dbApi.js"></script>
+</head>
+
+<body>
+    <!-- Example description and UI -->
+    <section class="container main" style="color: white;">
+        <div id="pre-auth-section" style="display:block;">
+            <button onClick="listFiles()">doAuth</button>
+            <button onClick="">StartPage</button>
+            <button onClick="localStorage.clear()">refresh test</button>
+            <hr><hr>
+        </div>
+
+        <div id="authed-section" style="display:block;">
+            <ul id="files"></ul>
+        </div>
+    </section>
+
+    <script>
+        var dbx = new DbApi()
+
+        // Render a list of items to #files
+        function renderItems(items) {
+            var filesContainer = document.getElementById('files');
+            items.forEach(function(item) {
+                var li = document.createElement('li');
+                li.innerHTML = item.name;
+                filesContainer.appendChild(li);
+            });
+        }
+
+        function listFiles() {
+            var r = dbx.dbx.filesListFolder({path: ''}) // returns promise
+            r.then( text => {renderItems(text.result.entries); console.log(text.result.entries)})
+            .catch(e => console.log(e))
+        }
+        
+    </script>
+
+</body>
+
+</html>
+
