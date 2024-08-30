@@ -1,52 +1,170 @@
 <!doctype html>
+
 <html>
 
+
 <head>
-    <title>Dropbox Login</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/dropbox@10.34.0/dist/Dropbox-sdk.min.js"></script>
-    <script src="dbApi.js"></script>
+  <title>Dropbox Login</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/dropbox@10.34.0/dist/Dropbox-sdk.min.js"></script>
+  <script src="dbApi.js"></script>
+
+  <script src="gpx.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 </head>
 
 <body>
-    <!-- Example description and UI -->
-    <section class="container main" style="color: white;">
-        <div id="pre-auth-section" style="display:block;">
-            <button onClick="listFiles()">doAuth</button>
-            <button onClick="">StartPage</button>
-            <button onClick="localStorage.clear()">refresh test</button>
-            <hr><hr>
-        </div>
+  <!-- Example description and UI -->
+  <section class="container main" style="color: white;">
+    <div id="pre-auth-section" style="display:block;">
+      <button onClick="listFiles()">doAuth</button>
+      <button onClick="bb()">StartPage</button>
+      <button onClick="aa()">refresh test</button>
+      <hr>
+      <hr>
+    </div>
 
-        <div id="authed-section" style="display:block;">
-            <ul id="files"></ul>
-        </div>
-    </section>
+    <div id="authed-section" style="display:block;">
+      <ul id="files"></ul>
+    </div>
+  </section>
 
-    <script>
-        var dbx = new DbApi()
+  <div id="map" style="height: 800px;"></div>
 
-        // Render a list of items to #files
-        function renderItems(items) {
-            var filesContainer = document.getElementById('files');
-            items.forEach(function(item) {
-                var li = document.createElement('li');
-                li.innerHTML = item.name;
-                filesContainer.appendChild(li);
-            });
-        }
+  <script>
+    //var dbx = new DbApi()  
+    var sRte = null
 
-        function listFiles() {
-            var r = dbx.dbx.filesListFolder({path: ''}) // returns promise
-            r.then( text => {renderItems(text.result.entries); console.log(text.result.entries)})
-            .catch(e => console.log(e))
-        }
-        
-    </script>
+    // Render a list of items to #files
+    function renderItems(items) {
+      var filesContainer = document.getElementById('files');
+      items.forEach(function(item) {
+        var li = document.createElement('li');
+        li.innerHTML = item.name;
+        filesContainer.appendChild(li);
+      });
+    }
+
+    function listFiles() {
+      var r = dbx.dbx.filesListFolder({ path: '' }) // returns promise
+      r.then(text => {
+          renderItems(text.result.entries);
+          console.log(text.result.entries)
+        })
+        .catch(e => console.log(e))
+    }
+
+    function bb() {
+
+      //end.setDate(23)
+      //end.setMonth(8)
+      //end.setFullYear(2024)
+      //end.setHours(6)
+      //end.setMinutes(30)
+
+      // (YYYY, MM-1, DD, Hr, Min, Sec)
+      //let g2 = new Date(2019, 8, 3, 10, 22, 42);
+
+      //var start = new Date(2024, 8, 23, 20, 30)
+      //var end = new Date(2024, 8, 24, 6, 30)
+
+      //var pt = new Date(2024, 8, 23, 20, 30)
+
+      //console.log(start.toString())
+      //console.log("----")
+      //console.log(end.toString())
+
+      //console.log(start.getTime() == end.getTime())
+      //console.log(start.getTime() > end.getTime())
+
+      //console.log(start.getTime() <= pt.getTime() && pt.getTime() <= end.getTime())
+
+      var map = L.map('map').setView([47.348149, -122.222297], 11);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+
+      //var polygon = L.polyline([
+      //[47.348149, -122.222297],
+      //[47.368149, -122.22229],
+      //[47.378149, -122.23229]
+    //]).addTo(map);
+
+      var polygon2 = L.polygon([
+      [51.509, -0.08],
+      [51.503, -0.06],
+      [51.51, -0.047]
+    ]).addTo(map);
+
+      var arrPts = []
+      sRte.points.forEach((pt) => {
+        arrPts.push([pt.lat, pt.lon])
+      })
+      
+      var latlngs = [
+    [45.51, -122.68],
+    [37.77, -122.43],
+    [34.04, -118.2]
+];
+      
+      console.log(latlngs)
+      console.log(arrPts.length)
+
+      var polygon3 = L.polyline(arrPts, {corlor: "red"}).addTo(map);
+      var pp = L.polyline(arrPts).addTo(map)
+      var circle = L.circle([47.368149, -122.222297], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 500
+      }).addTo(map);
+
+      var marker = L.marker([47.348149, -122.222297]).addTo(map);
+
+    }
+
+    async function aa() {
+
+      var start = new Date(2024, 7, 23, 20, 30)
+      var end = new Date(2024, 7, 24, 6, 30)
+      var rteFile1 = "./gpxFiles/un/4bc610f122ad1c78_20240823.gpx"
+      var rteFile2 = "./gpxFiles/un/4bc610f122ad1c78_20240824.gpx"
+
+      sRte = new GPXRoute()
+      sRte.addPontsFromGPX(await getFileData(rteFile1))
+      sRte.addPontsFromGPX(await getFileData(rteFile2))
+
+      console.log(sRte.points.length)
+      sRte.filterByTimeRange(start, end)
+      console.log(sRte.points.length)
+
+      console.log(sRte.points[0].time.toLocaleString())
+      console.log(sRte.points[1].time.toLocaleString())
+      console.log(sRte.points[sRte.points.length - 2].time.toLocaleString())
+      console.log(sRte.points[sRte.points.length - 1].time.toLocaleString())
+
+      console.log(sRte.points[0])
+    }
+
+    async function getFileData(fileName) {
+      var xmlString = ""
+      await fetch(fileName)
+        .then(response => response.text())
+        .then(fileData => {
+          xmlString = fileData
+        });
+      return xmlString
+    }
+  </script>
 
 </body>
 
 </html>
-

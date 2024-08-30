@@ -5,7 +5,7 @@ class DbApi {
   //eg. /1.1.1.1/?code=xxxxx
   constructor() {
     console.log("cont")
-    this.REDIRECT_URI = 'http://localhost:5500/';
+    this.REDIRECT_URI = 'http://localhost:7700/';
     this.CLIENT_ID = 'h7bzrn3vyfa3m2r';
     this.dbx = null
     this.dbxAuth = new Dropbox.DropboxAuth({
