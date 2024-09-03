@@ -1,0 +1,22 @@
+      //end.setDate(23)
+      //end.setMonth(8)
+      //end.setFullYear(2024)
+      //end.setHours(6)
+      //end.setMinutes(30)
+
+      // (YYYY, MM-1, DD, Hr, Min, Sec)
+      //let g2 = new Date(2019, 8, 3, 10, 22, 42);
+
+      //var start = new Date(2024, 8, 23, 20, 30)
+      //var end = new Date(2024, 8, 24, 6, 30)
+
+      //var pt = new Date(2024, 8, 23, 20, 30)
+
+      //console.log(start.toString())
+      //console.log("----")
+      //console.log(end.toString())
+
+      //console.log(start.getTime() == end.getTime())
+      //console.log(start.getTime() > end.getTime())
+
+      //console.log(start.getTime() <= pt.getTime() && pt.getTime() <= end.getTime())

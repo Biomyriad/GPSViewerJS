@@ -5,7 +5,7 @@ class DbApi {
   //eg. /1.1.1.1/?code=xxxxx
   constructor() {
     console.log("cont")
-    this.REDIRECT_URI = 'http://localhost:7700/';
+    this.REDIRECT_URI = 'http://localhost:5500/';
     this.CLIENT_ID = 'h7bzrn3vyfa3m2r';
     this.dbx = null
     this.dbxAuth = new Dropbox.DropboxAuth({
@@ -32,12 +32,6 @@ class DbApi {
     } else {
       this.login()
     }
-  }
-
-  listFiles() { // EXAMPLE
-    var r = dbx.dbx.filesListFolder({path: ''}) // returns promise
-    r.then( text => {renderItems(text.result.entries); console.log(text.result.entries)})
-    .catch(e => console.log(e))
   }
 
   loginDropbox() {
@@ -70,7 +64,6 @@ class DbApi {
       })
   }
 
-
   // If the user was just redirected from authenticating, the urls hash will
   // contain the access token.
   hasRedirectedFromAuth() {
@@ -83,8 +76,32 @@ class DbApi {
     return fromUrl.code
   }
 
+  
+  listFiles_old() { // EXAMPLE
+    var r = dbx.dbx.filesListFolder({path: ''}) // returns promise
+    r.then( text => {renderItems(text.result.entries); console.log(text.result.entries)})
+    .catch(e => console.log(e))
+  }
+
+  listFiles(rootPath='') {
+    //returns array of Obj:
+    ////{.tag: 'folder', name: 'Apps', path_lower: '/apps', path_display: '/Apps', id: 'id:NYsSBEDcsFAAAAAAAAAADw'}
+    var r = dbx.dbx.filesListFolder({ path: rootPath }) // returns promise
+    r.then(text => {
+        renderItems(text.result.entries);
+        console.log(text.result.entries)
+        return text.result.entries
+      })
+      .catch(e => console.log(e))
+  }
+
+  
+
+
 }
 
+////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////
 (function (window) {
   window.utils = {
     parseQueryString(str) {
