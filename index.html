@@ -15,7 +15,6 @@
   <script src="gpx.js"></script>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <!-- Make sure you put this AFTER Leaflet's CSS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 </head>
@@ -92,51 +91,21 @@
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
 
-      //var polygon = L.polyline([
-      //[47.348149, -122.222297],
-      //[47.368149, -122.22229],
-      //[47.378149, -122.23229]
-    //]).addTo(map);
-
-      var polygon2 = L.polygon([
-      [51.509, -0.08],
-      [51.503, -0.06],
-      [51.51, -0.047]
-    ]).addTo(map);
-
       var arrPts = []
       sRte.points.forEach((pt) => {
         arrPts.push([pt.lat, pt.lon])
       })
       
-      var latlngs = [
-    [45.51, -122.68],
-    [37.77, -122.43],
-    [34.04, -118.2]
-];
+      var polygon3 = L.polyline(arrPts, {color: "#ff0000"}).addTo(map);
       
-      console.log(latlngs)
-      console.log(arrPts.length)
-
-      var polygon3 = L.polyline(arrPts, {corlor: "red"}).addTo(map);
-      var pp = L.polyline(arrPts).addTo(map)
-      var circle = L.circle([47.368149, -122.222297], {
-        color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.5,
-        radius: 500
-      }).addTo(map);
-
-      var marker = L.marker([47.348149, -122.222297]).addTo(map);
-
     }
 
     async function aa() {
 
       var start = new Date(2024, 7, 23, 20, 30)
       var end = new Date(2024, 7, 24, 6, 30)
-      var rteFile1 = "./gpxFiles/un/4bc610f122ad1c78_20240823.gpx"
-      var rteFile2 = "./gpxFiles/un/4bc610f122ad1c78_20240824.gpx"
+      var rteFile1 = "./gpxFiles/un/600271f299baf4db_20240823.gpx"
+      var rteFile2 = "./gpxFiles/un/600271f299baf4db_20240824.gpx"
 
       sRte = new GPXRoute()
       sRte.addPontsFromGPX(await getFileData(rteFile1))
