@@ -11,17 +11,20 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/dropbox@10.34.0/dist/Dropbox-sdk.min.js"></script>
   <script src="dbApi.js"></script>
-
+  
   <script src="gpx.js"></script>
+  
+  <<script src="main.js"></script>
 
-  <script src="./libs/zip-loader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.js" integrity="sha512-djAJLNukP3WdWmwP/Y05w99aCX6u1jInpshdwiUKbXcQ9y/8BpMtsPsVrVyUbmtEx7wbqFpBq4sGOnIFVScFQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.js" integrity="sha512-vzp9X4pwJHRiGSEH692sqmRe5R8OQNKSCe1zg38GQoNUGJtnPrwhwKF3lbaFZMsT8ZQ3ppZ8tlLqkJGosi5/CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 </head>
 
-<body> 
+<body>
   <!-- Example description and UI -->
   <section class="container main" style="color: white;">
     <div id="pre-auth-section" style="display:block;">
@@ -43,10 +46,6 @@
   <div id="map" style="height: 800px;"></div>
 
   <script>
-
-
-    //const jsZip = new JSZip()
-    var dbx = new DbApi()  
     var sRte = null
 
 
@@ -60,42 +59,30 @@
       });
     }
 
-////////////////////////////
+    ////////////////////////////
+    
+    async function aa() {
+      var data = await dbx.downloadFile('/Apps/GPSLogger for Android/600271f299baf4db_20240823.zip')
+      var gpx = await unzipFile(data)
+      console.log (gpx)
+    }
+    
+    async function bb() {
+      var fList = await dbx.listFiles("/Apps/GPSLogger for Android")
+      //console.log("files: ", fList)
+      renderItems(fList)
+      console.log (getUniqueFileIds(fList))
+    }
 
-async function aa() {
-  // GET FILE BY PATH/NAME.EXT
-  dbx.dbx.filesDownload({ path: '/Apps/GPSLogger for Android/600271f299baf4db_20240823.zip'})
-        .then(async function(response){
-          console.log(typeof response,response.result);
+    function cc() {
+      
+    }
+    ////////////////////////////
+    function aa2() {
+      
+    }
 
-          
-
-        })
-        .catch(function (error) {
-        console.error(error);
-    });
-}
-
-//response.result.fileBlob
-//Object.keys(zip.files)[0]
-async function bb(response) {
-  //UNZIP FILE
-  var retFile = 77
-
-          
-  return retFile
-}
-
-function cc() {
-  //DISPLAY PROOF
-
-}
-////////////////////////////
-function aa2() {
-  dbx.listFiles('/Apps/GPSLogger for Android')
-}
-
-function bb2() {
+    function bb2() {
       // setup map and draw points
       var map = L.map('map').setView([47.348149, -122.222297], 11);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -107,9 +94,9 @@ function bb2() {
       sRte.points.forEach((pt) => {
         arrPts.push([pt.lat, pt.lon])
       })
-      
-      var polygon3 = L.polyline(arrPts, {color: "#ff0000"}).addTo(map);
-      
+
+      var polygon3 = L.polyline(arrPts, { color: "#ff0000" }).addTo(map);
+
     }
 
     async function cc2() {

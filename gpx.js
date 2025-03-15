@@ -3,7 +3,7 @@ class GPXRoute {
     this.points = []
   }
 
-  async addPontsFromGPX(xmlString) {
+  addPontsFromGPX(xmlString) {
     var points = []
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(xmlString, "text/xml");
@@ -20,10 +20,12 @@ class GPXRoute {
     this.points = this.points.concat(points)
   }
 
-  async filterByTimeRange(startDate, endDate) {
+  filterByTimeRange(startDate, endDate) {
     this.points = this.points.filter((pt) => {
       return startDate.getTime() <= pt.time.getTime() && pt.time.getTime() <= endDate.getTime()
     })
   }
+  
+  
 
 }

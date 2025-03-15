@@ -1,0 +1,50 @@
+async function aa() {
+      // GET FILE BY PATH/NAME.EXT
+      //dbx.dbx.filesDownload({ path: '/test.txt'})
+      dbx.dbx.filesDownload({ path: '/Apps/GPSLogger for Android/600271f299baf4db_20240823.zip' })
+        .then(async function(response) {
+                new JSZip.loadAsync(response.result.fileBlob).then(function(zip) {
+                    zip.files[Object.keys(zip.files)[0]].async('string').then(function(data) {
+                      console.log(data) // These are your file contents      
+                    })
+                })
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    }
+    
+////////////////////////////////////////
+
+async function aa() {
+      // GET FILE BY PATH/NAME.EXT
+      //dbx.dbx.filesDownload({ path: '/test.txt'})
+      dbx.dbx.filesDownload({ path: '/Apps/GPSLogger for Android/600271f299baf4db_20240823.zip' })
+        .then(async function(response) {
+          console.log(typeof response.result.fileBlob, response.result.fileBlob)
+          response.result.fileBlob.arrayBuffer()
+          
+          
+              .then((data) => {
+                console.log('qqq')
+
+                new JSZip.loadAsync(data).then(function(zip) {
+
+                  Object.keys(zip.files).forEach(function(filename) {
+
+                    zip.files[filename].async('string').then(function(fileData) {
+                      console.log(fileData) // These are your file contents      
+                    })
+                  })
+                })
+              })
+              
+          console.log("moving on")
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    }
+
+    //response.result.fileBlob
+    //Object.keys(zip.files)[0]

@@ -50,13 +50,13 @@ class DbApi {
         this.dbx = new Dropbox.Dropbox({
           auth: this.dbxAuth
         })
-        
-        if(this.dbx.auth.accessToken !== null) localStorage.setItem("db_access_token", this.dbx.auth.accessToken)
-        if(this.dbx.auth.refreshToken !== localStorage.getItem('db_refresh_token')) {
+
+        if (this.dbx.auth.accessToken !== null) localStorage.setItem("db_access_token", this.dbx.auth.accessToken)
+        if (this.dbx.auth.refreshToken !== localStorage.getItem('db_refresh_token')) {
           localStorage.setItem("db_refresh_token", this.dbx.auth.refreshToken)
           console.log("NEW RefreshToken!")
         }
-        
+
       })
       .catch((error) => {
         console.error(error.error || error);
@@ -76,33 +76,61 @@ class DbApi {
     return fromUrl.code
   }
 
-  
-  listFiles_old() { // EXAMPLE
-    var r = dbx.dbx.filesListFolder({path: ''}) // returns promise
-    r.then( text => {renderItems(text.result.entries); console.log(text.result.entries)})
-    .catch(e => console.log(e))
-  }
 
-  listFiles(rootPath='') {
-    //returns array of Obj:
-    ////{.tag: 'folder', name: 'Apps', path_lower: '/apps', path_display: '/Apps', id: 'id:NYsSBEDcsFAAAAAAAAAADw'}
-    var r = dbx.dbx.filesListFolder({ path: rootPath }) // returns promise
-    r.then(text => {
-        renderItems(text.result.entries);
-        console.log(text.result.entries)
-        return text.result.entries
-      })
+  listFiles_old() { // EXAMPLE
+    var r = this.dbx.filesListFolder({ path: '' }) // returns promise
+    r.then(text => { renderItems(text.result.entries);
+        console.log(text.result.entries) })
       .catch(e => console.log(e))
   }
 
-  
+  async listFiles(rootPath = '') {
+    //returns array of Obj:
+//.tag: "file"
+//client_modified: "2023-01-01T08:00:04Z"
+//content_hash: "61296008afe07a5596b29a9d387b2b93703fbe4886edc0a4a87f2ab263e0ebbf"
+//id: "id:NYsSBEDcsFAAAAAAAABCxA"
+//is_downloadable: true
+//name: "c0c29e7af491c235_20221231.zip"
+//path_display: "/Apps/GPSLogger for Android/c0c29e7af491c235_20221231.zip"
+//path_lower: "/apps/gpslogger for android/c0c29e7af491c235_20221231.zip"
+//rev: "015f12f38f244f10000000184022880"
+//server_modified: "2023-01-01T08:00:04Z"
+//size: 415681
 
+////{.tag: 'folder', name: 'Apps', path_lower: '/apps', path_display: '/Apps', id: 'id:NYsSBEDcsFAAAAAAAAAADw'}
+    var listResult = null
+    var entries = []
+    try {
+      listResult = await this.dbx.filesListFolder({ path: rootPath })
+      entries = entries.concat(listResult.result.entries)
+      
+      while(listResult.result.has_more) {
+        listResult = await this.dbx.filesListFolderContinue({ cursor: listResult.result.cursor })
+        entries = entries.concat(listResult.result.entries)
+      }
+      
+      return entries
+    } catch(e) {
+      console.log(e)
+    }
+  }
+
+  // path in dropbox eg /folder/file.ext
+  async downloadFile(path) {
+    try {
+      var download = await dbx.dbx.filesDownload({ path: path })
+      return download.result.fileBlob
+    } catch (error) {
+      console.error("DropBox Err: ", error);
+    }
+  }
 
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////
-(function (window) {
+(function(window) {
   window.utils = {
     parseQueryString(str) {
       const ret = Object.create(null);

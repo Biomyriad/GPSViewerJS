@@ -16,3 +16,33 @@ var polygon2 = L.polygon([
       }).addTo(map);
 
       var marker = L.marker([47.348149, -122.222297]).addTo(map);
+
+
+
+// ICONS / MARKERS
+//-------------------
+var myIcon = L.icon({
+iconUrl: 'marker.png',
+iconSize: [38, 38],
+iconAnchor: [22, 94],
+popupAnchor: [-3, -76],
+shadowUrl: 'my-icon-shadow.png',
+shadowSize: [68, 95],
+shadowAnchor: [22, 94]
+});
+//marker.setIcon(myIcon)
+
+
+
+//MAP Layers
+//-----------
+//var layerGroup = L.layerGroup().addTo(map);
+
+// create markers
+//L.marker().addTo(layerGroup);
+
+// remove all the markers in one go
+//layerGroup.clearLayers();
+//map.removeLayer(layerGroup)
+
+

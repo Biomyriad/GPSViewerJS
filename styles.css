@@ -44,6 +44,8 @@ input {
   font-size: 16px;
   padding: 10px 15px;
   text-decoration: none;
+  min-width: 130px;
+  min-height: 100px;
 }
 
 .page-header {
