@@ -98,18 +98,32 @@ async function formData() {
   console.log(fileNameB)
 
 
-  var basePath = '/Apps/GPSLogger for Android/'
-  var data = await dbx.downloadFile(basePath + fileNameA + '.zip')
-  var gpxA = await unzipFile(data)
-
-  var data = await dbx.downloadFile(basePath + fileNameB + '.zip')
-  var gpxB = await unzipFile(data)
-  //console.log(gpxA)
-  //console.log(gpxB)
-
   sRte = new GPXRoute()
-  sRte.addPointsFromGPX(gpxA)
-  sRte.addPointsFromGPX(gpxB)
+  var basePath = '/Apps/GPSLogger for Android/'
+
+  try {
+    console.log(fileNameA)
+    var data = await dbx.downloadFile(basePath + fileNameA + '.zip')
+    var gpxA = await unzipFile(data)
+    sRte.addPointsFromGPX(gpxA)
+
+  } catch (e) {
+    console.error(e);
+  } finally {
+    console.log('We do cleanup here');
+  }
+
+  try {
+    console.log(fileNameB)
+    var data = await dbx.downloadFile(basePath + fileNameB + '.zip')
+    var gpxB = await unzipFile(data)
+    sRte.addPointsFromGPX(gpxB)
+  } catch (e) {
+    console.error(e);
+  } finally {
+    console.log('We do cleanup here');
+  }
+
 
   //console.log(sRte.points.length)
   sRte.filterByTimeRange(selectedDate, selectedNextDate)
