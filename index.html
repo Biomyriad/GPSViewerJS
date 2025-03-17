@@ -1,10 +1,13 @@
 <!doctype html>
-
-<html>
+<html lang="en">
 
 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
   <title>Dropbox Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
   <link rel="stylesheet" href="styles.css">
 
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script> -->
@@ -13,114 +16,76 @@
   <script src="dbApi.js"></script>
   
   <script src="gpx.js"></script>
-  
-  <<script src="main.js"></script>
-
+    
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.js" integrity="sha512-djAJLNukP3WdWmwP/Y05w99aCX6u1jInpshdwiUKbXcQ9y/8BpMtsPsVrVyUbmtEx7wbqFpBq4sGOnIFVScFQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.js" integrity="sha512-vzp9X4pwJHRiGSEH692sqmRe5R8OQNKSCe1zg38GQoNUGJtnPrwhwKF3lbaFZMsT8ZQ3ppZ8tlLqkJGosi5/CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+  
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <script src="main.js" defer></script>
 
 </head>
 
 <body>
-  <!-- Example description and UI -->
-  <section class="container main" style="color: white;">
-    <div id="pre-auth-section" style="display:block;">
-      <button onClick="aa2()">doAuth</button>
-      <button onClick="bb2()">StartPage</button>
-      <button onClick="cc2()">refresh test</button>
-      <button onClick="aa()">AA</button>
-      <button onClick="bb()">BB</button>
-      <button onClick="cc()">CC</button>
-      <hr>
-      <hr>
-    </div>
 
-    <div id="authed-section" style="display:block;">
-      <ul id="files"></ul>
-    </div>
-  </section>
+  <div class="container">
+
+    <fieldset role="group"> 
+
+      <!-- On change update route select -->
+      <input type="date" id="dateselect"> 
+      
+      <select id="routeselect">
+        <option selected disabled value="">Route</option>
+      </select>
+
+      <button onClick="formData()">Go</button>
+
+    </fieldset>
+
+  </div>
+
+  <button onClick="loadPropsFile()">load props</button>
+
+  <div id="out"></div>
+
+  <div id="authed-section" style="display:block;">
+    <ul id="files"></ul>
+  </div>
 
   <div id="map" style="height: 800px;"></div>
 
   <script>
-    var sRte = null
+    async function loadPropsFile() {
+      var data = await getFileData("props.dat")
+      console.log(await textDecompress(data))
 
+    }
 
-    // Render a list of items to #files
-    function renderItems(items) {
-      var filesContainer = document.getElementById('files');
-      items.forEach(function(item) {
-        var li = document.createElement('li');
-        li.innerHTML = item.name;
-        filesContainer.appendChild(li);
+    function textDecompress(compressedText) {
+      const gzBuffer = Uint8Array.from(atob(compressedText), c => c.charCodeAt(0));
+      const msgLength = new DataView(gzBuffer.buffer).getInt32(0, true);
+      const ms = new Uint8Array(gzBuffer.length - 4);
+      ms.set(gzBuffer.subarray(4));
+  
+      const buffer = new Uint8Array(msgLength);
+      const zip = new DecompressionStream('gzip');
+      const readableStream = new ReadableStream({
+          start(controller) {
+              controller.enqueue(ms);
+              controller.close();
+          }
       });
-    }
-
-    ////////////////////////////
-    
-    async function aa() {
-      var data = await dbx.downloadFile('/Apps/GPSLogger for Android/600271f299baf4db_20240823.zip')
-      var gpx = await unzipFile(data)
-      console.log (gpx)
-    }
-    
-    async function bb() {
-      var fList = await dbx.listFiles("/Apps/GPSLogger for Android")
-      //console.log("files: ", fList)
-      renderItems(fList)
-      console.log (getUniqueFileIds(fList))
-    }
-
-    function cc() {
-      
-    }
-    ////////////////////////////
-    function aa2() {
-      
-    }
-
-    function bb2() {
-      // setup map and draw points
-      var map = L.map('map').setView([47.348149, -122.222297], 11);
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(map);
-
-      var arrPts = []
-      sRte.points.forEach((pt) => {
-        arrPts.push([pt.lat, pt.lon])
-      })
-
-      var polygon3 = L.polyline(arrPts, { color: "#ff0000" }).addTo(map);
-
-    }
-
-    async function cc2() {
-      // opends two gpx files and adds them to class Points porp
-      var start = new Date(2024, 7, 23, 20, 30)
-      var end = new Date(2024, 7, 24, 6, 30)
-      var rteFile1 = "./gpxFiles/un/600271f299baf4db_20240823.gpx"
-      var rteFile2 = "./gpxFiles/un/600271f299baf4db_20240824.gpx"
-
-      sRte = new GPXRoute()
-      sRte.addPontsFromGPX(await getFileData(rteFile1))
-      sRte.addPontsFromGPX(await getFileData(rteFile2))
-
-      console.log(sRte.points.length)
-      sRte.filterByTimeRange(start, end)
-      console.log(sRte.points.length)
-
-      console.log(sRte.points[0].time.toLocaleString())
-      console.log(sRte.points[1].time.toLocaleString())
-      console.log(sRte.points[sRte.points.length - 2].time.toLocaleString())
-      console.log(sRte.points[sRte.points.length - 1].time.toLocaleString())
-
-      console.log(sRte.points[0])
-    }
+  
+      const decompressedStream = readableStream.pipeThrough(zip);
+      const reader = decompressedStream.getReader();
+  
+      return reader.read().then(({ done, value }) => {
+          if (done) return '';
+          return new TextDecoder('utf-8').decode(value);
+      });
+  }
 
     // file from filename.
     async function getFileData(fileName) {
@@ -132,6 +97,17 @@
         });
       return xmlString
     }
+
+    // Render a list of items to #files
+    function renderItems(items) {
+      var filesContainer = document.getElementById('files');
+      items.forEach(function(item) {
+        var li = document.createElement('li');
+        li.innerHTML = item.name;
+        filesContainer.appendChild(li);
+      });
+    }
+
   </script>
 
 </body>

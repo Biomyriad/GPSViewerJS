@@ -17,6 +17,7 @@ class DbApi {
 
     if (this.hasRedirectedFromAuth()) {
       this.dbxAuth.setCodeVerifier(sessionStorage.getItem('codeVerifier'));
+      console.log("cont")
       this.dbxAuth.getAccessTokenFromCode(this.REDIRECT_URI, this.getCodeFromUrl())
         .then((response) => {
           console.log(response)
