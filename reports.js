@@ -47,6 +47,8 @@ async function tst() {
   console.log(loadedReportList)
   document.getElementById("recordslist").replaceChildren()
   createReportHtml(loadedReportList[4])
+  createReportHtml(loadedReportList[5])
+  createReportHtml(loadedReportList[6])
   return
 
   console.log(loadedReportList.length)
@@ -89,10 +91,14 @@ function createReportHtml(rec) {
 
   var mainCont = document.createElement("details");
   mainCont.setAttribute("id",rec.id+"-record");
+  mainCont.setAttribute("style","margin-bottom: 5px;");
 
 	var title = document.createElement("summary");
   title.setAttribute("id",rec.id+"-title");
-  title.innerHTML = new Date(rec.fields['Date and Time of Incident']).toLocaleTimeString() + " " + rec.fields['Record Code']
+  title.setAttribute("class","rec-content");
+  title.setAttribute("style","padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px;");
+  var dt = new Date(rec.fields['Date and Time of Incident'])//.toLocaleTimeString()
+  title.innerHTML = `${formatTime(dt)}`+ " " + rec.fields['Record Code']
 
 	var content = document.createElement("article");
   content.setAttribute("id",rec.id+"-content");
@@ -138,24 +144,35 @@ function createReportHtml(rec) {
 
 	var pic = document.createElement("article"); // Picture or other attachment if needed
   pic.setAttribute("id",rec.id+"-pictures");
-  pic.setAttribute("style","display: flex; justify-content: space-between;");
+  pic.setAttribute("style","display: flex; justify-content: space-between; height: 133px");
 
-  rec.fields['Picture or other attachment if needed'].forEach(item => {
-    var pics = document.createElement("img");
-    pics.setAttribute("src",item.thumbnails.large.url);
-    pics.setAttribute("style","height: 100px; border-radius: 4px");
-    pic.appendChild(pics)
-  })
+  if(rec.fields['Picture or other attachment if needed'] != undefined) {
+    rec.fields['Picture or other attachment if needed'].forEach(item => {
+      var pics = document.createElement("img");
+      pics.setAttribute("src",item.thumbnails.large.url);
+      pics.setAttribute("style","height: 100px; border-radius: 4px");
+      pic.appendChild(pics)
+    })
+  }
 
-  var _button = document.createElement("button");
-  _button.innerHTML = 'click me';
-  _button.onclick = async function()
+  var btnHldr = document.createElement("div")
+  btnHldr.setAttribute("id",rec.id+"-buttons");
+  btnHldr.setAttribute("class","invisible");
+  btnHldr.setAttribute("style","display: flex; justify-content: space-around;")
+
+  var _button1 = document.createElement("button");
+  _button1.innerHTML = 'Save';
+  _button1.onclick = async function()
   {
   console.log(rec.id + "<-----")
   let re = await cloudDb.getOne(rec.id,tblIncident)
   console.log(re)
       //alert("hello, world");
   }
+
+  var _button2 = document.createElement("button");
+  _button2.innerHTML = 'Cancel';
+  _button2.onclick = async function(){  }
 
   mainCont.appendChild(title)
   mainCont.appendChild(content)
@@ -165,8 +182,10 @@ function createReportHtml(rec) {
   content.appendChild(officer)
   content.appendChild(discr)
   content.appendChild(pic)
-  content.appendChild(_button)
+  content.appendChild(btnHldr)
 
+  btnHldr.appendChild(_button1)
+  btnHldr.appendChild(_button2)
 document.getElementById("recordslist").appendChild(mainCont)
 
 }
@@ -188,6 +207,7 @@ function recOnChange(e) {
 // -description
 // -pictures
 
+    var buttons = document.getElementById(rec.id + "-buttons")
     var record = document.getElementById(rec.id + "-record")
     var title = document.getElementById(rec.id + "-title")
     var content = document.getElementById(rec.id + "-content")
@@ -218,10 +238,32 @@ function recOnChange(e) {
     console.log("---------------------------")
 
     title.classList.toggle("rec-content-edited")
+    buttons.classList.toggle("invisible")
 
 
 }
 
 function recordBtn() {
   
+}
+
+function formatTime(dt) {
+  var ap = "AM"
+  var h = dt.getHours()
+  var m = dt.getMinutes()
+
+  console.log(h)
+  if(h > 12) {
+    h = h - 12
+    ap = "PM"
+  }
+
+  if(h == 0) {
+    h=12
+  }
+
+  if(m < 10) {
+    m = "0" + m
+  }
+  return `${h}:${m} ${ap}`
 }

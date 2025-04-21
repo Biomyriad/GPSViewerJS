@@ -4,8 +4,14 @@
 
 .rec-content {
   background-color: rgb(38, 47, 66);
+
 }
 
 .rec-content-edited {
   background-color: rgb(78, 28, 28);
+  
+}
+
+.invisible {
+  display: none !important;
 }
