@@ -39,16 +39,57 @@ function lookupProperty(propId) {
 }
 
 async function tst() {
-  let startTimeStamp = new Date("4/10/2025")
-  let endTimeStamp = new Date("4/11/2025")
+  let startTimeStamp = new Date("4/11/2025")
+  let endTimeStamp = new Date("4/12/2025")
 
   loadedReportList = await cloudDb.getIncidentByDateRange(startTimeStamp, endTimeStamp)
 
-  console.log(loadedReportList)
+    var times = {}
+    loadedReportList.forEach(rec => {
+      if(Object.keys(times).indexOf(rec.createdTime)){
+        times[rec.createdTime] = 1
+      } else {
+        times[rec.createdTime] = times[rec.createdTime] + 1
+      }
+    })
+  console.log(times)
+    
+  var largestName = ""
+  var largest = 0;
+  Object.keys(times).forEach(itm => {
+    if (times[itm] > largest) {
+        largest = times[itm];
+        largestName = itm
+        console.log(times[itm])
+    }
+  })
+
+  console.log(largest)
+  console.log(largestName)
+
   document.getElementById("recordslist").replaceChildren()
-  createReportHtml(loadedReportList[4])
-  createReportHtml(loadedReportList[5])
-  createReportHtml(loadedReportList[6])
+
+
+  var title = document.createElement("summary");
+  //title.setAttribute("id",rec.id+"-title");
+  //title.setAttribute("class","rec-content");
+  title.setAttribute("style","padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;");
+  title.innerHTML = "Mandatory Reports"
+  document.getElementById("recordslist").appendChild(title)
+
+  loadedReportList.forEach(rec => {
+    if(rec.createdTime ==largestName) createReportHtml(rec)
+  })
+
+  title = document.createElement("summary");
+  title.setAttribute("style","padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;");
+  title.innerHTML = "Extra Reports"
+  document.getElementById("recordslist").appendChild(title)
+
+  loadedReportList.forEach(rec => {
+    if(rec.createdTime !=largestName) createReportHtml(rec)
+  })
+
   return
 
   console.log(loadedReportList.length)
@@ -96,9 +137,9 @@ function createReportHtml(rec) {
 	var title = document.createElement("summary");
   title.setAttribute("id",rec.id+"-title");
   title.setAttribute("class","rec-content");
-  title.setAttribute("style","padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px;");
+  title.setAttribute("style","padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;");
   var dt = new Date(rec.fields['Date and Time of Incident'])//.toLocaleTimeString()
-  title.innerHTML = `${formatTime(dt)}`+ " " + rec.fields['Record Code']
+  title.innerHTML =`${formatTime(dt)}`+ " " + rec.fields['Record Code']
 
 	var content = document.createElement("article");
   content.setAttribute("id",rec.id+"-content");
