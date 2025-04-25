@@ -24,6 +24,14 @@ async function preLoad() {
   // {"id": "sel9P7sw8sICjlSrR","name": "Amber Schumaker ","color": "blueLight2"}
   //tables[4].fields[3].options.choices
 
+  let shiftDate = document.getElementById("shift-date")
+  shiftDate.value = new Date().toLocaleDateString('en-CA')
+  shiftDate.onchange = (e) => {
+    console.log(e.currentTarget.value)
+    var d = addDays(new Date(e.currentTarget.value),1)
+    loadReports(d)
+  }
+
   var baseSchema = await cloudDb.getSchema()
   incidentReportingOfficer = baseSchema.tables[4].fields[3].options.choices
 
@@ -34,13 +42,24 @@ async function preLoad() {
   console.log(lookupProperty("reczX6h9NAVWSF9f5"))
 }
 
+function addDays(date, days) {
+  const newDate = new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+  return newDate;
+}
+
+function subDays(date, days) {
+  days = days -1
+  const newDate = new Date(date.getTime() - days * 24 * 60 * 60 * 1000);
+  return newDate;
+}
+
 function lookupProperty(propId) {
   return propertiesList.find(rec => rec.id == propId).fields.Name
 }
 
-async function tst() {
-  let startTimeStamp = new Date("4/11/2025")
-  let endTimeStamp = new Date("4/12/2025")
+async function loadReports(shiftDate) {
+  let startTimeStamp = shiftDate//new Date("4/21/2025")
+  let endTimeStamp = addDays(shiftDate,1)//new Date("4/22/2025")
 
   loadedReportList = await cloudDb.getIncidentByDateRange(startTimeStamp, endTimeStamp)
 

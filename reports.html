@@ -23,19 +23,45 @@
 
 
   <div class="container" style="margin-top: 50px;">
-    <h4>Reports</h4>
 
-    <article id="recordslist"></article>
+    <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 40px;">
+      <button  onClick="dateNav()"><-</button>
+      <input id="shift-date" type="date" style="width: 150px; margin: 0;">
+      <button onClick="dateNav2()">-></button>
+      
+    </div>
+    <hr>
 
-    <button onClick="tst()">Load Reports</button>
+    <!-- <h4>Reports</h4> -->
+
+    <article id="recordslist" ><summary aria-busy="true"></summary></article>
+
+    <!-- <button onClick="tst()">Load Reports</button> -->
 
     <div id="out"></div>
   </div>
 
 
   <script>
+    // WORST CODE EVER!!! PROTOTYPE P.O.C.
+    // IM SORRY IF YOUR READING THIS  
+
     preLoad()
 
+    let xx = document.getElementById("shift-date").value
+    setTimeout(function() {loadReports(addDays(new Date(xx),1))}, 1000);
+
+function dateNav() {
+  let shiftDate = document.getElementById('shift-date')
+  shiftDate.value = subDays(new Date(shiftDate.value), 1).toLocaleDateString('en-CA')
+  shiftDate.onchange({currentTarget: shiftDate})
+}
+
+function dateNav2() {
+  let shiftDate = document.getElementById('shift-date')
+  shiftDate.value = addDays(new Date(shiftDate.value), 2).toLocaleDateString('en-CA')
+  shiftDate.onchange({currentTarget: shiftDate})
+}
   </script>
 
 </body>
