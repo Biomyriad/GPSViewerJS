@@ -1,0 +1,26 @@
+      <details open>
+        <summary>Accordion 1</summary>
+        <article style="background-color: rgb(38, 47, 66);">
+          <article name="Property Code">Replace for property selection here</article>
+    
+            <input name="Date and Time of Incident" type="datetime-local" id="dateselect"> 
+            
+            <select name="Reporting Officer" id="routeselect">
+              <option selected disabled value="">Route</option>
+            </select>
+    
+            <textarea name="Description of incident or observation"></textarea>
+    
+            <article name="Picture or other attachment if needed">I’m a card!</article>
+    
+            <button onClick="formData()">Go</button>      
+        </article>
+      </details>
+
+      <details>
+        <summary>Accordion 2</summary>
+        <ul>
+          <li>...</li>
+          <li>...</li>
+        </ul>
+      </details> 
