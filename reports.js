@@ -65,6 +65,7 @@ async function loadReports(shiftDate) {
 
     var times = {}
     loadedReportList.forEach(rec => {
+      console.log(rec.createdTime + " = " + rec.fields['Record Code'])
       if(Object.keys(times).indexOf(rec.createdTime)){
         times[rec.createdTime] = 1
       } else {
@@ -312,7 +313,7 @@ function formatTime(dt) {
   var h = dt.getHours()
   var m = dt.getMinutes()
 
-  console.log(h)
+  //console.log(h)
   if(h > 12) {
     h = h - 12
     ap = "PM"
