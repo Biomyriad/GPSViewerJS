@@ -45,7 +45,8 @@ class DbApi {
     this.dbxAuth.getAuthenticationUrl(this.REDIRECT_URI, undefined, 'code', 'offline', undefined, undefined, true)
       .then(authUrl => {
         sessionStorage.setItem("codeVerifier", this.dbxAuth.codeVerifier);
-        window.location.href = authUrl;
+        console.log("XxXxXxX -->  ", authUrl)
+        //window.location.href = authUrl;
       })
       .catch((error) => console.error(error));
   }
