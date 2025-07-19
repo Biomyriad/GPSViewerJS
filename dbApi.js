@@ -7,7 +7,7 @@ class DbApi {
     //this.REDIRECT_URI = 'http://'+'localhost:5500'+'/';
     this.REDIRECT_URI = 'http://'+ window.location.host +'/';
     if(window.location.host == "biomyriad.github.io") {
-      this.REDIRECT_URI = 'https://biomyriad.github.io/';
+      this.REDIRECT_URI = 'https://biomyriad.github.io/GPSViewerJS/';
       console.log(this.REDIRECT_URI)
     }
     console.log("cont  ", window.location.host, " ->  ", this.REDIRECT_URI)
