@@ -4,13 +4,10 @@ class DbApi {
   // reconnecting so get logged in
   //eg. /1.1.1.1/?code=xxxxx
   constructor() {
-    console.log("cont  ", window.location.host)
+    console.log("cont 0 ", window.location.host)
     //this.REDIRECT_URI = 'http://'+'localhost:5500'+'/';
     this.REDIRECT_URI = 'http://'+ window.location.host +'/';
-    if(window.location.host == "biomyriad.github.io") {
-      this.REDIRECT_URI = 'https://biomyriad.github.io/';
-      console.log(this.REDIRECT_URI)
-    }
+
     this.CLIENT_ID = 'h7bzrn3vyfa3m2r';
     this.dbx = null
     this.dbxAuth = new Dropbox.DropboxAuth({
@@ -30,6 +27,10 @@ class DbApi {
           localStorage.setItem("db_access_token", response.result.access_token)
           this.dbxAuth.setRefreshToken(response.result.refresh_token)
           this.dbxAuth.setAccessToken(response.result.access_token);
+          if(window.location.host == "biomyriad.github.io") {
+            this.REDIRECT_URI = 'https://biomyriad.github.io/';
+            console.log(this.REDIRECT_URI)
+          }
           window.location.href = this.REDIRECT_URI
         })
         .catch((error) => {
