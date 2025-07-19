@@ -11,7 +11,6 @@ class DbApi {
       this.REDIRECT_URI = 'https://biomyriad.github.io/';
       console.log(this.REDIRECT_URI)
     }
-    //this.REDIRECT_URI = window.location.href;//'https://biomyriad.github.io/GPSViewerJS/';
     this.CLIENT_ID = 'h7bzrn3vyfa3m2r';
     this.dbx = null
     this.dbxAuth = new Dropbox.DropboxAuth({
