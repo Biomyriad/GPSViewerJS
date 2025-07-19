@@ -4,10 +4,14 @@ class DbApi {
   // reconnecting so get logged in
   //eg. /1.1.1.1/?code=xxxxx
   constructor() {
-    console.log("cont 0 ", window.location.host)
     //this.REDIRECT_URI = 'http://'+'localhost:5500'+'/';
-    //this.REDIRECT_URI = 'http://'+ window.location.host +'/';
-    this.REDIRECT_URI = 'https://biomyriad.github.io/GPSViewerJS/';
+    this.REDIRECT_URI = 'http://'+ window.location.host +'/';
+    if(window.location.host == "biomyriad.github.io") {
+      this.REDIRECT_URI = 'https://biomyriad.github.io/';
+      console.log(this.REDIRECT_URI)
+    }
+    console.log("cont  ", window.location.host, " ->  ", this.REDIRECT_URI)
+    
     this.CLIENT_ID = 'h7bzrn3vyfa3m2r';
     this.dbx = null
     this.dbxAuth = new Dropbox.DropboxAuth({
