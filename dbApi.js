@@ -41,14 +41,14 @@ class DbApi {
     }
   }
 
-  // loginDropbox() {
-  //   this.dbxAuth.getAuthenticationUrl(this.REDIRECT_URI, undefined, 'code', 'offline', undefined, undefined, true)
-  //     .then(authUrl => {
-  //       sessionStorage.setItem("codeVerifier", this.dbxAuth.codeVerifier);
-  //       window.location.href = authUrl;
-  //     })
-  //     .catch((error) => console.error(error));
-  // }
+  loginDropbox() {
+    this.dbxAuth.getAuthenticationUrl(this.REDIRECT_URI, undefined, 'code', 'offline', undefined, undefined, true)
+      .then(authUrl => {
+        sessionStorage.setItem("codeVerifier", this.dbxAuth.codeVerifier);
+        window.location.href = authUrl;
+      })
+      .catch((error) => console.error(error));
+  }
 
   login() {
     this.dbxAuth.refreshAccessToken()
