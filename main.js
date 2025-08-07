@@ -148,6 +148,23 @@ async function formData() {
   var polylineArray = [
     L.polyline(arrPts, { color: "#ff0000" })
   ];
+// end marker
+
+
+
+  var lastPt = sRte.points.at(-1)
+
+let options = {hour: "2-digit", minute: "2-digit"};  
+//console.log(date.toLocaleTimeString("en-us", options));   
+
+  console.log(lastPt)
+L.marker([lastPt.lat, lastPt.lon]).addTo(map)
+    .bindPopup(lastPt.time.toLocaleTimeString("en-us", options))
+    .openPopup();
+
+// let date = new Date();  
+// let options = {hour: "2-digit", minute: "2-digit"};  
+// console.log(date.toLocaleTimeString("en-us", options)); 
 
   if (polyLines != null) map.removeLayer(polyLines);
   polyLines = L.layerGroup(polylineArray);

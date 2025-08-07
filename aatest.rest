@@ -1,0 +1,50 @@
+GET https://www.lookupaplate.com/washington/BRL8014/ HTTP/1.1
+
+###
+POST https://www.lookupaplate.com/api/v1/recognize
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="blob"
+Content-Type: image/jpeg
+
+< ./car.jpg
+# ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+
+# ------WebKitFormBoundary7MA4YWxkTrZu0gW
+# Content-Disposition: form-data; name="text"
+
+# title
+
+
+
+###
+#f246a3345539f99b7fe32e933c3c070fa0cf30b1
+
+POST https://api.platerecognizer.com/v1/plate-reader/ HTTP/1.1
+Authorization: token f246a3345539f99b7fe32e933c3c070fa0cf30b1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: name="image"; filename="blob"
+Content-Type: image/jpeg
+
+< ./car.jpg
+
+###
+
+POST https://api.platerecognizer.com/v1/plate-reader/ HTTP/1.1
+Authorization: token f246a3345539f99b7fe32e933c3c070fa0cf30b1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="text"
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="car.jpg"
+Content-Type: image/png
+
+< ./car.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
