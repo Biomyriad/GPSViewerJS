@@ -1,0 +1,9 @@
+write sort and filter
+write save with retry
+monitor changes ?
+report rules and script
+revamp ui
+    + colors or indicators to route, mandatory, shared report
+    + fix sizes
+    + event code spaces
+batch report runner (main)

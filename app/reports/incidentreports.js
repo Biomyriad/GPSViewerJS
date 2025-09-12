@@ -9,26 +9,19 @@
 // "Incident Report Picture"
 
 const tblProperty = "All Properties"
-const tblIncident = "Incident Reports and Observations"
+const tableName = "Incident Reports and Observations"
 
 var propertiesList = null
 var incidentReportingOfficer = null
 var loadedReportList = null
 
-async function initAirTable() {
-
-}
-
 async function preLoad() {
-  // Incident Reports and Observations reporting off list options
-  // {"id": "sel9P7sw8sICjlSrR","name": "Amber Schumaker ","color": "blueLight2"}
-  //tables[4].fields[3].options.choices
 
   let shiftDate = document.getElementById("shift-date")
   shiftDate.value = new Date().toLocaleDateString('en-CA')
   shiftDate.onchange = (e) => {
     console.log(e.currentTarget.value)
-    var d = addDays(new Date(e.currentTarget.value),1)
+    var d = atUtil.addDays(new Date(e.currentTarget.value),1)
     loadReports(d)
   }
 
@@ -37,20 +30,7 @@ async function preLoad() {
 
   var props = await cloudDb.getAll(tblProperty)
   propertiesList = props
-  //console.log(props)
 
-  console.log(lookupProperty("reczX6h9NAVWSF9f5"))
-}
-
-function addDays(date, days) {
-  const newDate = new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
-  return newDate;
-}
-
-function subDays(date, days) {
-  days = days -1
-  const newDate = new Date(date.getTime() - days * 24 * 60 * 60 * 1000);
-  return newDate;
 }
 
 function lookupProperty(propId) {
@@ -58,35 +38,55 @@ function lookupProperty(propId) {
 }
 
 async function loadReports(shiftDate) {
+
+  /// make this generic and pass in the data. cant do full get all
+
   let startTimeStamp = shiftDate//new Date("4/21/2025")
-  let endTimeStamp = addDays(shiftDate,1)//new Date("4/22/2025")
+  let endTimeStamp = atUtil.addDays(shiftDate,1)//new Date("4/22/2025")
 
-  loadedReportList = await cloudDb.getIncidentByDateRange(startTimeStamp, endTimeStamp)
+  startTimeStamp.setHours(20); startTimeStamp.setMinutes(30)
+  endTimeStamp.setHours(7); endTimeStamp.setMinutes(0)
 
-    var times = {}
-    loadedReportList.forEach(rec => {
-      console.log(rec.createdTime + " = " + rec.fields['Record Code'])
-      if(Object.keys(times).indexOf(rec.createdTime)){
-        times[rec.createdTime] = 1
-      } else {
-        times[rec.createdTime] = times[rec.createdTime] + 1
-      }
-    })
-  console.log(times)
+  let atEncodedParams = atUtil.getDateFilterParams (startTimeStamp,endTimeStamp, tableColumn = "Date+and+Time+of+Incident", ascDesc = "asc")
+
+  let retRecs = []
+  retRecs.push(...await cloudDb.getAll(tableName,'',atEncodedParams))
+
+  const loadedReportList = retRecs.filter(item => {
+    const itemDate = new Date(item.fields['Date and Time of Incident']);
+    return itemDate >= startTimeStamp && itemDate <= endTimeStamp;
+  });
+
+  /////////////////////////////////////////////////////////////////////////////// 
+  var times = {}
+  loadedReportList.forEach(rec => {
+    console.log(rec.createdTime + " = " + rec.fields['Record Code'], rec)
+    if(Object.keys(times).indexOf(rec.createdTime)){
+      times[rec.createdTime] = 1
+    } else {
+      times[rec.createdTime] = times[rec.createdTime] + 1
+    }
+  })
+  //console.log('++ ')
+  console.log("EOL 1st", times)         // sort by route, sort by mandatory
     
   var largestName = ""
   var largest = 0;
   Object.keys(times).forEach(itm => {
+    console.log('>> ', itm)
     if (times[itm] > largest) {
         largest = times[itm];
         largestName = itm
-        console.log(times[itm])
+        console.log('++ ')
+        console.log('-- ', itm, times[itm])
     }
   })
 
-  console.log(largest)
-  console.log(largestName)
+  console.log("EOL 2nd", times)
+  console.log('++ ', largest + "  --  " + largestName)
+  ///////////////////////////////////////////////////////////////////////////////
 
+  // Clear list
   document.getElementById("recordslist").replaceChildren()
 
 
@@ -226,7 +226,7 @@ function createReportHtml(rec) {
   _button1.onclick = async function()
   {
   console.log(rec.id + "<-----")
-  let re = await cloudDb.getOne(rec.id,tblIncident)
+  let re = await cloudDb.getOne(rec.id,tableName)
   console.log(re)
       //alert("hello, world");
   }

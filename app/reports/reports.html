@@ -8,15 +8,16 @@
   <meta name="color-scheme" content="light dark">
   <title>Dropbox Login</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../css/styles.css">
 
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/dropbox@10.34.0/dist/Dropbox-sdk.min.js"></script> -->
   <!-- <script src="dbApi.js"></script> -->
   
-  <script src="cloudDb.js" ></script>
-  <script src="reports.js" ></script>
+  <script src="../libs/airtabledb.js" ></script>
+  <script src="../libs/airtableutils.js" ></script>  
+  <script src="incidentreports.js" ></script>
 
 </head>
 <body>
@@ -28,7 +29,6 @@
       <button  onClick="dateNav()"><-</button>
       <input id="shift-date" type="date" style="width: 150px; margin: 0;">
       <button onClick="dateNav2()">-></button>
-      
     </div>
     <hr>
 
@@ -49,17 +49,17 @@
     preLoad()
 
     let xx = document.getElementById("shift-date").value
-    setTimeout(function() {loadReports(addDays(new Date(xx),1))}, 1000);
+    setTimeout(function() {loadReports(atUtil.addDays(new Date(xx),1))}, 1000);
 
 function dateNav() {
   let shiftDate = document.getElementById('shift-date')
-  shiftDate.value = subDays(new Date(shiftDate.value), 1).toLocaleDateString('en-CA')
+  shiftDate.value = atUtil.subDays(new Date(shiftDate.value), 1).toLocaleDateString('en-CA')
   shiftDate.onchange({currentTarget: shiftDate})
 }
 
 function dateNav2() {
   let shiftDate = document.getElementById('shift-date')
-  shiftDate.value = addDays(new Date(shiftDate.value), 2).toLocaleDateString('en-CA')
+  shiftDate.value = atUtil.addDays(new Date(shiftDate.value), 2).toLocaleDateString('en-CA')
   shiftDate.onchange({currentTarget: shiftDate})
 }
   </script>

@@ -1,0 +1,39 @@
+//string filter = "IF(AND(IS_AFTER({Date and Time of Incident}, '" + StartFrom.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "'), IS_BEFORE({Date and Time of Incident}, '" + EndTo.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "')), 1, 0)";
+//string filter = "IF(AND(IS_AFTER({Date and Time of Incident}, '" + "yyyy-MM-dd" + "'), IS_BEFORE({Date and Time of Incident}, '" + "yyyy-MM-dd" + "')), 1, 0)";
+
+// searchParams.filterByFormula = "IF(AND(IS_AFTER({Date and Time of Incident}, '" +
+            // `${startTimeStamp.getFullYear()}-${startTimeStamp.getMonth()+1}-${startTimeStamp.getDate()}` + 
+            // "'), IS_BEFORE({Date and Time of Incident}, '" + 
+            // `${endTimeStamp.getFullYear()}-${endTimeStamp.getMonth()+1}-${endTimeStamp.getDate()+1}` + 
+            // "')), 1, 0)";
+// searchParams.sort = [{field: "Date and Time of Incident", direction: "asc"}]
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
+// cloudDb.getIncidentByDateRange= async (startTimeStamp, endTimeStamp) => {
+//   let retRecs = [], offsetId
+//   startTimeStamp.setHours(20)
+//   startTimeStamp.setMinutes(30)
+//   endTimeStamp.setHours(7)
+//   endTimeStamp.setMinutes(0)
+
+//   let atFilter =  'filterByFormula=IF(AND(IS_AFTER({Date and Time of Incident},"' +
+//                   `${startTimeStamp.getFullYear()}-${startTimeStamp.getMonth()+1}-${startTimeStamp.getDate()}` + 
+//                   '"),IS_BEFORE({Date and Time of Incident},"' + 
+//                   `${endTimeStamp.getFullYear()}-${endTimeStamp.getMonth()+1}-${endTimeStamp.getDate()+1}` + 
+//                   '")),1,0)'
+//   let atSort = `&sort[0][field]=Date+and+Time+of+Incident&sort[0][direction]=asc`
+//   let atEncodedParams = encodeURI(atFilter+atSort)
+
+//   let tableName = 'incident%20reports%20and%20observations'
+//   retRecs.push(...await cloudDb.getAll(tableName,'',atEncodedParams))
+
+//   const filteredData = retRecs.filter(item => {
+//     const itemDate = new Date(item.fields['Date and Time of Incident']);
+//     return itemDate >= startTimeStamp && itemDate <= endTimeStamp;
+//   });
+
+//   return filteredData
+
+// }
