@@ -20,7 +20,7 @@ async function preLoad() {
   let shiftDate = document.getElementById("shift-date")
   shiftDate.value = new Date().toLocaleDateString('en-CA')
   shiftDate.onchange = (e) => {
-    console.log(e.currentTarget.value)
+    //console.log(e.currentTarget.value)
     var d = atUtil.addDays(new Date(e.currentTarget.value),1)
     loadReports(d)
   }
@@ -31,6 +31,13 @@ async function preLoad() {
   var props = await cloudDb.getAll(tblProperty)
   propertiesList = props
 
+  document.getElementById("filterbyroute").onchange = (e) => {
+    console.log(e)
+    let shiftDate = document.getElementById('shift-date')
+    shiftDate.onchange({currentTarget: shiftDate})
+    console.log(document.getElementById("filterbyroute").value)
+  }
+  //console.log(baseSchema.tables[6].fields[1].options.choices)
 }
 
 function lookupProperty(propId) {
@@ -47,6 +54,10 @@ async function loadReports(shiftDate) {
   startTimeStamp.setHours(20); startTimeStamp.setMinutes(30)
   endTimeStamp.setHours(7); endTimeStamp.setMinutes(0)
 
+  //console.log(startTimeStamp)
+  //console.log(endTimeStamp)
+  
+
   let atEncodedParams = atUtil.getDateFilterParams (startTimeStamp,endTimeStamp, tableColumn = "Date+and+Time+of+Incident", ascDesc = "asc")
 
   let retRecs = []
@@ -60,7 +71,7 @@ async function loadReports(shiftDate) {
   /////////////////////////////////////////////////////////////////////////////// 
   var times = {}
   loadedReportList.forEach(rec => {
-    console.log(rec.createdTime + " = " + rec.fields['Record Code'], rec)
+    //console.log(rec.createdTime + " = " + rec.fields['Record Code'], rec)
     if(Object.keys(times).indexOf(rec.createdTime)){
       times[rec.createdTime] = 1
     } else {
@@ -68,22 +79,22 @@ async function loadReports(shiftDate) {
     }
   })
   //console.log('++ ')
-  console.log("EOL 1st", times)         // sort by route, sort by mandatory
+  //console.log("EOL 1st", times)         // sort by route, sort by mandatory
     
   var largestName = ""
   var largest = 0;
   Object.keys(times).forEach(itm => {
-    console.log('>> ', itm)
+    //console.log('>> ', itm)
     if (times[itm] > largest) {
         largest = times[itm];
         largestName = itm
-        console.log('++ ')
-        console.log('-- ', itm, times[itm])
+        //console.log('++ ')
+        //console.log('-- ', itm, times[itm])
     }
   })
 
-  console.log("EOL 2nd", times)
-  console.log('++ ', largest + "  --  " + largestName)
+  //console.log("EOL 2nd", times)
+  //console.log('++ ', largest + "  --  " + largestName)
   ///////////////////////////////////////////////////////////////////////////////
 
   // Clear list
@@ -98,7 +109,13 @@ async function loadReports(shiftDate) {
   document.getElementById("recordslist").appendChild(title)
 
   loadedReportList.forEach(rec => {
-    if(rec.createdTime ==largestName) createReportHtml(rec)
+
+    if(rec.createdTime ==largestName) {
+      var prop = propertiesList.find(prec => prec.id == rec.fields['Property Code'][0])
+      if(prop.fields.Route.includes(document.getElementById("filterbyroute").value) || document.getElementById("filterbyroute").value == 'none') {
+        createReportHtml(rec)
+      } 
+    }
   })
 
   title = document.createElement("summary");
@@ -107,7 +124,12 @@ async function loadReports(shiftDate) {
   document.getElementById("recordslist").appendChild(title)
 
   loadedReportList.forEach(rec => {
-    if(rec.createdTime !=largestName) createReportHtml(rec)
+    if(rec.createdTime !=largestName) {
+      var prop = propertiesList.find(prec => prec.id == rec.fields['Property Code'][0])
+      if(prop.fields.Route.includes(document.getElementById("filterbyroute").value) || document.getElementById("filterbyroute").value == 'none') {
+        createReportHtml(rec)
+      } 
+    }
   })
 
   return
@@ -139,7 +161,6 @@ function createReportHtml(rec) {
 // 	</article>
 //</details>
 
-
 // -record
 // -title
 // -content
@@ -154,12 +175,29 @@ function createReportHtml(rec) {
   mainCont.setAttribute("id",rec.id+"-record");
   mainCont.setAttribute("style","margin-bottom: 5px;");
 
+  var routeColor = ""
+  var prop = propertiesList.find(prec => prec.id == rec.fields['Property Code'][0])
+  if(prop.fields.Route.includes('South Route')) {
+    routeColor = "green"
+  }
+  if(prop.fields.Route.includes('NE Route')) {
+    if(routeColor == "green") {routeColor = "purple"}
+    else {routeColor = "blue"}
+  }
+
+  var routeIndicator = document.createElement("div");
+  routeIndicator.setAttribute("id",rec.id+"-routelist");
+  routeIndicator.setAttribute("class","rec-routelist");  
+  routeIndicator.setAttribute("style",`background-color: ${routeColor};`);
+
 	var title = document.createElement("summary");
   title.setAttribute("id",rec.id+"-title");
-  title.setAttribute("class","rec-content");
+  title.setAttribute("class","rec-title");
   title.setAttribute("style","padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;");
   var dt = new Date(rec.fields['Date and Time of Incident'])//.toLocaleTimeString()
-  title.innerHTML =`${formatTime(dt)}`+ " " + rec.fields['Record Code']
+  title.appendChild(routeIndicator)
+  title.innerHTML +=`${formatTime(dt)}`+ " " + rec.fields['Record Code']
+  
 
 	var content = document.createElement("article");
   content.setAttribute("id",rec.id+"-content");
@@ -188,6 +226,10 @@ function createReportHtml(rec) {
 	var officer = document.createElement("select"); // Reporting Officer
 	officer.setAttribute("id",rec.id+"-officerselect");
   officer.onchange = recOnChange
+
+  var blankOpt = document.createElement("option"); // 
+  blankOpt.setAttribute("value",'');
+  officer.appendChild(blankOpt)
 
   incidentReportingOfficer.forEach(item => {
     var officerOpt = document.createElement("option"); // 

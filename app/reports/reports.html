@@ -30,9 +30,15 @@
       <input id="shift-date" type="date" style="width: 150px; margin: 0;">
       <button onClick="dateNav2()">-></button>
     </div>
-    <hr>
 
-    <!-- <h4>Reports</h4> -->
+    <hr>
+      <span>Filter by route</span>
+      <select id="filterbyroute">
+        <option value="none"></option>
+        <option value="South Route">South Route</option>
+        <option value="NE Route">NE Route</option>
+      </select>
+    <hr>
 
     <article id="recordslist" ><summary aria-busy="true"></summary></article>
 
@@ -40,7 +46,7 @@
 
     <div id="out"></div>
   </div>
-
+<!-- <div style="border: 1px solid red;">Hello</div> -->
 
   <script>
     // WORST CODE EVER!!! PROTOTYPE P.O.C.

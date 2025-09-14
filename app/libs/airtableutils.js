@@ -36,7 +36,7 @@ atUtil.getDateFilterParams = (startTimeStamp,endTimeStamp, tableColumn = "", asc
     // code block
   }
   
-  console.log(atFilter + atSort)
+  //console.log(atFilter + atSort)
   return encodeURI(atFilter + atSort)
 
 }
