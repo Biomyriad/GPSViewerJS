@@ -7,3 +7,21 @@ revamp ui
     + fix sizes
     + event code spaces
 batch report runner (main)
+
+
+//////////////////////
+
+table as Object
+view driven
+
+record management
+    arr1 original list of Reports
+    arr2 modified copy of a report to be saved
+
+    save:
+    getOne() of record to be saved
+    if retrieved rec matches local cache -(original list arr1)
+    save changes
+    getOne() of record 
+    if retrieved rec matches local cache -(modified arr2)
+    save complete

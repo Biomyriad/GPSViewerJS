@@ -243,6 +243,7 @@ function createReportHtml(rec) {
 	var discr = document.createElement("textarea"); // Description of incident or observation
   discr.setAttribute("id",rec.id+"-description")
   discr.value = rec.fields['Description of incident or observation']
+  discr.setAttribute("style","min-height 200px;max-height: 400px;field-sizing: content;");
   discr.onchange = recOnChange
 
 	var pic = document.createElement("article"); // Picture or other attachment if needed
