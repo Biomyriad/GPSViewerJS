@@ -13,6 +13,7 @@ batch report runner (main)
 
 table as Object
 view driven
+rec2rec compare - return diff
 
 record management
     arr1 original list of Reports
