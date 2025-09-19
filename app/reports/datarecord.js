@@ -3,16 +3,21 @@
 
 
 
-class IncidentRecord {
-  constructor(name="") {
-    this.name = name
+class DataRecord {
+  constructor(rec = {}) {
+    this.rec = rec
+    this.id = ""
+    this.createdTime = {}
+
     this.isMandatory = false
     this.modified = false
     this.route = []
-    this.rec = {}
-    this.createdTime = {}
-    this.id = ""
-
+    
+    if(rec != {}) {
+      this.id = rec.id
+      this.createdTime = rec.createdTime
+    }
+    
   }
 
   // displayDetails() {

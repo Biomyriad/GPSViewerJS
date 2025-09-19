@@ -8,19 +8,28 @@
 // "Picture or other attachment if needed"
 // "Incident Report Picture"
 
-var dataBase = new AtDb()
-
+const tblProperty = "All Properties"
 const tableName = "Incident Reports and Observations"
 
+var propertiesList = null
+var incidentReportingOfficer = null
+var loadedReportList = null
+
 async function preLoad() {
-  await dataBase.initDbAsync()
 
   let shiftDate = document.getElementById("shift-date")
   shiftDate.value = new Date().toLocaleDateString('en-CA')
   shiftDate.onchange = (e) => {
-    var d = dataBase.addDays(new Date(e.currentTarget.value),1)
+    //console.log(e.currentTarget.value)
+    var d = atUtil.addDays(new Date(e.currentTarget.value),1)
     loadReports(d)
   }
+
+  var baseSchema = await cloudDb.getSchema()
+  incidentReportingOfficer = baseSchema.tables[4].fields[3].options.choices
+
+  var props = await cloudDb.getAll(tblProperty)
+  propertiesList = props
 
   document.getElementById("filterbyroute").onchange = (e) => {
     console.log(e)
@@ -28,36 +37,42 @@ async function preLoad() {
     shiftDate.onchange({currentTarget: shiftDate})
     console.log(document.getElementById("filterbyroute").value)
   }
-
-  let xx = document.getElementById("shift-date").value
-  loadReports(dataBase.addDays(new Date(xx),1))
+  //console.log(baseSchema.tables[6].fields[1].options.choices)
 }
 
-function dateNav() {
-  let shiftDate = document.getElementById('shift-date')
-  shiftDate.value = dataBase.subDays(new Date(shiftDate.value), 1).toLocaleDateString('en-CA')
-  shiftDate.onchange({currentTarget: shiftDate})
-}
-
-function dateNav2() {
-  let shiftDate = document.getElementById('shift-date')
-  shiftDate.value = dataBase.addDays(new Date(shiftDate.value), 2).toLocaleDateString('en-CA')
-  shiftDate.onchange({currentTarget: shiftDate})
-}
+// function lookupProperty(propId) {
+//   return propertiesList.find(rec => rec.id == propId).fields.Name
+// }
 
 async function loadReports(shiftDate) {
 
-  let startTimeStamp = shiftDate
-  let endTimeStamp = dataBase.addDays(shiftDate,1)
+  /// make this generic and pass in the data. cant do full get all
+
+  let startTimeStamp = shiftDate//new Date("4/21/2025")
+  let endTimeStamp = atUtil.addDays(shiftDate,1)//new Date("4/22/2025")
+
   startTimeStamp.setHours(20); startTimeStamp.setMinutes(30)
   endTimeStamp.setHours(7); endTimeStamp.setMinutes(0)
-  await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, tableName, 'Date and Time of Incident', ascDesc = "asc")
+
+  //console.log(startTimeStamp)
+  //console.log(endTimeStamp)
+  
+
+  let atEncodedParams = atUtil.getDateFilterParams (startTimeStamp,endTimeStamp, tableColumn = "Date+and+Time+of+Incident", ascDesc = "asc")
+
+  let retRecs = []
+  retRecs.push(...await cloudDb.getAll(tableName,'',atEncodedParams))
+
+  const loadedReportList = retRecs.filter(item => {
+    const itemDate = new Date(item.fields['Date and Time of Incident']);
+    return itemDate >= startTimeStamp && itemDate <= endTimeStamp;
+  });
 
   /////////////////////////////////////////////////////////////////////////////// 
-  var times = {} // 9/17/25 odd sort
-  dataBase.incidentRecs.forEach(rec => {
-    //console.log(rec.createdTime + " = " + rec.rec.fields['Record Code'], rec)
-    if(Object.keys(times).indexOf(rec.createdTime) == -1){
+  var times = {}
+  loadedReportList.forEach(rec => {
+    //console.log(rec.createdTime + " = " + rec.fields['Record Code'], rec)
+    if(Object.keys(times).indexOf(rec.createdTime)){
       times[rec.createdTime] = 1
     } else {
       times[rec.createdTime] = times[rec.createdTime] + 1
@@ -66,29 +81,20 @@ async function loadReports(shiftDate) {
   //console.log('++ ')
   //console.log("EOL 1st", times)         // sort by route, sort by mandatory
     
-  var mandatoryCreationTime = ""
+  var largestName = ""
   var largest = 0;
   Object.keys(times).forEach(itm => {
+    //console.log('>> ', itm)
     if (times[itm] > largest) {
         largest = times[itm];
-        mandatoryCreationTime = itm
+        largestName = itm
+        //console.log('++ ')
+        //console.log('-- ', itm, times[itm])
     }
   })
 
-  // console.log("EOL 2nd", times)
-  // console.log('++ ', largest + "  --  " + mandatoryCreationTime)
-
-
-  dataBase.incidentRecs.forEach(rec => {
-    //console.log(rec.createdTime + " = " + rec.rec.fields['Record Code'], rec)
-    if(dataBase.isDateWithinMinutes(new Date(rec.createdTime),new Date(mandatoryCreationTime),1)) {
-      rec.isMandatory = true
-      rec.route = dataBase.propIdToRouteLookup[rec.rec.fields['Property Code'][0]]
-      console.log(rec)
-    }
-  })
-
-
+  //console.log("EOL 2nd", times)
+  //console.log('++ ', largest + "  --  " + largestName)
   ///////////////////////////////////////////////////////////////////////////////
 
   // Clear list
@@ -102,11 +108,12 @@ async function loadReports(shiftDate) {
   title.innerHTML = "Mandatory Reports"
   document.getElementById("recordslist").appendChild(title)
 
-  dataBase.incidentRecs.forEach(rec => {
+  loadedReportList.forEach(rec => {
 
-    if(rec.isMandatory == true) {
-      if(rec.route.includes(document.getElementById("filterbyroute").value) || document.getElementById("filterbyroute").value == 'none') {
-        createReportHtml(rec.rec)
+    if(rec.createdTime ==largestName) {
+      var prop = propertiesList.find(prec => prec.id == rec.fields['Property Code'][0])
+      if(prop.fields.Route.includes(document.getElementById("filterbyroute").value) || document.getElementById("filterbyroute").value == 'none') {
+        createReportHtml(rec)
       } 
     }
   })
@@ -116,17 +123,18 @@ async function loadReports(shiftDate) {
   title.innerHTML = "Extra Reports"
   document.getElementById("recordslist").appendChild(title)
 
-  dataBase.incidentRecs.forEach(rec => {
-    if(rec.isMandatory == false) {
-      if(rec.route.includes(document.getElementById("filterbyroute").value) || document.getElementById("filterbyroute").value == 'none') {
-        createReportHtml(rec.rec)
+  loadedReportList.forEach(rec => {
+    if(rec.createdTime !=largestName) {
+      var prop = propertiesList.find(prec => prec.id == rec.fields['Property Code'][0])
+      if(prop.fields.Route.includes(document.getElementById("filterbyroute").value) || document.getElementById("filterbyroute").value == 'none') {
+        createReportHtml(rec)
       } 
     }
   })
 
   return
 
-  //console.log(loadedReportList.length)
+  console.log(loadedReportList.length)
   // let rec = await cloudDb.getOne("recHu52FwctlfyJRL")
   // console.log(rec)
 }
@@ -168,7 +176,7 @@ function createReportHtml(rec) {
   mainCont.setAttribute("style","margin-bottom: 5px;");
 
   var routeColor = ""
-  var prop = dataBase.allProps.find(prec => prec.id == rec.fields['Property Code'][0])
+  var prop = propertiesList.find(prec => prec.id == rec.fields['Property Code'][0])
   if(prop.fields.Route.includes('South Route')) {
     routeColor = "green"
   }
@@ -199,7 +207,7 @@ function createReportHtml(rec) {
 	prop.setAttribute("id",rec.id+"-propertycode");
   prop.onchange = recOnChange
 
-  dataBase.allProps.forEach(item => {
+  propertiesList.forEach(item => {
   var propOpt = document.createElement("option"); //
     if(rec.fields["Property Code"][0] == item.id) propOpt.setAttribute("selected","");
     //propOpt.setAttribute("disabled","");
@@ -223,7 +231,7 @@ function createReportHtml(rec) {
   blankOpt.setAttribute("value",'');
   officer.appendChild(blankOpt)
 
-  dataBase.incidentOfficerList.forEach(item => {
+  incidentReportingOfficer.forEach(item => {
     var officerOpt = document.createElement("option"); // 
     if(rec.fields["Reporting Officer"] == item.name) officerOpt.setAttribute("selected","");
     //officerOpt.setAttribute("disabled","");
@@ -291,13 +299,8 @@ function recOnChange(e) {
     //console.log(this.id); // logs the className of my_element
     //console.log(e.target.id);
 
-    let rec = dataBase.incidentRecs.find(rec => rec.id == this.id.substring(0,this.id.indexOf("-")))
+    let rec = loadedReportList.find(rec => rec.id == this.id.substring(0,this.id.indexOf("-")))
     console.log(rec)
-
-
-    rec = rec.rec //     <------------ quick fix when rec turned into class
-
-
 
 // -record
 // -title

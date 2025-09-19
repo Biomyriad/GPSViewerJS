@@ -15,6 +15,10 @@ table as Object
 view driven
 rec2rec compare - return diff
 
+check for mandatory reports date out of range
+
+check that addDays and subDays work correctly
+
 record management
     arr1 original list of Reports
     arr2 modified copy of a report to be saved

@@ -16,7 +16,9 @@
   <!-- <script src="dbApi.js"></script> -->
   
   <script src="../libs/airtabledb.js" ></script>
-  <script src="../libs/airtableutils.js" ></script>  
+  <script src="../libs/airtableutils.js" ></script>
+  <script src="datarecord.js" ></script>
+  <script src="database.js" ></script>
   <script src="incidentreports.js" ></script>
 
 </head>
@@ -49,25 +51,14 @@
 <!-- <div style="border: 1px solid red;">Hello</div> -->
 
   <script>
-    // WORST CODE EVER!!! PROTOTYPE P.O.C.
-    // IM SORRY IF YOU'RE READING THIS  
 
-    preLoad()
+    async function load() {
+      await preLoad()
+    }
+    load() 
 
-    let xx = document.getElementById("shift-date").value
-    setTimeout(function() {loadReports(atUtil.addDays(new Date(xx),1))}, 1000);
 
-function dateNav() {
-  let shiftDate = document.getElementById('shift-date')
-  shiftDate.value = atUtil.subDays(new Date(shiftDate.value), 1).toLocaleDateString('en-CA')
-  shiftDate.onchange({currentTarget: shiftDate})
-}
 
-function dateNav2() {
-  let shiftDate = document.getElementById('shift-date')
-  shiftDate.value = atUtil.addDays(new Date(shiftDate.value), 2).toLocaleDateString('en-CA')
-  shiftDate.onchange({currentTarget: shiftDate})
-}
   </script>
 
 </body>
