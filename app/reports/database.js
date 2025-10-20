@@ -51,13 +51,9 @@ class AtDb {
   }
 
   getDateFilterParams = (startTimeStamp,endTimeStamp, tableColumn = "", ascDesc = "") => {
-    let atFilter = 'filterByFormula=IF(AND(IS_AFTER({Date and Time of Incident},"' +
-      `${startTimeStamp.getFullYear()}-${startTimeStamp.getMonth() + 1}-${startTimeStamp.getDate()}` +
-      '"),IS_BEFORE({Date and Time of Incident},"' +
-      `${endTimeStamp.getFullYear()}-${endTimeStamp.getMonth() + 1}-${endTimeStamp.getDate() + 1}` +
-      '")),1,0)'
-    //let atSort = `&sort[0][field]=Date+and+Time+of+Incident&sort[0][direction]=asc`
-    
+    let atFilter = `filterByFormula=IF(AND(IS_AFTER( {Date and Time of Incident},"${startTimeStamp.getFullYear()}/${startTimeStamp.getMonth() + 1}/${startTimeStamp.getDate()}"),
+                    IS_BEFORE({Date and Time of Incident},"${endTimeStamp.getFullYear()}/${endTimeStamp.getMonth() + 1}/${endTimeStamp.getDate() + 1}")),1,0)`
+
     let atSort = ""
     switch(ascDesc) {
     case "asc":
@@ -71,7 +67,8 @@ class AtDb {
     }
     
     //console.log(atFilter + atSort)
-    return encodeURI(atFilter + atSort)
+    return  encodeURI(atFilter + atSort)
+    //return  encodeURI(atFilter + atSort)
 
   }
 
@@ -94,7 +91,7 @@ class AtDb {
     loadedReportList.forEach(rec => {
       this.incidentRecs.push(new DataRecord(rec))
     })
-
+    
   }
 
   // saving ...

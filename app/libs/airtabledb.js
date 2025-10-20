@@ -47,7 +47,7 @@ cloudDb.getSchema = async () => {
     });
 
     let data = await response.json();
-    //console.log(data)
+    console.log(data)
 
     return data
   } catch (err) {
@@ -57,11 +57,12 @@ cloudDb.getSchema = async () => {
 }
 
 cloudDb.getAll = async (tableName, offsetId='',searchParams='') => {
+
   let retRecs = []
   try {
 
-    let response = await fetch(`${cloudDb.base_host}/${cloudDb.base_id}/${tableName}?&${searchParams}&pageSize=${offsetId}`, {
-
+    let response = await fetch(`${cloudDb.base_host}/${cloudDb.base_id}/${tableName}?&${searchParams}&${offsetId}`, {
+    
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -69,10 +70,10 @@ cloudDb.getAll = async (tableName, offsetId='',searchParams='') => {
       }
     });
     let data = await response.json();
-    
+console.log(data)
     retRecs.push(...data.records)
-    if(data.offset) retRecs.push(...await cloudDb.getAll(tableName, '&offset='+data.offset))
-      // process here
+    if(data.offset) retRecs.push(...await cloudDb.getAll(tableName, 'offset='+data.offset))
+    console.log(retRecs)
     return retRecs
   } catch (err) {
     console.log('AT error: ' + err)

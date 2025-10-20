@@ -10,7 +10,7 @@
 
 var dataBase = new AtDb()
 
-const tableName = "Incident Reports and Observations"
+const tableName = "Incident%20Reports%20and%20Observations"
 
 async function preLoad() {
   await dataBase.initDbAsync()
@@ -46,15 +46,15 @@ function dateNav2() {
 }
 
 async function loadReports(shiftDate) {
-
+console.log("load.....")
   let startTimeStamp = shiftDate
   let endTimeStamp = dataBase.addDays(shiftDate,1)
   startTimeStamp.setHours(20); startTimeStamp.setMinutes(30)
   endTimeStamp.setHours(7); endTimeStamp.setMinutes(0)
   await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, tableName, 'Date and Time of Incident', ascDesc = "asc")
-
+  
   /////////////////////////////////////////////////////////////////////////////// 
-  var times = {} // 9/17/25 odd sort
+  var times = {}
   dataBase.incidentRecs.forEach(rec => {
     //console.log(rec.createdTime + " = " + rec.rec.fields['Record Code'], rec)
     if(Object.keys(times).indexOf(rec.createdTime) == -1){
