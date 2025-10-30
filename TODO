@@ -16,8 +16,11 @@ view driven
 rec2rec compare - return diff
 
 check for mandatory reports date out of range
+btn - check for lost (time) report
 
 check that addDays and subDays work correctly
+
+check reports:
 
 record management
     arr1 original list of Reports

@@ -47,7 +47,7 @@ class AtDb {
   }
 
   lookupPropertyById(propId) {
-    return allProps.find(rec => rec.id == propId).fields.Name
+    return this.allProps.find(rec => rec.id == propId)
   }
 
   getDateFilterParams = (startTimeStamp,endTimeStamp, tableColumn = "", ascDesc = "") => {

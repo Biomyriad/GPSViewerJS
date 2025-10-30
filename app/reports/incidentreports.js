@@ -84,7 +84,7 @@ console.log("load.....")
     if(dataBase.isDateWithinMinutes(new Date(rec.createdTime),new Date(mandatoryCreationTime),1)) {
       rec.isMandatory = true
       rec.route = dataBase.propIdToRouteLookup[rec.rec.fields['Property Code'][0]]
-      console.log(rec)
+      //console.log(rec)
     }
   })
 
@@ -106,7 +106,7 @@ console.log("load.....")
 
     if(rec.isMandatory == true) {
       if(rec.route.includes(document.getElementById("filterbyroute").value) || document.getElementById("filterbyroute").value == 'none') {
-        createReportHtml(rec.rec)
+        createReportHtml(rec.rec, chkReports(rec))
       } 
     }
   })
@@ -134,7 +134,193 @@ console.log("load.....")
 //IS_AFTER({Date and Time of Incident}, "2025-04-09")
 
 
-function createReportHtml(rec) {
+function chkReports(rec) {
+  //   dataBase.incidentRecs.forEach(rec => {
+  //   //console.log(rec.createdTime + " = " + rec.rec.fields['Record Code'], rec)
+  //   if(dataBase.isDateWithinMinutes(new Date(rec.createdTime),new Date(mandatoryCreationTime),1)) {
+  //     rec.isMandatory = true
+  //     rec.route = dataBase.propIdToRouteLookup[rec.rec.fields['Property Code'][0]]
+  //     console.log(rec)
+  //   }
+  // })
+  
+  //console.log(dataBase.lookupPropertyById(rec.rec.fields["Property Code"][0]).fields["AOG Property Code"])
+
+
+// {
+//     "rec": {
+//         "id": "recl6pJABYtkkrdqx",
+//         "createdTime": "2025-10-28T21:00:29.000Z",
+//         "fields": {
+//             "Record Code": "173 - Evans Creek @ Woodbridge",
+//             "Property Code": [
+//                 "reck850di0ImvUVY7"
+//             ],
+//             "Date and Time of Incident": "2025-10-29T07:27:00.000Z",
+//             "Description of incident or observation": "Patrolled the community for signs of break ins or vagrant activity. The Mailroom and pool area was locked and checked on each patrol as well as checks on the whole community. No issues to report tonight. \n\nPatrol Time 1: 12:27 am\n\nPatrol Time 2: 1:43 am\n\nPatrol Time 3:",
+//             "Reporting Officer": "Carlos Williams",
+//             "Picture or other attachment if needed": [
+//                 {
+//                     "id": "attcgaLhGTV4ISG7J",
+//                     "width": 3000,
+//                     "height": 4000,
+//                     "url": "https://v5.airtableusercontent.com/v3/u/46/46/1761796800000/MrTqCImb-fgQKGSEq9AcIg/wgCujJcldBjPywUZ_g6PAUvbdM73iJyMF2DQMvLWla657rcANMBahb9mIl6wzshl4dRhw2r-T3g1lxnhtq5uJ1gtHQ4MYEa2I6hnwh72lpH-J-jMmIjGYaqSaLXHlfQ1653syFsUA4EFsZoznSsAkf6nFsQhSPSvnL5jDJOGQRs/mor4Mx-5nNJGKaKfcdRUiaZeoMKMQdM5blW-rac4FKY",
+//                     "filename": "20251029_003026.jpg",
+//                     "size": 2705185,
+//                     "type": "image/jpeg",
+//                     "thumbnails": {
+//                         "small": {
+//                             "url": "https://v5.airtableusercontent.com/v3/u/46/46/1761796800000/6p3IAW8OTSHWaP4cEefjcQ/byxjAXUJHuC5-E56iuvBfN3KnsqR7lDxUJLX6vhyLHVPuTonWB7H4rXEQ4Oz30_xJ-gEhwbvEhMjDmT5Yn-jmby95IoSWbnUGlZqo2AywjcA6QJhyds8ZV4iikoanAJ_LmpGzNBjHJ9aL7f4GCSh8g/vqezujcMvPbzQNcAx_W0N4-NuvExW9vv7mUaGHjCF34",
+//                             "width": 27,
+//                             "height": 36
+//                         },
+//                         "large": {
+//                             "url": "https://v5.airtableusercontent.com/v3/u/46/46/1761796800000/PE2Hybg_Izl-lLhERZ9PSw/4r-nK9VmFeVVfU-nVOOc_1PRpeue_ytNtOTiLoZVlgInI_4EQtAVgJM7DnG8keqdE8oHd-j6EoZ_IWLCHgIF2uN6Gk0DwKsQ7DwZy6rpzt5BYfOsKy789A_AJtV1kay203PG04nSb1e2z3c9LDldrA/K1HxpRqT4-J_UX8MZ4RlZI8a9UwkfkfLSdbkHMxpKEM",
+//                             "width": 512,
+//                             "height": 683
+//                         },
+//                         "full": {
+//                             "url": "https://v5.airtableusercontent.com/v3/u/46/46/1761796800000/Xgj1FuQx0Y6LcCM3rKesMQ/xS4Ct9ROAXmh6znr2KINm7UucPWihej-w92TddkOPCGbL_TVAglogqX96aFVt2XHz7Cf2sH4nH7XAf-8gc6OW0dZBexLXNZhRe9GzrHddLmIR6xlujvxzOJ0ggTNpb8WKwck6NgfyD9kk1VU1ZF0Kw/VQHQhkLsKLcTPOdPYwCuYncOS16W4GBbshpfjNecjwQ",
+//                             "width": 2250,
+//                             "height": 3000
+//                         }
+//                     }
+//                 }. {}, {}, {}
+//             ]
+//         }
+//     },
+//     "id": "recl6pJABYtkkrdqx",
+//     "createdTime": "2025-10-28T21:00:29.000Z",
+//     "isMandatory": true,
+//     "modified": false,
+//     "route": [
+//         "South Route",
+//         "NE Route"
+//     ]
+// }
+
+  var p204Text = 
+`Patrolled all 3 communities for signs of break ins, vagrant activity, and violations of community guidelines. 
+
+Main community:
+B building status: 
+
+Campbell Run Meadows: 
+Q building status: 
+
+Campbell Run Trailside: `
+
+  var p590Text =
+  `Status of the fence:
+
+Details of encampment remains:`
+
+
+
+
+  var propDetails = dataBase.lookupPropertyById(rec.rec.fields["Property Code"][0])
+  var propNum = propDetails.fields["AOG Property Code"]
+  var timeOfRecord = new Date(rec.rec.fields["Date and Time of Incident"])
+  var recPics = rec.rec.fields["Picture or other attachment if needed"]
+
+  if ([propNum] == "204") {
+    if(rec.rec.fields["Description of incident or observation"] == p204Text) {
+      return "red"
+    }
+
+  }
+
+  if ([propNum] == "173") {
+    var reportSplit = rec.rec.fields["Description of incident or observation"].split(/Patrol Time .:/)
+
+    reportSplit.forEach(entry => { // check of all patrols NOT empty else red
+      if(isEmptyOrWhitespace(entry.trim())) {
+        res = true
+      }
+    })
+    if(res == true) return "red"
+
+    // then check for 3 pics
+    if(recPics) {
+      if(!recPics.length >= 3) {
+        console.log("173 PIC: " + recPics.length)
+        return "red"
+      }
+    } else {
+      console.log("173 PIC: none" )
+      return "red"
+    }
+
+  }
+
+  if ([propNum] == "590") {
+    if(rec.rec.fields["Description of incident or observation"] == p590Text) {
+      return "red"
+    }
+
+    if(recPics) {
+      if(!recPics.length >= 1) {
+        console.log("590 PIC: " + recPics.length)
+        return "red"
+      }
+    } else {
+      console.log("590 PIC: none" )
+      return "red"
+    }
+  }
+
+  if ([propNum] == "155") {
+
+  }
+
+  if ([propNum] == "151") {
+    // DONT forget to use trim()
+    var reportSplit = rec.rec.fields["Description of incident or observation"].split(/... Patrol:/)
+    var res = false
+
+    reportSplit.forEach(entry => { // check of all patrols NOT empty else red
+      if(isEmptyOrWhitespace(entry.trim())) {
+        res = true
+      }
+    })
+
+    if(res == true) return "red"
+  }
+
+  if ([propNum] == "177") {
+    var reportSplit = rec.rec.fields["Description of incident or observation"].split("Status of breezeways:")
+    if(isEmptyOrWhitespace(reportSplit[1].trim())) {
+      return "red"
+    }
+  }
+  // if ([propNum] == "161") {
+
+  //   console.log(rec)
+  // }
+  // if ([propNum] == "176") {
+
+  //   console.log(rec)
+  // }
+  // if ([propNum] == "184") {
+
+  //   console.log(rec)
+  // }
+  // if ([propNum] == "38") {
+
+  // }
+
+  if(timeOfRecord.getHours() == 21 && timeOfRecord.getMinutes() == 0) {
+    return "red"
+  } 
+
+}
+
+function isEmptyOrWhitespace(str) {
+  return str === null || str === undefined || str.trim().length === 0;
+}
+
+
+function createReportHtml(rec, tstCol="#262f42ff") {
 
 //<details id="recQSf7OEq5OO436H-record">
 // 	<summary id="recQSf7OEq5OO436H-title">11:50:00 PM 173 - Evans Creek @ Woodbridge</summary>
@@ -164,6 +350,7 @@ function createReportHtml(rec) {
 // -pictures
 
   var mainCont = document.createElement("details");
+  mainCont.setAttribute("name","incidentrecord"); // set name to be the same and you can only have one open at a time
   mainCont.setAttribute("id",rec.id+"-record");
   mainCont.setAttribute("style","margin-bottom: 5px;");
 
@@ -185,7 +372,7 @@ function createReportHtml(rec) {
 	var title = document.createElement("summary");
   title.setAttribute("id",rec.id+"-title");
   title.setAttribute("class","rec-title");
-  title.setAttribute("style","padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;");
+  title.setAttribute("style",`padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden; border-style: solid; border-width: 1px; border-color: ${tstCol};`);
   var dt = new Date(rec.fields['Date and Time of Incident'])//.toLocaleTimeString()
   title.appendChild(routeIndicator)
   title.innerHTML +=`${formatTime(dt)}`+ " " + rec.fields['Record Code']

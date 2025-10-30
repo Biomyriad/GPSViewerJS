@@ -29,7 +29,7 @@ cloudDb.newRecObj = (keyValObj) => {
     console.log(item + ' ' + keyValObj[item])
     recObj.fields[item] = keyValObj[item]
   })
-  console.log(recObj)
+  //console.log(recObj)
   
 }
 
@@ -47,7 +47,7 @@ cloudDb.getSchema = async () => {
     });
 
     let data = await response.json();
-    console.log(data)
+    //console.log(data)
 
     return data
   } catch (err) {
@@ -70,10 +70,10 @@ cloudDb.getAll = async (tableName, offsetId='',searchParams='') => {
       }
     });
     let data = await response.json();
-console.log(data)
+//console.log(data)
     retRecs.push(...data.records)
     if(data.offset) retRecs.push(...await cloudDb.getAll(tableName, 'offset='+data.offset))
-    console.log(retRecs)
+//console.log(retRecs)
     return retRecs
   } catch (err) {
     console.log('AT error: ' + err)
