@@ -254,7 +254,21 @@ Details of encampment remains:`
   }
 
   if ([propNum] == "590") {
-    if(rec.rec.fields["Description of incident or observation"] == p590Text) {
+    // if(rec.rec.fields["Description of incident or observation"] == p590Text) {
+    //   return "red"
+    // }
+
+    var reportSplit = rec.rec.fields["Description of incident or observation"].split("Status of the fence:")
+    // is really for "Status of the fence:" below
+    var reportSplit2 = rec.rec.fields["Description of incident or observation"].split("Details of encampment remains:")
+    // is really for "Details of encampment remains:" below
+    var reportSplit3 = reportSplit2[0].split("Status of the fence:")
+
+    if(isEmptyOrWhitespace(reportSplit2[1].trim())) {
+      return "red"
+    }
+
+    if(isEmptyOrWhitespace(reportSplit3[1].trim())) {
       return "red"
     }
 
@@ -279,7 +293,7 @@ Details of encampment remains:`
     var res = false
 
     reportSplit.forEach(entry => { // check of all patrols NOT empty else red
-      if(isEmptyOrWhitespace(entry.trim())) {
+      if(isEmptyOrWhitespace(entry.replaceAll(".", " ").trim())) {
         res = true
       }
     })
