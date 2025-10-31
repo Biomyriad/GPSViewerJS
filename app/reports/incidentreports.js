@@ -48,7 +48,7 @@ function dateNav2() {
 async function loadReports(shiftDate) {
 console.log("load.....")
   let startTimeStamp = shiftDate
-  let endTimeStamp = dataBase.addDays(shiftDate,1)
+  let endTimeStamp = dataBase.addDays(shiftDate,2)
   startTimeStamp.setHours(20); startTimeStamp.setMinutes(30)
   endTimeStamp.setHours(7); endTimeStamp.setMinutes(0)
   await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, tableName, 'Date and Time of Incident', ascDesc = "asc")
