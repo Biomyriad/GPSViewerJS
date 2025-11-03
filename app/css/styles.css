@@ -2,18 +2,23 @@
   /* border: 1px solid red;  */
 }
 
+.invisible {
+  display: none !important;
+}
+
 .rec-title {
   background-color: rgb(38, 47, 66);
   display: flex;
-}
 
-.rec-routelist {
-  /* border: 1px solid purple; */
-  border-radius: 8px;
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-  margin-top: 3px;
+  padding-left: 8px;
+  height: 35px;
+  line-height: 35px;
+  margin-bottom: 1px;
+  overflow: hidden;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  /* border-color: VAR ; */
 }
 
 .rec-content {
@@ -26,6 +31,47 @@
   
 }
 
-.invisible {
-  display: none !important;
+.incidentrecord {
+  margin-bottom: 2px;
+}
+
+.rec-routecolorbox {
+  /* background-color: ${routeColor}; */
+
+  /* border: 1px solid purple; */
+  border-radius: 8px;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  margin-top: 3px;
+}
+
+.propselect {
+  margin-bottom: 5px;
+}
+
+.datetimeinput {
+  margin-bottom: 5px !important;
+}
+
+.officerselect {
+  margin-bottom: 5px;
+}
+
+.descriptiontextarea {
+  margin-bottom: 5px;
+  min-height: 200px;
+  max-height: 400px;
+  field-sizing: content;
+}
+
+.picturearea {
+  display: flex;
+  justify-content: space-between;
+  height: 133px
+}
+
+.buttonbox {
+  display: flex;
+  justify-content: space-around;
 }

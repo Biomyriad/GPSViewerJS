@@ -365,8 +365,8 @@ function createReportHtml(rec, tstCol="#262f42ff") {
 
   var mainCont = document.createElement("details");
   mainCont.setAttribute("name","incidentrecord"); // set name to be the same and you can only have one open at a time
+  mainCont.setAttribute("class","incidentrecord"); 
   mainCont.setAttribute("id",rec.id+"-record");
-  mainCont.setAttribute("style","margin-bottom: 5px;");
 
   var routeColor = ""
   var prop = dataBase.allProps.find(prec => prec.id == rec.fields['Property Code'][0])
@@ -379,14 +379,14 @@ function createReportHtml(rec, tstCol="#262f42ff") {
   }
 
   var routeIndicator = document.createElement("div");
-  routeIndicator.setAttribute("id",rec.id+"-routelist");
-  routeIndicator.setAttribute("class","rec-routelist");  
+  routeIndicator.setAttribute("id",rec.id+"-routecolorbox");
+  routeIndicator.setAttribute("class","rec-routecolorbox");  
   routeIndicator.setAttribute("style",`background-color: ${routeColor};`);
 
 	var title = document.createElement("summary");
   title.setAttribute("id",rec.id+"-title");
   title.setAttribute("class","rec-title");
-  title.setAttribute("style",`padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden; border-style: solid; border-width: 1px; border-color: ${tstCol};`);
+  title.setAttribute("style",`border-color: ${tstCol};`);
   var dt = new Date(rec.fields['Date and Time of Incident'])//.toLocaleTimeString()
   title.appendChild(routeIndicator)
   title.innerHTML +=`${formatTime(dt)}`+ " " + rec.fields['Record Code']
@@ -397,11 +397,12 @@ function createReportHtml(rec, tstCol="#262f42ff") {
   content.setAttribute("class","rec-content");
 
 	var prop = document.createElement("select"); // Property Code
+  prop.setAttribute("class","propselect");
 	prop.setAttribute("id",rec.id+"-propertycode");
   prop.onchange = recOnChange
 
   dataBase.allProps.forEach(item => {
-  var propOpt = document.createElement("option"); //
+    var propOpt = document.createElement("option"); //
     if(rec.fields["Property Code"][0] == item.id) propOpt.setAttribute("selected","");
     //propOpt.setAttribute("disabled","");
     propOpt.setAttribute("value",item.id);
@@ -411,12 +412,14 @@ function createReportHtml(rec, tstCol="#262f42ff") {
 
   let d = new Date(rec.fields['Date and Time of Incident'])
 	var dateTime = document.createElement("input"); //  Date and Time of Incident
+  dateTime.setAttribute("class","datetimeinput");
 	dateTime.setAttribute("id",rec.id+"-datetime");
 	dateTime.setAttribute("type","datetime-local");
 	dateTime.setAttribute("value",(new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString()).slice(0, -1));
   dateTime.onchange = recOnChange
 
 	var officer = document.createElement("select"); // Reporting Officer
+  officer.setAttribute("class","officerselect");
 	officer.setAttribute("id",rec.id+"-officerselect");
   officer.onchange = recOnChange
 
@@ -434,14 +437,14 @@ function createReportHtml(rec, tstCol="#262f42ff") {
   })
 
 	var discr = document.createElement("textarea"); // Description of incident or observation
+  discr.setAttribute("class","descriptiontextarea");
   discr.setAttribute("id",rec.id+"-description")
   discr.value = rec.fields['Description of incident or observation']
-  discr.setAttribute("style","min-height 200px;max-height: 400px;field-sizing: content;");
   discr.onchange = recOnChange
 
 	var pic = document.createElement("article"); // Picture or other attachment if needed
+  pic.setAttribute("class","picturearea");
   pic.setAttribute("id",rec.id+"-pictures");
-  pic.setAttribute("style","display: flex; justify-content: space-between; height: 133px");
 
   if(rec.fields['Picture or other attachment if needed'] != undefined) {
     rec.fields['Picture or other attachment if needed'].forEach(item => {
@@ -454,8 +457,7 @@ function createReportHtml(rec, tstCol="#262f42ff") {
 
   var btnHldr = document.createElement("div")
   btnHldr.setAttribute("id",rec.id+"-buttons");
-  btnHldr.setAttribute("class","invisible");
-  btnHldr.setAttribute("style","display: flex; justify-content: space-around;")
+  btnHldr.setAttribute("class","buttonbox invisible");
 
   var _button1 = document.createElement("button");
   _button1.innerHTML = 'Save';
