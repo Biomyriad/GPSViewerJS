@@ -9,33 +9,26 @@ async function initApp() {
 
 // From DBox API
 ////{.tag: 'folder', name: 'Apps', path_lower: '/apps', path_display: '/Apps', id: 'id:NYsSBEDcsFAAAAAAAAAADw'}
-function getUniqueFileIds(fileList) {
-  var uList = []
-
-  var fileId = ""
-  for (let [index, value] of fileList.entries()) {
-    fileId = value.name.split("_")[0]
-    if (!uList.includes(fileId)) uList.push(fileId)
-  }
-
-  return uList
-}
-
-async function unzipFile(blob) {
-  var zipFile = await new JSZip.loadAsync(blob)
-  var fileHandle = zipFile.files[Object.keys(zipFile.files)[0]]
-  var fileData = await fileHandle.async('string')
-  return fileData
-}
 
 var dateSelect = document.getElementById('dateselect')
 var routeSelect = document.getElementById('routeselect')
 
 // setup map
 var map = L.map('map').setView([47.348149, -122.222297], 11);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+
+//standard
+// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//   maxZoom: 19,
+//   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// }).addTo(map);
+
+//dark
+
+//super dark
+var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
 }).addTo(map);
 
 var RouteLine = null
@@ -72,31 +65,44 @@ dateSelect.addEventListener("change", async function () {
 
 });
 
+///////////////////////////////////////////////////////////////////////
+
+function getUniqueFileIds(fileList) {
+  var uList = []
+
+  var fileId = ""
+  for (let [index, value] of fileList.entries()) {
+    fileId = value.name.split("_")[0]
+    if (!uList.includes(fileId)) uList.push(fileId)
+  }
+
+  return uList
+}
+
+async function unzipFile(blob) {
+  var zipFile = await new JSZip.loadAsync(blob)
+  var fileHandle = zipFile.files[Object.keys(zipFile.files)[0]]
+  var fileData = await fileHandle.async('string')
+  return fileData
+}
+
 async function formData() {
+
   var selectedDate = new Date(dateSelect.value)
   selectedDate.setDate(selectedDate.getDate() + 1) // fix off by one
   selectedDate.setHours(20)
   selectedDate.setMinutes(30)
+
   var selectedNextDate = new Date(dateSelect.value)
   selectedNextDate.setDate(selectedNextDate.getDate() + 2) // fix off by one
   selectedNextDate.setHours(7)
   selectedNextDate.setMinutes(0)
-  console.log("------------>  " + selectedDate)
-  console.log("------------>  " + selectedNextDate)
 
   var selectedRouteValue = routeSelect.value;
   var selectedRouteText = routeSelect.options[routeSelect.selectedIndex].text;
 
-  //console.log(selectedDate)
-  //console.log(selectedRouteValue)
-  console.log(selectedRouteText)
-
-
   var fileNameA = selectedRouteValue + "_" + getDateString(selectedDate)
   var fileNameB = selectedRouteValue + "_" + getDateString(selectedNextDate)
-  console.log(fileNameA)
-  console.log(fileNameB)
-
 
   sRte = new GPXRoute()
   var basePath = '/Apps/GPSLogger for Android/'
@@ -110,7 +116,7 @@ async function formData() {
   } catch (e) {
     console.error(e);
   } finally {
-    console.log('We do cleanup here');
+    //console.log('We do cleanup here');
   }
 
   try {
@@ -121,61 +127,82 @@ async function formData() {
   } catch (e) {
     console.error(e);
   } finally {
-    console.log('We do cleanup here');
+    //console.log('We do cleanup here');
   }
 
-
-  //console.log(sRte.points.length)
   sRte.filterByTimeRange(selectedDate, selectedNextDate)
-  //console.log(sRte.points.length)
 
-  console.log(sRte.points[0].time.toLocaleString())
-  console.log(sRte.points[1].time.toLocaleString())
-  console.log(sRte.points[sRte.points.length - 2].time.toLocaleString())
-  console.log(sRte.points[sRte.points.length - 1].time.toLocaleString())
+  var data = await getFileData("props.dat")
+  await sRte.textDecompressAsync(data)
 
-  //console.log(sRte.points[0])
 
+  sRte.pointsToRouteSegments()
   //draw points
 
+
+// LAST POINT
+var lastPt = sRte.points.at(-1)
+let options = {hour: "2-digit", minute: "2-digit"};  
+console.log(lastPt)
+var lastPointMarker = L.marker([lastPt.lat, lastPt.lon])
+    .bindPopup(lastPt.time.toLocaleTimeString("en-us", options))
+    .openPopup()//.addTo(map)
+
+///////////////////////////////////////////////////////////////////////
+
+// ROUTE LINES
   var arrPts = []
+
   sRte.points.forEach((pt) => {
     arrPts.push([pt.lat, pt.lon])
   })
 
-  //RouteLine = L.polyline(arrPts, { color: "#ff0000" }).addTo(map);
-
-  var polylineArray = [
-    L.polyline(arrPts, { color: "#ff0000" })
-  ];
-// end marker
+  var polylineArray = [L.polyline(arrPts, { color: "#ff0000" })]
+  polylineArray.push(lastPointMarker)
 
 
+  // if (polyLines != null) map.removeLayer(polyLines);
+  // polyLines = L.layerGroup(polylineArray);
+  // polyLines.addTo(map);
 
-  var lastPt = sRte.points.at(-1)
+////////////////////////////////////////////////////////////////////////////
 
-let options = {hour: "2-digit", minute: "2-digit"};  
-//console.log(date.toLocaleTimeString("en-us", options));   
+// ZoneName, ZoneNumber, ZonePoints
+var propArray = []
+sRte.propZones.forEach((prop) => {
 
-  console.log(lastPt)
-L.marker([lastPt.lat, lastPt.lon]).addTo(map)
-    .bindPopup(lastPt.time.toLocaleTimeString("en-us", options))
-    .openPopup();
+  var arrPts2 = []
+  prop.ZonePoints.forEach((pt) => {
+    arrPts2.push([pt.Lt, pt.Lg])
+  })
 
-// let date = new Date();  
-// let options = {hour: "2-digit", minute: "2-digit"};  
-// console.log(date.toLocaleTimeString("en-us", options)); 
+  var poly = L.polygon(arrPts2, { color: "#0000FF", weight: 2}).setStyle({fillColor: '#00ff0088'}).bindTooltip( prop.ZoneNumber + " - " + prop.ZoneName, { direction: 'left' })
+  propArray.push(poly)
 
+})
+
+polylineArray.push(...propArray)
+
+//map.fitBounds(polygon.getBounds());
+
+
+// if (RouteLine != null) map.removeLayer(RouteLine);
+// RouteLine = L.layerGroup([...propArray]);
+// RouteLine.addTo(map);
+
+
+///////////
   if (polyLines != null) map.removeLayer(polyLines);
   polyLines = L.layerGroup(polylineArray);
+  console.log()
+  console.log(polyLines)
   polyLines.addTo(map);
 
 }
 
 function getDateString(date) {
-  //const dateObj = new Date(date);
   const dateObj = new Date(date.getTime());
-  const month = dateObj.getMonth() + 1; // months from 1-12
+  const month = dateObj.getMonth() + 1; // months from 1-12 vs 0-11
   const day = dateObj.getDate();
   const year = dateObj.getFullYear();
 
@@ -183,9 +210,6 @@ function getDateString(date) {
   const pMonth = month.toString().padStart(2, "0");
   const pDay = day.toString().padStart(2, "0");
   const newPaddedDate = `${year}${pMonth}${pDay}`;
-
-  //var newDate = year + "/" + month + "/" + day;
-  //var newDate = `${year}/${month}/${day}`;
-  //console.log(newPaddedDate)
   return newPaddedDate
 }
+
