@@ -2,6 +2,10 @@
   /* border: 1px solid red;  */
 }
 
+#map {
+    background: black;
+}
+
 .invisible {
   display: none !important;
 }
