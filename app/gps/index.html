@@ -28,17 +28,16 @@
 
 </head>
 
-<body style="height: 85vh; border: 1px solid green; margin-top: 10px;">
+<body style="height: 85vh; margin-top: 10px; ">
 
   <div class="container" 
         style=" height: inherit; 
-                border: 1px solid red;
                 display: flex;
                 flex-direction: column;
                 align-content: center;
                 ">
 
-    <fieldset role="group" style="flex-basis: 6%; border: 1px solid blue;"> 
+    <div style="flex-basis: 6%; display: flex; flex-direction: row;"> 
 
       <!-- On change update route select -->
       <input type="date" id="dateselect"> 
@@ -47,14 +46,17 @@
         <option selected disabled value="">Route</option>
       </select>
 
-      <button onClick="formData()" style="">Go</button>
+      <div>
 
-    </fieldset>
+        <button onClick="formData()">Go</button>
+      </div>
 
-    <div id="map" style="flex-basis: 85%; border: 1px solid blue; margin-bottom: 10px;"></div>
+    </div>
 
-    <div style="flex-basis: 6%; border: 1px solid blue;">
-      <button class="contrast" data-target="modal-example" onclick="toggleModal(event)" style="width: 100%;">Times</button>
+    <div id="map" style="flex-basis: 85%; margin-bottom: 10px;"></div>
+
+    <div style="flex-basis: 6%;">
+      <button data-target="modal-example" onclick="toggleModal(event)" style="width: 100%;">Times</button>
     </div>
 
   </div>
