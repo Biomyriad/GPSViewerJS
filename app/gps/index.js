@@ -16,20 +16,34 @@ var routeSelect = document.getElementById('routeselect')
 // setup map
 var map = L.map('map').setView([47.348149, -122.222297], 11);
 
+console.log('Element Specific Color:', window.localStorage?.getItem("picoPreferredColorScheme"))
+
+
 //standard
-// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//   maxZoom: 19,
-//   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-// }).addTo(map);
+var mapLight = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+});
 
 //dark
 
 //super dark
-var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+var mapDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	subdomains: 'abcd',
 	maxZoom: 20
-}).addTo(map);
+});
+
+
+if ('light') {
+  mapDark.removeLayer()
+  mapLight.addTo("map")
+
+} else {
+  mapLight.removeLayer()
+  mapDark.addTo("map")
+}
+
 
 var RouteLine = null
 var polyLines = null
