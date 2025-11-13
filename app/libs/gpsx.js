@@ -36,7 +36,7 @@ class GPXRoute {
 
     this.points = []
     this.propZones = []
-    this.routeSegs = []
+    this.routeSegments = []
   }
 
   addPointsFromGPX(xmlString) {
@@ -194,12 +194,14 @@ class GPXRoute {
 
     }
 
+    this.routeSegments = routeSegments
+
     // var asd = 0
     //console.log('////////////////////////////////////// ', testVar)
-    routeSegments.forEach((rte) => {
-      //asd = asd + rte.points.length
-      console.log(rte)
-    })
+    // routeSegments.forEach((rte) => {
+    //   //asd = asd + rte.points.length
+    //   console.log(rte)
+    // })
 
     // console.log(asd)
 

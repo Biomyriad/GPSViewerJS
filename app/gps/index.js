@@ -16,16 +16,11 @@ var routeSelect = document.getElementById('routeselect')
 // setup map
 var map = L.map('map').setView([47.348149, -122.222297], 11);
 
-console.log('Element Specific Color:', window.localStorage?.getItem("picoPreferredColorScheme"))
-
-
 //standard
 var mapLight = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 });
-
-//dark
 
 //super dark
 var mapDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -34,15 +29,16 @@ var mapDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y
 	maxZoom: 20
 });
 
+  if ( window.localStorage?.getItem("mapTheme") == 'dark') {
+    mapLight.addTo(map)
+    //map.removeLayer(mapDark)
 
-if ('light') {
-  mapDark.removeLayer()
-  mapLight.addTo("map")
+  } else {
+    mapDark.addTo(map)
+    //map.removeLayer(mapLight)
+  }
 
-} else {
-  mapLight.removeLayer()
-  mapDark.addTo("map")
-}
+
 
 
 var RouteLine = null
@@ -80,6 +76,18 @@ dateSelect.addEventListener("change", async function () {
 });
 
 ///////////////////////////////////////////////////////////////////////
+
+  function changeDark() {
+    map.removeLayer(mapLight)
+    map.addLayer(mapDark)
+    window.localStorage?.setItem("mapTheme", 'dark')
+  }
+
+  function changeLight() {
+    map.removeLayer(mapDark)
+    map.addLayer(mapLight)
+    window.localStorage?.setItem("mapTheme", 'light')
+  }
 
 function getUniqueFileIds(fileList) {
   var uList = []
@@ -151,6 +159,26 @@ async function formData() {
 
 
   sRte.pointsToRouteSegments()
+
+  const timeFormatter = new Intl.DateTimeFormat('en-US', {
+  hour: 'numeric',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: true // Use 12-hour format with AM/PM
+});
+//const formattedTime1 = timeFormatter.format(now);
+
+
+  var con = document.getElementById("routelist")
+  sRte.routeSegments.forEach((rte) => {
+    if(!(rte.propNumber == null)) {
+      console.log(rte)
+      var mainCont = document.createElement("span");
+      //mainCont.setAttribute("style",`border-color: ${tstCol};`);
+      mainCont.innerText = `${rte.propNumber} - ${rte.propName}  IN: ${timeFormatter.format(rte.timeIn)}  OUT: ${timeFormatter.format(rte.timeOut)}`
+      con.appendChild(mainCont)
+    }
+  })
   //draw points
 
 
