@@ -68,16 +68,31 @@
   </div>
 
 <dialog id="modal-example">
-  <article>
-    <h2>Confirm Your Membership</h2>
-    <p>
-      Thank you for signing up for a membership!
-      Please review the membership details below:
-    </p>
-    <ul>
-      <li>Membership: Individual</li>
-      <li>Price: $10</li>
-    </ul>
+  <fieldset>
+    <legend>Language preferences:</legend>
+    <label>
+      <input type="checkbox" name="english" checked />
+      English
+    </label>
+    <label>
+      <input type="checkbox" name="french" checked />
+      French
+    </label>
+    <label>
+      <input type="checkbox" name="mandarin" />
+      Mandarin
+    </label>
+    <label>
+      <input type="checkbox" name="thai" />
+      Thai
+    </label>
+    <label aria-disabled="true">
+      <input type="checkbox" name="dothraki" disabled />
+      Dothraki
+    </label>
+  </fieldset>
+
+
     <footer>
       <button class="secondary">
         Cancel

@@ -4,13 +4,16 @@ class DbApi {
   // reconnecting so get logged in
   //eg. /1.1.1.1/?code=xxxxx
   constructor() {
-    //this.REDIRECT_URI = 'http://'+'localhost:5500'+'/';
-    this.REDIRECT_URI = 'http://'+ window.location.host +'/';
-    if(window.location.host == "biomyriad.github.io") {
-      this.REDIRECT_URI = 'https://biomyriad.github.io/GPSViewerJS/';
-      console.log(this.REDIRECT_URI)
-    }
-    console.log("cont  ", window.location.host, " ->  ", this.REDIRECT_URI)
+    //this.REDIRECT_URI = "http://127.0.0.1:5500/app/gps/"//'http://'+'localhost:5500'+'/';
+    this.REDIRECT_URI = "https://biomyriad.github.io/GPSViewerJS/"
+
+    
+    // this.REDIRECT_URI = 'http://'+ window.location.host +'/';
+    // if(window.location.host == "biomyriad.github.io") {
+    //   this.REDIRECT_URI = 'https://biomyriad.github.io/GPSViewerJS/app/gps/';
+    //   console.log(this.REDIRECT_URI)
+    // }
+    // console.log("cont  ", window.location.host, " ->  ", this.REDIRECT_URI)
     
     this.CLIENT_ID = 'h7bzrn3vyfa3m2r';
     this.dbx = null
