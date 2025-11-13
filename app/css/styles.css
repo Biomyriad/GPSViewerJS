@@ -79,3 +79,10 @@
   display: flex;
   justify-content: space-around;
 }
+/* ----------- */
+
+@media (prefers-color-scheme: dark) {
+    .map-tiles {
+        filter:var(--map-tiles-filter, none);
+	}
+}
