@@ -30,15 +30,21 @@ var mapDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y
 });
 
   if ( window.localStorage?.getItem("mapTheme") == 'dark') {
-    mapLight.addTo(map)
-    //map.removeLayer(mapDark)
-
-  } else {
     mapDark.addTo(map)
-    //map.removeLayer(mapLight)
+  } else {
+    mapLight.addTo(map)
   }
 
+  var asd = ""
+  console.log("window.localStorage?.getAll()")
+  for (var i = 0; i < window.localStorage.length; i++){
+    asd = asd + " " + window.localStorage.key(i)
+  }
 
+  var con = document.getElementById("routelist")
+      var mainCont = document.createElement("span");
+      mainCont.innerText = asd
+      con.appendChild(mainCont)
 
 
 var RouteLine = null
@@ -163,13 +169,14 @@ async function formData() {
   const timeFormatter = new Intl.DateTimeFormat('en-US', {
   hour: 'numeric',
   minute: '2-digit',
-  second: '2-digit',
+  //second: '2-digit',
   hour12: true // Use 12-hour format with AM/PM
 });
 //const formattedTime1 = timeFormatter.format(now);
 
 
   var con = document.getElementById("routelist")
+  con.replaceChildren()
   sRte.routeSegments.forEach((rte) => {
     if(!(rte.propNumber == null)) {
       console.log(rte)
