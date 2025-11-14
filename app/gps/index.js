@@ -46,6 +46,18 @@ dateSelect.addEventListener("change", async function () {
   //console.log(dateEntered); //e.g. Fri Nov 13 2015 00:00:00 GMT+0000 (GMT Standard Time)
 
   //selectedDate.setDate(selectedDate.getDate() + 1)
+
+  var loadBtn = document.getElementById('loadRouteBtn')
+  loadBtn.innerHTML = `<img src="../images/loading.gif" width="25px">`
+
+  var opt = document.createElement('option');
+  opt.value = "";
+  opt.innerHTML = `Loading`;
+  opt.selected = true
+  opt.disabled = true
+  routeSelect.replaceChildren()
+  routeSelect.appendChild(opt);
+
   console.log(new Date(dateSelect.value))
   var fList = await dbx.listFiles("/Apps/GPSLogger for Android")
   var uniqueIds = getUniqueFileIds(fList)
@@ -53,12 +65,12 @@ dateSelect.addEventListener("change", async function () {
 
   routeSelect.replaceChildren()
 
-  var opt = document.createElement('option');
-  opt.value = "";
-  opt.innerHTML = "Route";
-  opt.selected = true
-  opt.disabled = true
-  routeSelect.appendChild(opt);
+  // var opt = document.createElement('option');
+  // opt.value = "";
+  // opt.innerHTML = "Route";
+  // opt.selected = true
+  // opt.disabled = true
+  // routeSelect.appendChild(opt);
 
   for (var i = 0; i <= uniqueIds.length - 1; i++) {
     var opt = document.createElement('option');
@@ -66,6 +78,8 @@ dateSelect.addEventListener("change", async function () {
     opt.innerHTML = uniqueIds[i];
     routeSelect.appendChild(opt);
   }
+
+  loadBtn.innerHTML = `Go`
 
 });
 
