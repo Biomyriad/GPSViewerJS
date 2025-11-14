@@ -35,18 +35,6 @@ var mapDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y
     mapLight.addTo(map)
   }
 
-  var asd = ""
-  console.log("window.localStorage?.getAll()")
-  for (var i = 0; i < window.localStorage.length; i++){
-    asd = asd + " " + window.localStorage.key(i)
-  }
-
-  var con = document.getElementById("routelist")
-      var mainCont = document.createElement("span");
-      mainCont.innerText = asd
-      con.appendChild(mainCont)
-
-
 var RouteLine = null
 var polyLines = null
 
@@ -171,7 +159,7 @@ async function formData() {
   minute: '2-digit',
   //second: '2-digit',
   hour12: true // Use 12-hour format with AM/PM
-});
+})
 //const formattedTime1 = timeFormatter.format(now);
 
 
@@ -179,10 +167,25 @@ async function formData() {
   con.replaceChildren()
   sRte.routeSegments.forEach((rte) => {
     if(!(rte.propNumber == null)) {
+
       console.log(rte)
-      var mainCont = document.createElement("span");
+      var mainCont = document.createElement("tr");
+        var propNumEle = document.createElement("th");
+          propNumEle.innerText = rte.propNumber
+        var propNameEle = document.createElement("td");
+          propNameEle.innerText = rte.propName
+        var propTimeInEle = document.createElement("td");
+          propTimeInEle.innerText = timeFormatter.format(rte.timeIn)
+        var propTimeOutEle = document.createElement("td");
+          propTimeOutEle.innerText = timeFormatter.format(rte.timeOut)
+      mainCont.appendChild(propNumEle)
+      mainCont.appendChild(propNameEle)
+      mainCont.appendChild(propTimeInEle)
+      mainCont.appendChild(propTimeOutEle)
+
       //mainCont.setAttribute("style",`border-color: ${tstCol};`);
-      mainCont.innerText = `${rte.propNumber} - ${rte.propName}  IN: ${timeFormatter.format(rte.timeIn)}  OUT: ${timeFormatter.format(rte.timeOut)}`
+      //mainCont.innerText = `${rte.propNumber} - ${rte.propName}  IN: ${timeFormatter.format(rte.timeIn)}  OUT: ${timeFormatter.format(rte.timeOut)}`
+
       con.appendChild(mainCont)
     }
   })

@@ -68,11 +68,44 @@
   
   </div>
 
-<dialog id="modal-example">
+<dialog id="modal-example" open>
   <article>
-    <div id="routelist" style="font-size: 18px; display: flex; flex-direction: column;">
-
-    </div>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th scope="col">Prop #</th>
+          <th scope="col">Name</th>
+          <th scope="col">Time IN</th>
+          <th scope="col">Time OUT</th>
+        </tr>
+      </thead>
+      <tbody id="routelist">
+        <tr>
+          <th>980</th>
+          <td>AVALON NEWCASTLE COMMONS</td>
+          <td>0.39</td>
+          <td>88</td>
+        </tr>
+        <tr>
+          <th>980</th>
+          <td>AVALON NEWCASTLE COMMONS</td>
+          <td>0.72</td>
+          <td>225</td>
+        </tr>
+        <tr>
+          <th>980</th>
+          <td>AVALON NEWCASTLE COMMONS</td>
+          <td>1.00</td>
+          <td>365</td>
+        </tr>
+        <tr>
+          <th>980</th>
+          <td>AVALON NEWCASTLE COMMONS</td>
+          <td>1.52</td>
+          <td>687</td>
+        </tr>
+      </tbody>
+    </table>
 
 
     <footer>
@@ -86,21 +119,25 @@
 
 <dialog id="modal-gps-settings">
   <article>
-    <h2>Confirm Your Membership</h2>
-    <details class="dropdown">
-      <summary role="button" class="secondary">Theme</summary>
-      <ul>
-        <li><a href="#" data-theme-switcher="auto">Auto</a></li>
-        <li><a href="#" data-theme-switcher="light">Light</a></li>
-        <li><a href="#" data-theme-switcher="dark">Dark</a></li>
-      </ul>
-    </details>
-    <a href="#" data-theme-switcher="toggle" title="Toggle Theme" style="color: var(--pico-contrast); font-size: 1.5em;">☀</a>
-    <button onClick="changeLight()">Light Map</button>
-    <button onClick="changeDark()">Dark Map</button>
-    <button onclick="window.localStorage.clear()" class="secondary">
-      Logout DropBox
-    </button>
+    <h2>Map Settings</h2>
+    <div style="display:flex;flex-direction: column;align-items: center;gap:10px;">
+      <a href="#" data-theme-switcher="toggle" title="Toggle Theme" style="color: var(--pico-contrast); font-size: 1.5em;">☀</a>
+      <details class="dropdown">
+        <summary role="button" class="secondary">Theme</summary>
+        <ul>
+          <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+          <li><a href="#" data-theme-switcher="light">Light</a></li>
+          <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+        </ul>
+      </details>
+      
+      <button onClick="changeLight()">Light Map</button>
+      <button onClick="changeDark()">Dark Map</button>
+      <button onclick="window.localStorage.clear()" class="secondary">
+        Logout DropBox
+      </button>      
+    </div>
+
     <footer>
       <button data-target="modal-gps-settings" onclick="toggleModal(event)">Confirm</button>
     </footer>
