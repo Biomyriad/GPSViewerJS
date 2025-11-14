@@ -14,7 +14,7 @@ var dateSelect = document.getElementById('dateselect')
 var routeSelect = document.getElementById('routeselect')
 
 // setup map
-var map = L.map('map').setView([47.348149, -122.222297], 11);
+var map = L.map('map', {zoomControl: false}).setView([47.348149, -122.222297], 11);
 
 //standard
 var mapLight = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
