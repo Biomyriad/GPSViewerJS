@@ -108,6 +108,45 @@ class GPXRoute {
     return inside;
   }
 
+
+  filterRouteSegments() {
+    //copied from old program
+    // NEEDS REVIEW!!!!
+    // ALSO CHECK THE TIME ON LAST POINT OF EACH SEG'S 
+    for (var i = 1; i < this.routeSegments.length - 1; i++)
+    {
+        if (this.routeSegments[i].propName == "Transit")
+        {
+            // if the gps is outside the prop for more than X time then dont combine
+            // TODO: Replace 300 with the zonedef's filter setting.
+            var time1 = new Date(this.routeSegments[i].timeOut)
+            var time2 = new Date(this.routeSegments[i].timeIn)
+
+            if ((time1 - time2) < 300000)
+            {
+                if (this.routeSegments[i - 1].propName == this.routeSegments[i + 1].propName)
+                {
+
+                    this.routeSegments[i].points.forEach((loc) => {
+                      this.routeSegments[i - 1].points.push(loc);
+                    })
+
+                    this.routeSegments[i + 1].points.forEach((loc) => {
+                      this.routeSegments[i - 1].points.push(loc);
+                    })
+
+                    this.routeSegments[i - 1].timeIn = this.routeSegments[i - 1].points[0].time
+                    this.routeSegments[i - 1].timeOut = this.routeSegments[i - 1].points[this.routeSegments[i - 1].points.length -2]?.time
+
+                    this.routeSegments.splice(i + 1, 1)
+                    this.routeSegments.splice(i, 1)
+                    i = i - 1
+                }
+            }
+        }
+    }
+  }
+
   pointsToRouteSegments() {
     var routeSegments = []
     var lastProp = {}

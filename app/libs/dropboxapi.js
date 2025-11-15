@@ -4,8 +4,8 @@ class DbApi {
   // reconnecting so get logged in
   //eg. /1.1.1.1/?code=xxxxx
   constructor() {
-    this.REDIRECT_URI = "http://127.0.0.1:5500/app/gps/"//'http://'+'localhost:5500'+'/';
-    //this.REDIRECT_URI = "https://biomyriad.github.io/GPSViewerJS/app/gps/"
+    //this.REDIRECT_URI = "http://127.0.0.1:5500/app/gps/"//'http://'+'localhost:5500'+'/';
+    this.REDIRECT_URI = "https://biomyriad.github.io/GPSViewerJS/app/gps/"
 
     
     // this.REDIRECT_URI = 'http://'+ window.location.host +'/';

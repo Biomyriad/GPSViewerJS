@@ -168,6 +168,8 @@ async function formData() {
 
   sRte.pointsToRouteSegments()
 
+  sRte.filterRouteSegments()
+
   const timeFormatter = new Intl.DateTimeFormat('en-US', {
   hour: 'numeric',
   minute: '2-digit',
