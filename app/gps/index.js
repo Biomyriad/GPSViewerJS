@@ -280,8 +280,6 @@ polylineArray.push(...propArray)
 ///////////
   if (polyLines != null) map.removeLayer(polyLines);
   polyLines = L.layerGroup(polylineArray);
-  console.log()
-  console.log(polyLines)
   polyLines.addTo(map);
 
 }

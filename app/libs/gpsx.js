@@ -149,7 +149,11 @@ class GPXRoute {
 
   pointsToRouteSegments() {
     var routeSegments = []
-    var lastProp = {}
+    var lastProp = {
+      "ZoneNumber": null,
+      "ZoneName": "Transit",
+      "ZonePoints": [[0,0],[0,0],[0,0]]
+    }
     var currentSegment = {
       propNumber: 0,
       propName: "",
