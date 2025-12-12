@@ -12,11 +12,15 @@ const App = () => {
       tabContentClass: "zzzz",
       tabButtonActiveColor: "grey",
       tabButtonBorderStyle: "none",
-      style: "height: 96%;",
       tabContentStyleOverrides: {"height": "100%"},
+      style: `
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      `,
       tabButtonRowStyleOverrides: 
       {
-        "height": "4%",
+        "height": "50px",
         "padding-left": "12px", 
         "background-color": "#444444",
         "display": "flex",
@@ -25,12 +29,12 @@ const App = () => {
 
       },
     },{
-      "Summary": div(p("Content for Tab 1")),
+      "Start": div(p("Content for Tab 1")),
       "Home": div(p("Content for Tab 2")),
       "Reports": Reports(),
       "Times": div(p("Content for Tab 2")),
-      "Docs": div(p("Content for Tab 2")),
-      "...": div(p("Content for Tab 2")),
+      "Doc": div(p("Content for Tab 2")),
+      "⚙️": div(p("Content for Tab 2")),
     })
   );
 };
