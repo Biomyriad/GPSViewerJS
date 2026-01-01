@@ -15,10 +15,8 @@ export default function ObservationReport(rec) {
   }
 
   var timeDateOfReport = new Date(rec.fields['Date and Time of Incident'])
-  var aa = false
 
-return div(
-details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-record"},
+return details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-record"},
   summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${"green"};`},
     div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor};`},),
     `${formatTime(timeDateOfReport)}`+ " " + rec.fields['Record Code']
@@ -60,7 +58,6 @@ details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-record"},
       button("Cancel"),
     ),  
   ),
-),
 )
 };
 
