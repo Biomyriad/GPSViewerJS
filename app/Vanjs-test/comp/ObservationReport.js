@@ -16,6 +16,10 @@ export default function ObservationReport(rec) {
 
   var timeDateOfReport = new Date(rec.fields['Date and Time of Incident'])
 
+  const save = () => {
+    
+  }
+
 return details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-record"},
   summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${"green"};`},
     div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor};`},),
@@ -41,7 +45,7 @@ return details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-re
       })
     
     ),   
-    textarea({class: "descriptiontextarea", id: rec.id+"-description"}, rec.fields['Description of incident or observation']),
+    textarea({class: "descriptiontextarea", id: rec.id+"-description", onchange: (e) => rec.fields['Description of incident or observation'] = e.currentTarget.value}, rec.fields['Description of incident or observation']),
     article({class: "picturearea", id: rec.id+"-pictures"},
       (   // ternary
           rec.fields['Picture or other attachment if needed']
