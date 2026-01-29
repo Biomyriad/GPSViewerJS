@@ -40,10 +40,10 @@ export default function MainTabs(children) {
     children)
   var tabsBar = test.getElementsByClassName("XXXX")[0]
   
-  console.log(tabsBar)
+  //console.log(tabsBar)
 
   for(const tab of tabsBar.children) {
-    console.log(tab.innerHTML)
+    //console.log(tab.innerHTML)
     tab.replaceChildren()
     
     tab.appendChild(img({"src": "../images/home.svg", "style": "height: 60px; width: 200px",}))

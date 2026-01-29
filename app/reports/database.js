@@ -8,10 +8,9 @@ class AtDb {
     this.allProps = []
     this.propIdToRouteLookup = []
     this.incidentOfficerList = []
-    this.incidentRecs = []
-    this.incidentRecsModified = []
   }
 
+  /// Utils
   addDays = (date, days) => {
     const newDate = new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
     return newDate;
@@ -35,6 +34,8 @@ class AtDb {
     return timeDifference <= minutesThresholdInMs
   }
 
+  /// BASE DB INIT ///////////////////////////////
+
   async initDbAsync() {
     this.baseSchema = await cloudDb.getSchema()
     this.incidentOfficerList = this.baseSchema.tables[4].fields[3].options.choices
@@ -50,9 +51,9 @@ class AtDb {
     return this.allProps.find(rec => rec.id == propId)
   }
 
-  getDateFilterParams = (startTimeStamp,endTimeStamp, tableColumn = "", ascDesc = "") => {
+  genFilterByDateAndSortDirString = (startTimeStamp,endTimeStamp, tableColumn = "", ascDesc = "") => {
     endTimeStamp = this.addDays(endTimeStamp,1)
-    let atFilter = `filterByFormula=IF(AND(IS_AFTER( {Date and Time of Incident},"${startTimeStamp.getFullYear()}/${startTimeStamp.getMonth() + 1}/${startTimeStamp.getDate()}"),IS_BEFORE({Date and Time of Incident},"${endTimeStamp.getFullYear()}/${endTimeStamp.getMonth() + 1}/${endTimeStamp.getDate()}")),1,0)`
+    let atFilter = `filterByFormula=IF(AND(IS_AFTER( {${tableColumn}},"${startTimeStamp.getFullYear()}/${startTimeStamp.getMonth() + 1}/${startTimeStamp.getDate()}"),IS_BEFORE({${tableColumn}},"${endTimeStamp.getFullYear()}/${endTimeStamp.getMonth() + 1}/${endTimeStamp.getDate()}")),1,0)`
 
     let atSort = ""
     switch(ascDesc) {
@@ -65,11 +66,7 @@ class AtDb {
     default:
       // code block
     }
-    
-    //console.log(atFilter + atSort)
     return  encodeURI(atFilter + atSort)
-    //return  encodeURI(atFilter + atSort)
-
   }
 
   async loadReportsAsync(startTimeAndDate, endTimeAndDate, tableName, sortColumn, ascDesc = "asc") {
@@ -77,7 +74,7 @@ class AtDb {
     //const sortColumn = 'Date and Time of Incident'
 
     //let atEncodedParams = this.getDateFilterParams(startTimeStamp, endTimeStamp, tableColumn = "Date+and+Time+of+Incident", ascDesc = "asc")
-    let atEncodedParams = this.getDateFilterParams(startTimeAndDate, endTimeAndDate, sortColumn, ascDesc)
+    let atEncodedParams = this.genFilterByDateAndSortDirString(startTimeAndDate, endTimeAndDate, sortColumn, ascDesc)
 
     let retRecs = []
     retRecs.push(...await cloudDb.getAll(tableName, '', atEncodedParams))
@@ -87,13 +84,31 @@ class AtDb {
       return itemDate >= startTimeAndDate && itemDate <= endTimeAndDate;
     });
 
-    this.incidentRecs = []    //<<----- Humm make generic!
+    var recs = [] 
     loadedReportList.forEach(rec => {
-      this.incidentRecs.push(new DataRecord(rec))
+      recs.push(new DataRecord(rec))
     })
-    
-  }
 
+    return recs
+  }
+  
   // saving ...
 
+}
+
+class DataRecord {
+  constructor(rec = {}) {
+    this.rec = rec
+    this.id = ""
+    this.createdTime = {}
+
+    this.isMandatory = false
+    this.modified = false
+    this.route = []
+    
+    if(rec != {}) {
+      this.id = rec.id
+      this.createdTime = rec.createdTime
+    }
+  }
 }

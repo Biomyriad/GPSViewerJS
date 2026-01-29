@@ -9,6 +9,7 @@
 // "Incident Report Picture"
 
 var dataBase = new AtDb()
+var incidentRecs = []
 
 const tableName = "Incident%20Reports%20and%20Observations"
 
@@ -51,11 +52,11 @@ console.log("load.....")
   let endTimeStamp = dataBase.addDays(shiftDate,1)
   startTimeStamp.setHours(20); startTimeStamp.setMinutes(30)
   endTimeStamp.setHours(7); endTimeStamp.setMinutes(0)
-  await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, tableName, 'Date and Time of Incident', ascDesc = "asc")
+  incidentRecs =await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, tableName, 'Date and Time of Incident', ascDesc = "asc")
   
   /////////////////////////////////////////////////////////////////////////////// 
   var times = {}
-  dataBase.incidentRecs.forEach(rec => {
+  incidentRecs.forEach(rec => {
     //console.log(rec.createdTime + " = " + rec.rec.fields['Record Code'], rec)
     if(Object.keys(times).indexOf(rec.createdTime) == -1){
       times[rec.createdTime] = 1
@@ -79,7 +80,7 @@ console.log("load.....")
   // console.log('++ ', largest + "  --  " + mandatoryCreationTime)
 
 
-  dataBase.incidentRecs.forEach(rec => {
+  incidentRecs.forEach(rec => {
     //console.log(rec.createdTime + " = " + rec.rec.fields['Record Code'], rec)
     if(dataBase.isDateWithinMinutes(new Date(rec.createdTime),new Date(mandatoryCreationTime),1)) {
       rec.isMandatory = true
@@ -102,7 +103,7 @@ console.log("load.....")
   title.innerHTML = "Mandatory Reports"
   document.getElementById("recordslist").appendChild(title)
 
-  dataBase.incidentRecs.forEach(rec => {
+  incidentRecs.forEach(rec => {
 
     if(rec.isMandatory == true) {
       if(rec.route.includes(document.getElementById("filterbyroute").value) || document.getElementById("filterbyroute").value == 'none') {
@@ -116,7 +117,7 @@ console.log("load.....")
   title.innerHTML = "Extra Reports"
   document.getElementById("recordslist").appendChild(title)
 
-  dataBase.incidentRecs.forEach(rec => {
+  incidentRecs.forEach(rec => {
     if(rec.isMandatory == false) {
       if(rec.route.includes(document.getElementById("filterbyroute").value) || document.getElementById("filterbyroute").value == 'none') {
         createReportHtml(rec.rec)
@@ -135,7 +136,7 @@ console.log("load.....")
 
 
 function chkReports(rec) {
-  //   dataBase.incidentRecs.forEach(rec => {
+  //   incidentRecs.forEach(rec => {
   //   //console.log(rec.createdTime + " = " + rec.rec.fields['Record Code'], rec)
   //   if(dataBase.isDateWithinMinutes(new Date(rec.createdTime),new Date(mandatoryCreationTime),1)) {
   //     rec.isMandatory = true
@@ -494,7 +495,7 @@ function recOnChange(e) {
     //console.log(this.id); // logs the className of my_element
     //console.log(e.target.id);
 
-    let rec = dataBase.incidentRecs.find(rec => rec.id == this.id.substring(0,this.id.indexOf("-")))
+    let rec = incidentRecs.find(rec => rec.id == this.id.substring(0,this.id.indexOf("-")))
     console.log(rec)
 
 

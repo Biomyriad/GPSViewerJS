@@ -26,7 +26,7 @@ return details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-re
     `${formatTime(timeDateOfReport)}`+ " " + rec.fields['Record Code']
   ),
   article({class: "rec-content", id: rec.id+"-content"},
-    select({class: "propselect", id: rec.id+"-propertycode"},
+    select({class: "propselect", id: rec.id+"-propertycode", style: "display: block;"},
       option({value: ""}, "Select Property"),
 
       dataBase.allProps.map(item => {
@@ -34,10 +34,10 @@ return details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-re
       })
     ),
     input({
-            class: "datetimeinput", id: rec.id+"-datetime", type: "datetime-local",
+            class: "datetimeinput", id: rec.id+"-datetime", type: "datetime-local", style: "display: block;",
             value: (new Date(timeDateOfReport.getTime() - timeDateOfReport.getTimezoneOffset() * 60000).toISOString()).slice(0, -1)},
           ),
-    select({class: "officerselect", id: rec.id+"-officerselect"},
+    select({class: "officerselect", id: rec.id+"-officerselect", style: "display: block;"},
       option({value: ""}, "Select Officer"),
 
       dataBase.incidentOfficerList.map(item => {
