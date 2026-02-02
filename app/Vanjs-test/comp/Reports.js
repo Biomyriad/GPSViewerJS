@@ -4,33 +4,38 @@ const { div, button, input, p, hr, span, select, option, article, summary } = va
 function sleep(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 export default async function Reports() {
-  const shiftDateStr = van.state(new Date().toLocaleDateString('en-CA'))
-  const incidentRecs = van.state([])
+  //console.log("COMPONENT RELOAD") //lifecycle test
+
+  const shiftDateStrVal = van.state(new Date().toLocaleDateString('en-CA'))
+  const routeFilterVal = van.state("none")
+  const incidentRecsVal = van.state([])
 
   const dateNavBack = () => {
     let shiftDate = document.getElementById('shift-date')
     shiftDate.value = dataBase.subDays(new Date(shiftDate.value), 1).toLocaleDateString('en-CA')
-    shiftDateStr.val = shiftDate.value
+    shiftDateStrVal.val = shiftDate.value
+
     shiftDate.dispatchEvent(new Event('change'))
   }
   const dateNavForward = () => {
     let shiftDate = document.getElementById('shift-date')
     shiftDate.value = dataBase.addDays(new Date(shiftDate.value), 2).toLocaleDateString('en-CA')
-    shiftDateStr.val = shiftDate.value
+    shiftDateStrVal.val = shiftDate.value
     shiftDate.dispatchEvent(new Event('change'))
   }
 
   const shiftDateChanged = async (e) =>{
-    shiftDateStr.val = e.currentTarget.value
+    shiftDateStrVal.val = e.currentTarget.value
     
-    console.log(new Date(shiftDateStr.val).toLocaleDateString('en-CA'),dataBase.addDays(new Date(shiftDateStr.val),1).toLocaleDateString('en-CA') )
+    //console.log(new Date(shiftDateStrVal.val).toLocaleDateString('en-CA'),dataBase.addDays(new Date(shiftDateStrVal.val),1).toLocaleDateString('en-CA') )
     
-    var x = await load(dataBase.addDays(new Date(shiftDateStr.val),1))
-    incidentRecs.val = x
-    console.log("loaded", shiftDateStr.val,x)
+    var x = await load(dataBase.addDays(new Date(shiftDateStrVal.val),1))
+    incidentRecsVal.val = x
+    //console.log("shiftDateChangedFn ", dataBase.addDays(new Date(shiftDateStrVal.val), 1).toLocaleDateString('en-CA'), x.length)
   }
 
   const load = async (sDate) => {
+    //console.log("CALL AIRTABLE REPORTS") //lifecycle test
     let startTimeStamp = sDate
     let endTimeStamp = dataBase.addDays(sDate,1)
     startTimeStamp.setHours(20); startTimeStamp.setMinutes(30)
@@ -64,19 +69,17 @@ export default async function Reports() {
       }
     })
 
-    console.log(recs.length)
+    //console.log(recs)
     return recs
   }
 
-
-console.log("Hello", incidentRecs.val, shiftDateStr.val)
-
+  //console.log("RETURNING HTML SECTION") //lifecycle test
   return div({ class: "container", style: "margin-top: 50px;" },
     div({ style: "display: flex; justify-content: space-around; align-items: center; margin-bottom: 40px;" },
       button({ onclick: dateNavBack }, "<-"),
 
       input({ id: "shift-date",
-              value: new Date(shiftDateStr.val).toLocaleDateString('en-CA'),
+              value: new Date(shiftDateStrVal.val).toLocaleDateString('en-CA'),
               type: "date",
               style: "width: 150px; margin: 0;",
               onchange: await shiftDateChanged
@@ -86,19 +89,222 @@ console.log("Hello", incidentRecs.val, shiftDateStr.val)
 
     hr(),
     span("Filter by route"),
-    select({ id: "filterbyroute" },
+    select({ id: "filterbyroute", value: "none", onchange: e => routeFilterVal.val = e.target.value },
       option({ value: "none" }, "No Filter"),
       option({ value: "South Route" }, "South Route"),
       option({ value: "NE Route" }, "NE Route"),
     ),
-
+//{ "aria-busy": "true" }
     article({ id: "recordslist" },
-      summary({ "aria-busy": "true" }, span("Mand"),
-        //[() => incidentRecs.val?.map(rec => p(span("hi")))] //ObsReport(rec.id)
-        //() => shiftDateStr.val ? incidentRecs.val?.map(rec => p(rec.id)) : [p("No records loaded")]
-        () => div(incidentRecs.val.map(rec => ObsReport(rec.rec)))
-      ),
+      summary({style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;"},"Mandatory Reports"),
+      () => div(incidentRecsVal.val.map(
+        (rec) =>{
+          if(rec.isMandatory == true) {
+            if(rec.route.includes(routeFilterVal.val) || routeFilterVal.val == 'none') {
+              //createReportHtml(rec.rec, chkReports(rec))
+              return ObsReport({rec: rec.rec,errCol: chkReports(structuredClone(rec))})
+            } 
+          }
+        }
+      )),
+      summary({style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;"},"Extra Reports"),
+      () => div(incidentRecsVal.val.map(
+        (rec) =>{
+            if(rec.isMandatory == false) {
+              if(rec.route.includes(routeFilterVal.val) || routeFilterVal.val == 'none') {
+              //   createReportHtml(rec.rec)
+                  return ObsReport({rec: rec.rec,errCol: chkReports(structuredClone(rec))})
+              } 
+            }
+          }
+      )),
+      summary({style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;"},"Dispatched Reports"),
+      () => div([].val.map(
+        (rec) =>{
+            if(rec.isMandatory == false) {
+              if(rec.route.includes(routeFilterVal.val) || routeFilterVal.val == 'none') {
+              //   createReportHtml(rec.rec)
+                  return ObsReport({rec: rec.rec,errCol: chkReports(rec)})
+              } 
+            }
+          }
+      )),
+      summary({style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;"},"Tags & Tow Reports"),
+      () => div([].val.map(
+        (rec) =>{
+            if(rec.isMandatory == false) {
+              if(rec.route.includes(routeFilterVal.val) || routeFilterVal.val == 'none') {
+              //   createReportHtml(rec.rec)
+                  return ObsReport({rec: rec.rec,errCol: chkReports(rec)})
+              } 
+            }
+          }
+      )),
     ),
   )
 
 }
+
+/* 
+
+timeDate
+prop
+Officer
+picture
+-----------
+
+dispatch               tag
+--------              -----
+Caller Name           *Tag or Tow
+Calling Unit          *Reason
+Offending Unit        Make Model
+Reason for call       *Color
+Time of Resolution    Plate#
+Resolution Notes      Plate State
+*Dispatch Officer     Notes
+
+*/
+
+
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+function chkReports(rec) {
+  var p204Text = 
+`Patrolled all 3 communities for signs of break ins, vagrant activity, and violations of community guidelines. 
+
+Main community:
+B building status: 
+
+Campbell Run Meadows: 
+Q building status: 
+
+Campbell Run Trailside: `
+
+  var p590Text =
+  `Status of the fence:
+
+Details of encampment remains:`
+
+
+  var propDetails = dataBase.lookupPropertyById(rec.rec.fields["Property Code"][0])
+  var propNum = propDetails.fields["AOG Property Code"]
+  var timeOfRecord = new Date(rec.rec.fields["Date and Time of Incident"])
+  var recPics = rec.rec.fields["Picture or other attachment if needed"]
+
+  if ([propNum] == "204") {
+    if(rec.rec.fields["Description of incident or observation"] == p204Text) {
+      return "red"
+    }
+
+  }
+
+  if ([propNum] == "173") {
+    var reportSplit = rec.rec.fields["Description of incident or observation"].split(/Patrol Time .:/)
+
+    reportSplit.forEach(entry => { // check of all patrols NOT empty else red
+      if(isEmptyOrWhitespace(entry.trim())) {
+        res = true
+      }
+    })
+    if(res == true) return "red"
+
+    // then check for 3 pics
+    if(recPics) {
+      if(!recPics.length >= 3) {
+       //console.log("173 PIC: " + recPics.length)
+        return "red"
+      }
+    } else {
+      //console.log("173 PIC: none" )
+      return "red"
+    }
+
+  }
+
+  if ([propNum] == "590") {
+    // if(rec.rec.fields["Description of incident or observation"] == p590Text) {
+    //   return "red"
+    // }
+
+    var reportSplit = rec.rec.fields["Description of incident or observation"].split("Status of the fence:")
+    // is really for "Status of the fence:" below
+    var reportSplit2 = rec.rec.fields["Description of incident or observation"].split("Details of encampment remains:")
+    // is really for "Details of encampment remains:" below
+    var reportSplit3 = reportSplit2[0].split("Status of the fence:")
+
+    if(isEmptyOrWhitespace(reportSplit2[1].trim())) {
+      return "red"
+    }
+
+    if(isEmptyOrWhitespace(reportSplit3[1].trim())) {
+      return "red"
+    }
+
+    if(recPics) {
+      if(!recPics.length >= 1) {
+        //console.log("590 PIC: " + recPics.length)
+        return "red"
+      }
+    } else {
+      //console.log("590 PIC: none" )
+      return "red"
+    }
+  }
+
+  if ([propNum] == "155") {
+
+  }
+
+  if ([propNum] == "151") {
+    // DONT forget to use trim()
+    var reportSplit = rec.rec.fields["Description of incident or observation"].split(/... Patrol:/)
+    var res = false
+
+    reportSplit.forEach(entry => { // check of all patrols NOT empty else red
+      if(isEmptyOrWhitespace(entry.replaceAll(".", " ").trim())) {
+        res = true
+      }
+    })
+
+    if(res == true) return "red"
+  }
+
+  if ([propNum] == "177") {
+    var reportSplit = rec.rec.fields["Description of incident or observation"].split("Status of breezeways:")
+    if(isEmptyOrWhitespace(reportSplit[1].trim())) {
+      return "red"
+    }
+  }
+  // if ([propNum] == "161") {
+
+  //   console.log(rec)
+  // }
+  // if ([propNum] == "176") {
+
+  //   console.log(rec)
+  // }
+  // if ([propNum] == "184") {
+
+  //   console.log(rec)
+  // }
+  // if ([propNum] == "38") {
+
+  // }
+
+  if(timeOfRecord.getHours() == 21 && timeOfRecord.getMinutes() == 0) {
+    return "red"
+  } 
+
+  return "transparent"
+
+}
+
+function isEmptyOrWhitespace(str) {
+  return str === null || str === undefined || str.trim().length === 0;
+}        

@@ -136,70 +136,6 @@ console.log("load.....")
 
 
 function chkReports(rec) {
-  //   incidentRecs.forEach(rec => {
-  //   //console.log(rec.createdTime + " = " + rec.rec.fields['Record Code'], rec)
-  //   if(dataBase.isDateWithinMinutes(new Date(rec.createdTime),new Date(mandatoryCreationTime),1)) {
-  //     rec.isMandatory = true
-  //     rec.route = dataBase.propIdToRouteLookup[rec.rec.fields['Property Code'][0]]
-  //     console.log(rec)
-  //   }
-  // })
-  
-  //console.log(dataBase.lookupPropertyById(rec.rec.fields["Property Code"][0]).fields["AOG Property Code"])
-
-
-// {
-//     "rec": {
-//         "id": "recl6pJABYtkkrdqx",
-//         "createdTime": "2025-10-28T21:00:29.000Z",
-//         "fields": {
-//             "Record Code": "173 - Evans Creek @ Woodbridge",
-//             "Property Code": [
-//                 "reck850di0ImvUVY7"
-//             ],
-//             "Date and Time of Incident": "2025-10-29T07:27:00.000Z",
-//             "Description of incident or observation": "Patrolled the community for signs of break ins or vagrant activity. The Mailroom and pool area was locked and checked on each patrol as well as checks on the whole community. No issues to report tonight. \n\nPatrol Time 1: 12:27 am\n\nPatrol Time 2: 1:43 am\n\nPatrol Time 3:",
-//             "Reporting Officer": "Carlos Williams",
-//             "Picture or other attachment if needed": [
-//                 {
-//                     "id": "attcgaLhGTV4ISG7J",
-//                     "width": 3000,
-//                     "height": 4000,
-//                     "url": "https://v5.airtableusercontent.com/v3/u/46/46/1761796800000/MrTqCImb-fgQKGSEq9AcIg/wgCujJcldBjPywUZ_g6PAUvbdM73iJyMF2DQMvLWla657rcANMBahb9mIl6wzshl4dRhw2r-T3g1lxnhtq5uJ1gtHQ4MYEa2I6hnwh72lpH-J-jMmIjGYaqSaLXHlfQ1653syFsUA4EFsZoznSsAkf6nFsQhSPSvnL5jDJOGQRs/mor4Mx-5nNJGKaKfcdRUiaZeoMKMQdM5blW-rac4FKY",
-//                     "filename": "20251029_003026.jpg",
-//                     "size": 2705185,
-//                     "type": "image/jpeg",
-//                     "thumbnails": {
-//                         "small": {
-//                             "url": "https://v5.airtableusercontent.com/v3/u/46/46/1761796800000/6p3IAW8OTSHWaP4cEefjcQ/byxjAXUJHuC5-E56iuvBfN3KnsqR7lDxUJLX6vhyLHVPuTonWB7H4rXEQ4Oz30_xJ-gEhwbvEhMjDmT5Yn-jmby95IoSWbnUGlZqo2AywjcA6QJhyds8ZV4iikoanAJ_LmpGzNBjHJ9aL7f4GCSh8g/vqezujcMvPbzQNcAx_W0N4-NuvExW9vv7mUaGHjCF34",
-//                             "width": 27,
-//                             "height": 36
-//                         },
-//                         "large": {
-//                             "url": "https://v5.airtableusercontent.com/v3/u/46/46/1761796800000/PE2Hybg_Izl-lLhERZ9PSw/4r-nK9VmFeVVfU-nVOOc_1PRpeue_ytNtOTiLoZVlgInI_4EQtAVgJM7DnG8keqdE8oHd-j6EoZ_IWLCHgIF2uN6Gk0DwKsQ7DwZy6rpzt5BYfOsKy789A_AJtV1kay203PG04nSb1e2z3c9LDldrA/K1HxpRqT4-J_UX8MZ4RlZI8a9UwkfkfLSdbkHMxpKEM",
-//                             "width": 512,
-//                             "height": 683
-//                         },
-//                         "full": {
-//                             "url": "https://v5.airtableusercontent.com/v3/u/46/46/1761796800000/Xgj1FuQx0Y6LcCM3rKesMQ/xS4Ct9ROAXmh6znr2KINm7UucPWihej-w92TddkOPCGbL_TVAglogqX96aFVt2XHz7Cf2sH4nH7XAf-8gc6OW0dZBexLXNZhRe9GzrHddLmIR6xlujvxzOJ0ggTNpb8WKwck6NgfyD9kk1VU1ZF0Kw/VQHQhkLsKLcTPOdPYwCuYncOS16W4GBbshpfjNecjwQ",
-//                             "width": 2250,
-//                             "height": 3000
-//                         }
-//                     }
-//                 }. {}, {}, {}
-//             ]
-//         }
-//     },
-//     "id": "recl6pJABYtkkrdqx",
-//     "createdTime": "2025-10-28T21:00:29.000Z",
-//     "isMandatory": true,
-//     "modified": false,
-//     "route": [
-//         "South Route",
-//         "NE Route"
-//     ]
-// }
-
   var p204Text = 
 `Patrolled all 3 communities for signs of break ins, vagrant activity, and violations of community guidelines. 
 
@@ -215,8 +151,6 @@ Campbell Run Trailside: `
   `Status of the fence:
 
 Details of encampment remains:`
-
-
 
 
   var propDetails = dataBase.lookupPropertyById(rec.rec.fields["Property Code"][0])
