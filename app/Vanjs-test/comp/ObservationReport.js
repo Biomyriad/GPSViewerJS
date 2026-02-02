@@ -22,57 +22,61 @@ export default function ObservationReport({rec, errCol}) {
     else {routeColor = "blue"}
   }
 
+  var officerSelections = dataBase.incidentOfficerList.map(item => {
+        return option({value: item.id, selected: (officerVal.val == item.name)}, item.name)})
+  var propertySelections = dataBase.allProps.map(item => {
+        return option({value: item.id, selected: (propertyIdVal.val == item.id)}, item.fields.Name)})
+
   
 
   const save = () => {
-    
+    console.log(propertyIdVal.val)
+    console.log(dateTimeVal.val)
+    console.log(officerVal.val)
+    console.log(descriptionVal.val)
+    console.log(attachmentVal.val)
   }
 
+save()
 
-
-return details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-record"},
+return div(details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-record"},
   summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol};`},
     div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor};`},),
     `${formatTime(timeDateOfReport)}`+ " " + rec.fields['Record Code']
   ),
   article({class: "rec-content", id: rec.id+"-content"},
-    select({class: "propselect", id: rec.id+"-propertycode", style: "display: block;", value: propertyIdVal, oninput: e => propertyIdVal.val = e.target.value},
-      option({value: ""}, "Select Property"),
+    // select({class: "propselect", id: rec.id+"-propertycode", style: "display: block;", value: propertyIdVal.val, onchange: e => propertyIdVal.val = e.target.value},
+    //   option({value: ""}, "Select Property"),
 
-      dataBase.allProps.map(item => {
-        return option({value: item.id, selected: (propertyIdVal.val == item.id)}, item.fields.Name)
-      })
-    ),
+    //   propertySelections
+    // ),
     input({
             class: "datetimeinput", id: rec.id+"-datetime", type: "datetime-local", style: "display: block;",
-            value: dateTimeVal, oninput: e => dateTimeVal.val = e.target.value},
+            value: dateTimeVal.val, oninput: e => dateTimeVal.val = e.target.value},
           ),
-    select({class: "officerselect", id: rec.id+"-officerselect", style: "display: block;", value: officerVal, oninput: e => officerVal.val = e.target.value},
-      option({value: ""}, "Select Officer"),
+    // select({class: "officerselect", id: rec.id+"-officerselect", style: "display: block;", value: officerVal.val, onchange: e => officerVal.val = e.target.value},
+    //   option({value: ""}, "Select Officer"),
 
-      dataBase.incidentOfficerList.map(item => {
-        return option({value: item.id, selected: (officerVal.val == item.name)}, item.name)
-      })
-    
-    ),   
-    textarea({class: "descriptiontextarea", id: rec.id+"-description", value: descriptionVal, oninput: e => descriptionVal.val = e.target.value}),
-    article({class: "picturearea", id: rec.id+"-pictures"},
-      (   // ternary
-          attachmentVal.val.length > 0
-        ?
-          attachmentVal.val.map(item => {
-            return img({src: item.thumbnails.large.url, style: "height: 100px; border-radius: 4px"})
-          })
-        :
-          ""
-      )
-    ),
+    //   officerSelections
+    // ),   
+    // textarea({class: "descriptiontextarea", id: rec.id+"-description", value: descriptionVal.val, oninput: e => descriptionVal.val = e.target.value}),
+    // article({class: "picturearea", id: rec.id+"-pictures"},
+    //   (   // ternary
+    //       attachmentVal.val.length > 0
+    //     ?
+    //       attachmentVal.val.map(item => {
+    //         return img({src: item.thumbnails.large.url, style: "height: 100px; border-radius: 4px"})
+    //       })
+    //     :
+    //       ""
+    //   )
+    // ),
     div({class: "buttonbox ", id: rec.id+"-buttons"},
-      button("Save"),
+      button({onclick: save},"Save"),
       button("Cancel"),
     ),  
   ),
-)
+))
 };
 
 ///////////////////////
