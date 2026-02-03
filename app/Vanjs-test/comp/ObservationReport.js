@@ -30,53 +30,53 @@ export default function ObservationReport({rec, errCol}) {
   
 
   const save = () => {
-    console.log(propertyIdVal.val)
-    console.log(dateTimeVal.val)
-    console.log(officerVal.val)
-    console.log(descriptionVal.val)
-    console.log(attachmentVal.val)
+    // console.log(propertyIdVal.val)
+    // console.log(dateTimeVal.val)
+    // console.log(officerVal.val)
+    // console.log(descriptionVal.val)
+    // console.log(attachmentVal.val)
   }
 
 save()
 
-return div(details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-record"},
+return details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-record"},
   summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol};`},
     div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor};`},),
     `${formatTime(timeDateOfReport)}`+ " " + rec.fields['Record Code']
   ),
   article({class: "rec-content", id: rec.id+"-content"},
-    // select({class: "propselect", id: rec.id+"-propertycode", style: "display: block;", value: propertyIdVal.val, onchange: e => propertyIdVal.val = e.target.value},
-    //   option({value: ""}, "Select Property"),
+    select({class: "propselect", id: rec.id+"-propertycode", style: "display: block;", value: propertyIdVal.rawVal, onchange: e => propertyIdVal.rawVal = e.target.value},
+      option({value: ""}, "Select Property"),
 
-    //   propertySelections
-    // ),
+      propertySelections
+    ),
     input({
             class: "datetimeinput", id: rec.id+"-datetime", type: "datetime-local", style: "display: block;",
-            value: dateTimeVal.val, oninput: e => dateTimeVal.val = e.target.value},
+            value: dateTimeVal.rawVal, onchange: e => dateTimeVal.rawVal = e.target.value},
           ),
-    // select({class: "officerselect", id: rec.id+"-officerselect", style: "display: block;", value: officerVal.val, onchange: e => officerVal.val = e.target.value},
-    //   option({value: ""}, "Select Officer"),
+    select({class: "officerselect", id: rec.id+"-officerselect", style: "display: block;", value: officerVal.rawVal, onchange: e => officerVal.rawVal = e.target.value},
+      option({value: ""}, "Select Officer"),
 
-    //   officerSelections
-    // ),   
-    // textarea({class: "descriptiontextarea", id: rec.id+"-description", value: descriptionVal.val, oninput: e => descriptionVal.val = e.target.value}),
-    // article({class: "picturearea", id: rec.id+"-pictures"},
-    //   (   // ternary
-    //       attachmentVal.val.length > 0
-    //     ?
-    //       attachmentVal.val.map(item => {
-    //         return img({src: item.thumbnails.large.url, style: "height: 100px; border-radius: 4px"})
-    //       })
-    //     :
-    //       ""
-    //   )
-    // ),
+      officerSelections
+    ),   
+    textarea({class: "descriptiontextarea", id: rec.id+"-description", value: descriptionVal.rawVal, onchange: e => descriptionVal.rawVal = e.target.value}),
+    article({class: "picturearea", id: rec.id+"-pictures"},
+      (   // ternary
+          attachmentVal.val.length > 0
+        ?
+          attachmentVal.val.map(item => {
+            return img({src: item.thumbnails.large.url, style: "height: 100px; border-radius: 4px"})
+          })
+        :
+          ""
+      )
+    ),
     div({class: "buttonbox ", id: rec.id+"-buttons"},
       button({onclick: save},"Save"),
       button("Cancel"),
     ),  
   ),
-))
+)
 };
 
 ///////////////////////

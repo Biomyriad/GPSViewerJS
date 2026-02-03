@@ -40,8 +40,9 @@ export default async function Reports() {
     let endTimeStamp = dataBase.addDays(sDate,1)
     startTimeStamp.setHours(20); startTimeStamp.setMinutes(30)
     endTimeStamp.setHours(7); endTimeStamp.setMinutes(0)
-    var recs = await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, tableName, 'Date and Time of Incident', "asc")
-    
+    var recs = await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, "Incident Reports and Observations", 'Date and Time of Incident', "asc")
+    var disRecs = await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, "Calls to Dispatch", 'Time of Call', "asc")
+    console.log("DISPATCH RECORDS LOADED: ", disRecs.length)
     ///////////////////////////////////////////////////////////////////////////// 
 
     var times = {}
