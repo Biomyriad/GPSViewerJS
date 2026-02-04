@@ -60,7 +60,7 @@ return details({name: "record-container", class: "incidentrecord", id: rec.id+"-
       officerSelections
     ),   
     textarea({class: "descriptiontextarea", id: rec.id+"-description", value: descriptionVal.rawVal, onchange: e => descriptionVal.rawVal = e.target.value}),
-    article({class: "picturearea", id: rec.id+"-pictures"},
+    article({class: "pictureareaaaa", id: rec.id+"-pictures", style: "display: flex; justify-content: space-between; height: 118px"},
       (   // ternary
           attachmentVal.val.length > 0
         ?

@@ -67,13 +67,6 @@
   margin-bottom: 5px;
 }
 
-.descriptiontextarea {
-  margin-bottom: 5px;
-  min-height: 200px;
-  max-height: 400px;
-  field-sizing: content;
-}
-
 .picturearea {
   display: flex;
   justify-content: space-between;
