@@ -1,0 +1,2403 @@
+[
+    {
+        "id": "tblA4Nca5jJeFMYAN",
+        "name": "Property Updates (Please do not edit)",
+        "primaryFieldId": "fld0REPNQo0JYnZrj",
+        "fields": [
+            {
+                "type": "formula",
+                "options": {
+                    "isValid": true,
+                    "formula": "{fldqOMnyftfQoeeRb}",
+                    "referencedFieldIds": [
+                        "fldqOMnyftfQoeeRb"
+                    ],
+                    "result": {
+                        "type": "singleLineText"
+                    }
+                },
+                "id": "fld0REPNQo0JYnZrj",
+                "name": "Property"
+            },
+            {
+                "type": "multipleRecordLinks",
+                "options": {
+                    "linkedTableId": "tblHGGYQmrZWotYol",
+                    "isReversed": true,
+                    "prefersSingleRecordLink": false,
+                    "inverseLinkFieldId": "fldSxOLPuUHiB3kWK"
+                },
+                "id": "fldqOMnyftfQoeeRb",
+                "name": "Property Code"
+            },
+            {
+                "type": "dateTime",
+                "options": {
+                    "dateFormat": {
+                        "name": "local",
+                        "format": "l"
+                    },
+                    "timeFormat": {
+                        "name": "12hour",
+                        "format": "h:mma"
+                    },
+                    "timeZone": "client"
+                },
+                "id": "fldejZcUD57tQG0Un",
+                "name": "Time updated delivered"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "selFupubE6Uo4o4gM",
+                            "name": "Critical",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selNugFIkfFiUXaF3",
+                            "name": "Normal",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "seliSpvvNkML8hkCR",
+                            "name": "FYI",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selzvTiZEXnj7d7Y8",
+                            "name": "Expired",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selkfjHDi3scn1eMF",
+                            "name": "Tonight only ",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selskHSfB8Cv4ndUH",
+                            "name": "High",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selGx2XOVqUR3KA3f",
+                            "name": "We are about to be FIRED!",
+                            "color": "tealLight2"
+                        }
+                    ]
+                },
+                "id": "fld9c4Hpb9QeOuptS",
+                "name": "Priority Level"
+            },
+            {
+                "type": "multipleSelects",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "seliWJdv74ULDYOQi",
+                            "name": "Amber Schumaker ",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selb5SBcWMvhsij9t",
+                            "name": "Hassan Mbwera",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "selNIHL7C8KOCK1e9",
+                            "name": "Zakk Fjeldseth",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "sel6DgjXAZ67tiEnc",
+                            "name": "Carlos Williams",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selFjjfx8E1HiD6tM",
+                            "name": "Zack Zesch",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selhsUMWpvWQXOqmJ",
+                            "name": "Thomas Kosta",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selTCtcdLgZZDK6aF",
+                            "name": "Zekiah Hurd-Thompson",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "sel8UFuojsNNH3Epu",
+                            "name": "Dan Gruver",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selmj2pX6kuRj3e0K",
+                            "name": "Marianne Cliff",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "sel93OYh6KsRNRlMv",
+                            "name": "Nico Lang",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "sel0hl5m6S5zKBOgP",
+                            "name": "Kazandra Torres",
+                            "color": "pinkLight2"
+                        }
+                    ]
+                },
+                "id": "fldakClpQdE07oeVJ",
+                "name": "Read Acknowledgement"
+            },
+            {
+                "type": "multipleSelects",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "selj0CvJJnWlnWBFH",
+                            "name": "Parking",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selcjOlc0mNolzldK",
+                            "name": "Lockup",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selGYwOLLBEckJDtc",
+                            "name": "Person description",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selcyxPIbvlwLJpT1",
+                            "name": "Pick up key",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selZ32gEXxpXeYeJv",
+                            "name": "PO Update",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selCO7HqC6Tsdastp",
+                            "name": "Crime Report",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selZeey8wgQsJmvYp",
+                            "name": "Patrol Request",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selTRv2l4gNLHLY13",
+                            "name": "Warning",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selzOClF0FPs9OGIM",
+                            "name": "Patrol Update",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "sel2R7aQC47Om2yYH",
+                            "name": "Report Update",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selukcAj1sRQNUFiN",
+                            "name": "Equipment Announcement",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selln7rnOTOzYdB3d",
+                            "name": "Problem Resident Update",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selWIm6A66jFKE84H",
+                            "name": "Protest Procedure",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selUXVkfsJf63Z2ub",
+                            "name": "Key Audit",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selPzRW08JnPHu8Ai",
+                            "name": "Dispatch Alert",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selHZmeylhs5tglz4",
+                            "name": "Amenity opening ",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selzK1nydqN801b3M",
+                            "name": "Flashlight Procedure",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "selA03y0ldhYjXimO",
+                            "name": "Service Termination",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selhqLsMcoyxhq5Cj",
+                            "name": "Homeless report",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selR3TmODzYwRhXRs",
+                            "name": "Route Change",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "sel2IJ4HPh0Xx3AEU",
+                            "name": "Extra patrols",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selJ31TZcdw00BgI4",
+                            "name": "Firewatch",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selA0TcxWIhjmgK3Q",
+                            "name": "Towing Procedure",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selR7QKbvS1lIdPYy",
+                            "name": "Drop Key Fobs",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selhZLBA4PfptBrJM",
+                            "name": "Approaching Persons",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "seluAKJLABGm4WGQa",
+                            "name": "Temporary Patrol Request",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "selJ5wYgfAFEiWYjp",
+                            "name": "Report Request",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selVM7bekW5XE2VMp",
+                            "name": "Good Job",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selJzTBsYypnY2v4H",
+                            "name": "Pool Open!!!!!",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selufq7K6GbXdPhAy",
+                            "name": "ReportRequest",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selFJlLfZUJkIC93e",
+                            "name": "Manager Complaint",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selcZWZ8zmMJbn5pF",
+                            "name": "Schedule",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selgqpPIh0qoEuHRj",
+                            "name": "Property Maps Added",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selB6UmiPBgMyJ70x",
+                            "name": "Restarting Service ",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selX1iWPMKB4Ao8z2",
+                            "name": "Parking Enforcement",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "selMJvT0jnFGVUyZW",
+                            "name": "Lock up service suspension",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selacVyF0Lh2xDt5q",
+                            "name": "Pool Closing",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selEFPJN38v1bo97u",
+                            "name": "Scheduled Service Outage",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selSnG9UENmqAqlZI",
+                            "name": "Missed Lockup Report",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selJyN4YjSjk4aLJO",
+                            "name": "Tag Request",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selMp6gH2nSpMIt9s",
+                            "name": "New Property",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "seleWB0achRdBpWph",
+                            "name": "Emailed Reports",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selOSFz3XfxYVFqLw",
+                            "name": "Onsite Change ",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selPCi3hpfdVAUQtw",
+                            "name": "Service Change",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "selRocfOR5rB8tEN5",
+                            "name": "Airtable Archive",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "selOOlnJc2E3BoEUu",
+                            "name": "Pool Opening",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selgDj8AofJycVHgJ",
+                            "name": "Pool Issue",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "sel8b2dVS8wCtfAz8",
+                            "name": "Hard Check",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "selKTE6hmgNSHkFsx",
+                            "name": "Miles Forms",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "sel1mQfOXylUQJ8r0",
+                            "name": "Lights Out Report",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "sel0K8L4oXm5vUKYY",
+                            "name": "No Unlocks",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "selgWVrinc0kuC06D",
+                            "name": "New Route Guide",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "sel2iOmzUc0nzzaxE",
+                            "name": "Call Response",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "seldM2gWWHhPWlTwa",
+                            "name": "Printer Update",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selV0AEkmBjyQNSPe",
+                            "name": "AOG Office",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selLgYGhkpx93eszQ",
+                            "name": "Tech Update",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "selNYwdLpIHAFMnpm",
+                            "name": "Trespass Bounty ",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "selNyC9RxiWLERWKI",
+                            "name": "South Route",
+                            "color": "grayDark1"
+                        },
+                        {
+                            "id": "selteZKSGOy3KmMWR",
+                            "name": "Both Routes",
+                            "color": "grayDark1"
+                        },
+                        {
+                            "id": "selYRnDQLhwAj89wV",
+                            "name": "NE Route",
+                            "color": "grayDark1"
+                        },
+                        {
+                            "id": "selevO1pFmYGCMy9o",
+                            "name": "Training ",
+                            "color": "cyanBright"
+                        },
+                        {
+                            "id": "sel1MHLNdSLcCHijy",
+                            "name": "Unlock",
+                            "color": "tealBright"
+                        },
+                        {
+                            "id": "sel0dLX7bdsUBwAE0",
+                            "name": "Latch App",
+                            "color": "pinkBright"
+                        },
+                        {
+                            "id": "selOUXyaKya5KA34Y",
+                            "name": "Keys Added",
+                            "color": "yellowBright"
+                        },
+                        {
+                            "id": "sel9CZ5ToSBY8XAaX",
+                            "name": "Post Order Update",
+                            "color": "purpleLight1"
+                        }
+                    ]
+                },
+                "id": "fldcq6HqKXsaAqjex",
+                "name": "Category"
+            },
+            {
+                "type": "multilineText",
+                "id": "fldeZ3o9Qad8LeSOf",
+                "name": "Management Notes"
+            },
+            {
+                "type": "multilineText",
+                "id": "fldQCuvNzwoibBHfO",
+                "name": "Extra Notes"
+            },
+            {
+                "type": "date",
+                "options": {
+                    "dateFormat": {
+                        "name": "local",
+                        "format": "l"
+                    }
+                },
+                "id": "fldpwFACR46sN0yb5",
+                "name": "Update Expires"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": true
+                },
+                "id": "fld7zfv25xdz8tEhq",
+                "name": "Attachments"
+            }
+        ],
+        "views": [
+            {
+                "id": "viw7rkwASdFG6nHv2",
+                "name": "All Updates",
+                "type": "grid"
+            }
+        ]
+    },
+    {
+        "id": "tblVzVm4oQ6TB5Lae",
+        "name": "COVID Closures",
+        "primaryFieldId": "fldi0iT8Q2N7j9Skk",
+        "fields": [
+            {
+                "type": "formula",
+                "options": {
+                    "isValid": true,
+                    "formula": "{fld73VeazBVC78XBP}& \" - \" &{fldxcaEfM3ezfXT7l}",
+                    "referencedFieldIds": [
+                        "fld73VeazBVC78XBP",
+                        "fldxcaEfM3ezfXT7l"
+                    ],
+                    "result": {
+                        "type": "singleLineText"
+                    }
+                },
+                "id": "fldi0iT8Q2N7j9Skk",
+                "name": "Name"
+            },
+            {
+                "type": "multilineText",
+                "id": "fldW0D6N1QmrtlGA1",
+                "name": "COVID Closures"
+            },
+            {
+                "type": "multipleSelects",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "seloQKMTfBpcgW4BK",
+                            "name": "NE Route",
+                            "color": "redDark1"
+                        },
+                        {
+                            "id": "selpVle8o4aroqpXe",
+                            "name": "South Route",
+                            "color": "redBright"
+                        },
+                        {
+                            "id": "selUE3pG1m5re6Sy5",
+                            "name": "Perm. Onsite",
+                            "color": "redLight1"
+                        },
+                        {
+                            "id": "selY6XfOaTuCk5GhG",
+                            "name": "Temporary",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selsBNsWdKaUVw3RT",
+                            "name": "Fire Watch",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selGbAwuVWsyMJCp0",
+                            "name": "Seasonal (May through Sept)",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "selSRN96q5LMO8tjm",
+                            "name": "NE Unlock",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "seltmx5pUBlBwVWlR",
+                            "name": "All",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "sel7sVKJ5U7xCt4Sx",
+                            "name": "All AOG Routes ",
+                            "color": "purpleLight2"
+                        }
+                    ]
+                },
+                "id": "fldOpvRpezmlwLwYF",
+                "name": "Route"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "selwEBkVCZKVTOrAc",
+                            "name": "Avalon",
+                            "color": "tealBright"
+                        },
+                        {
+                            "id": "selIHmJsEdZP00EQY",
+                            "name": "Essex",
+                            "color": "tealDark1"
+                        },
+                        {
+                            "id": "seljiN2zeA3jHZXxF",
+                            "name": "Private",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selR4kG3l0r4Kj452",
+                            "name": "AMC",
+                            "color": "tealLight2"
+                        }
+                    ]
+                },
+                "id": "fldxz3Zhr5KjIyuej",
+                "name": "PMC"
+            },
+            {
+                "type": "multipleSelects",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "selIti5D9arCOTHuu",
+                            "name": "Fire Watch",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selOo60HgEssJcxCn",
+                            "name": "Patrol Monthly",
+                            "color": "cyanBright"
+                        },
+                        {
+                            "id": "selMhh1hp3Wgp3Y5d",
+                            "name": "Perm. Onsite",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "sel0B6bw8B2j0Z4mP",
+                            "name": "Seasonal",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "selXGWBjT4YLlYhPt",
+                            "name": "Temporary Onsite",
+                            "color": "cyanLight2"
+                        }
+                    ]
+                },
+                "id": "fldyACMGyv4BI3V7T",
+                "name": "Status"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fld73VeazBVC78XBP",
+                "name": "AOG Property Code"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldxcaEfM3ezfXT7l",
+                "name": "Site Name"
+            }
+        ],
+        "views": [
+            {
+                "id": "viwEWB35oz4a3DslO",
+                "name": "All Customers - All Records",
+                "type": "grid"
+            },
+            {
+                "id": "viw6nBY9oKwEDeyI7",
+                "name": "South Route",
+                "type": "grid"
+            },
+            {
+                "id": "viwZjkke0ZGZNLmkr",
+                "name": "NE Route",
+                "type": "grid"
+            },
+            {
+                "id": "viw1StpC5ZdRYZxg7",
+                "name": "All data",
+                "type": "grid"
+            }
+        ]
+    },
+    {
+        "id": "tblYtM9Kwqwecipu3",
+        "name": "Vehicle Tag/Tow",
+        "primaryFieldId": "fldwWSK2mOU2WUKrp",
+        "fields": [
+            {
+                "type": "dateTime",
+                "options": {
+                    "dateFormat": {
+                        "name": "local",
+                        "format": "l"
+                    },
+                    "timeFormat": {
+                        "name": "12hour",
+                        "format": "h:mma"
+                    },
+                    "timeZone": "client"
+                },
+                "id": "fldwWSK2mOU2WUKrp",
+                "name": "Date of Tag/Tow"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "selTC5lR9CyVyphvP",
+                            "name": "Amber Schumaker "
+                        },
+                        {
+                            "id": "sel5SNrGfD5Soww0J",
+                            "name": "Matt Brugman "
+                        },
+                        {
+                            "id": "selPPlbmQLFipbhSX",
+                            "name": "Whitney Barkus"
+                        },
+                        {
+                            "id": "selKRCnOZHA81NENW",
+                            "name": "Hassan Mbwera"
+                        },
+                        {
+                            "id": "selC4gdrmtdTdj89X",
+                            "name": "Zakk Fjeldseth"
+                        },
+                        {
+                            "id": "selFigRtGtjLXGuGr",
+                            "name": "Carlos Williams"
+                        },
+                        {
+                            "id": "selT2oFsw7CCQLCvX",
+                            "name": "Charles Brown"
+                        },
+                        {
+                            "id": "selPQm5020OaoulUz",
+                            "name": "Zack Zesch"
+                        },
+                        {
+                            "id": "selmBF4tyqBPQvvpC",
+                            "name": "Zekiah Hurd-Thompson"
+                        },
+                        {
+                            "id": "sel898udaf9sF9dyW",
+                            "name": "Thomas Kosta"
+                        },
+                        {
+                            "id": "selc7KRQ4ZO4f4j68",
+                            "name": "Dan Gruver"
+                        },
+                        {
+                            "id": "selr89qJhXTRNs6eH",
+                            "name": "Marianne Cliff"
+                        },
+                        {
+                            "id": "selUJtFcGa0tKF9Zo",
+                            "name": "Nico Lang"
+                        },
+                        {
+                            "id": "selHjdGCHhdGf8XuN",
+                            "name": "Kazandra Torres"
+                        },
+                        {
+                            "id": "selWuM2Cmvwyu4GxZ",
+                            "name": "Hassan Mberwa"
+                        },
+                        {
+                            "id": "selsDRIWve5y9DtMt",
+                            "name": "Mohammad Tarin"
+                        },
+                        {
+                            "id": "sel8Ntr2so35lHntx",
+                            "name": "James Osborn"
+                        },
+                        {
+                            "id": "selzCbNhJpddNuBzr",
+                            "name": "Oscar Flores"
+                        }
+                    ]
+                },
+                "id": "fldUGsGCxKwCHegV7",
+                "name": "Officer name"
+            },
+            {
+                "type": "multipleSelects",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "seldK33dNpxq9sRd5",
+                            "name": "Fire lane",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selKVS6R6L7REmMHn",
+                            "name": "Obstructing dumpster",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selyTkxcAbXOPzwuU",
+                            "name": "Obstructing Building",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selct0DGlDFBtjoBv",
+                            "name": "Reserved  Space ",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selzYNlPZY0ExDf9f",
+                            "name": " Striped - No Parking Zone",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selXMzsjL3nizH84t",
+                            "name": "Visitor Parking - No permit",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "sel277EAiaDd7ZZhS",
+                            "name": "Resident in Visitor Space ",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selecNLf1Ynpjzgve",
+                            "name": "Double Parked",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selGkKnysmunAr8Al",
+                            "name": "Handicapped space w/o tags",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selDGen8FmBRF8AKX",
+                            "name": "Overnight Parking ",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selSXNnR0MlyDZTeP",
+                            "name": "Improperly parked vehicle",
+                            "color": "yellowLight2"
+                        }
+                    ]
+                },
+                "id": "fldQnTYadQipq44VD",
+                "name": "Reason for Tag"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "selMNE4pJDTA5BouK",
+                            "name": "Tagged",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selKqsiZPZuY2Rmh7",
+                            "name": "Towed",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selAuTnwhtgERUIVp",
+                            "name": "Spoke with owner",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selpyK1Eg6YdoJ0f1",
+                            "name": "No action could be taken",
+                            "color": "redLight2"
+                        }
+                    ]
+                },
+                "id": "fldOUhvRxDrX7pV35",
+                "name": "Tag or Tow?"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldVY7FJ1tvWwlkd0",
+                "name": "Vehicle Lic#"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "selTcnbj5mx9lWvKa",
+                            "name": "WA"
+                        },
+                        {
+                            "id": "selKyBo9UjOoamuaS",
+                            "name": "VA"
+                        },
+                        {
+                            "id": "selAFzKuwqqxL8jQ7",
+                            "name": "MT"
+                        },
+                        {
+                            "id": "selAkEf4xRn2HV8nd",
+                            "name": "OR"
+                        },
+                        {
+                            "id": "sel1fvgy9qo98b225",
+                            "name": "Ca"
+                        },
+                        {
+                            "id": "selYIAktsKlrrzAiz",
+                            "name": "TX"
+                        },
+                        {
+                            "id": "selD1RByuZT82PXvO",
+                            "name": "WI"
+                        },
+                        {
+                            "id": "selzh5yvbiSrjQ6Hy",
+                            "name": "UT"
+                        },
+                        {
+                            "id": "seloCgdPhxgjvBUpv",
+                            "name": "PA"
+                        },
+                        {
+                            "id": "selyWE7W3kzwRWSgj",
+                            "name": "SD"
+                        },
+                        {
+                            "id": "sel7EaXpLz4ifbWM3",
+                            "name": "AK"
+                        },
+                        {
+                            "id": "selbRM4MEWIsHcuCp",
+                            "name": "HI"
+                        },
+                        {
+                            "id": "selSUqIMqkCAG7KFB",
+                            "name": "No plates"
+                        },
+                        {
+                            "id": "selsCFhmxWNme6jwD",
+                            "name": "FL"
+                        },
+                        {
+                            "id": "selrf6q0O6IftfFo3",
+                            "name": "OTHER"
+                        },
+                        {
+                            "id": "selMQW75zPdeNJ6rM",
+                            "name": "Canada"
+                        },
+                        {
+                            "id": "selZoHdvGsLbyeBsf",
+                            "name": "AZ"
+                        },
+                        {
+                            "id": "selHCJ6nHFqfiw8Kw",
+                            "name": "Alberta"
+                        },
+                        {
+                            "id": "selmKgyvRSLkwaoVe",
+                            "name": "NV"
+                        },
+                        {
+                            "id": "selWBrE2qMSZ3FeET",
+                            "name": "ID"
+                        },
+                        {
+                            "id": "selfGmdyONKuW7UVc",
+                            "name": "OK"
+                        },
+                        {
+                            "id": "seliLP9lcBFZZEeji",
+                            "name": "MO"
+                        },
+                        {
+                            "id": "selIiYX1aanVnGwJn",
+                            "name": "MN"
+                        }
+                    ]
+                },
+                "id": "fldIp19ohsXrklnvp",
+                "name": "Lic plate state"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fld39thaD5I9C4j0x",
+                "name": "Vehicle Make and Model"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "selrqAao450XFFblu",
+                            "name": "Silver",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "sel16wJMaQC2MpeSB",
+                            "name": "White",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "seljzupSr5Lv48p9Z",
+                            "name": "Red",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "sel789zjckJm0nKPr",
+                            "name": "Green",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selDAtDAz0GkrLMj0",
+                            "name": "Blue",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "sel8gPOcljhJ7eC17",
+                            "name": "Gold",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selkMKenJSp51zrFb",
+                            "name": "Black",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "sel4mE4ltv0aIXC26",
+                            "name": "Dark Silver",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selfwK4wHyY0ShG9t",
+                            "name": "Yellow",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selxlCFAS6q7bR6fK",
+                            "name": "Gray",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selMhjI4pfrOGaVPg",
+                            "name": "Brown ",
+                            "color": "blueLight2"
+                        }
+                    ]
+                },
+                "id": "fldzWzOks6SCt16hK",
+                "name": "Car color"
+            },
+            {
+                "type": "multipleRecordLinks",
+                "options": {
+                    "linkedTableId": "tblHGGYQmrZWotYol",
+                    "isReversed": true,
+                    "prefersSingleRecordLink": true,
+                    "inverseLinkFieldId": "fldpNRVHU8kiyNRaU"
+                },
+                "id": "fldoBbbrOozysOqfv",
+                "name": "Property Code"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": true
+                },
+                "id": "fldUheWh03WrE3sRs",
+                "name": "Pic"
+            },
+            {
+                "type": "multilineText",
+                "id": "fld6rBarHv9jDhkXm",
+                "name": "Other notes"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": false
+                },
+                "id": "fldBpM4a25mhuHoOr",
+                "name": "Incident Report Picture"
+            }
+        ],
+        "views": [
+            {
+                "id": "viwCMcCpmn5r5yVdv",
+                "name": "All Vehicle Tag/Tows",
+                "type": "grid"
+            }
+        ]
+    },
+    {
+        "id": "tblRjQcYObPbjSzcc",
+        "name": "Calls to Dispatch",
+        "primaryFieldId": "fldxlpuFva49WPcmu",
+        "fields": [
+            {
+                "type": "singleLineText",
+                "id": "fldxlpuFva49WPcmu",
+                "name": "Unit Number",
+                "description": "CALLERS Unit Number (THIS MUST BE ON YOUR REPORT)"
+            },
+            {
+                "type": "multipleRecordLinks",
+                "options": {
+                    "linkedTableId": "tblHGGYQmrZWotYol",
+                    "isReversed": true,
+                    "prefersSingleRecordLink": true,
+                    "inverseLinkFieldId": "fldGxkGUdiLDFLdEH"
+                },
+                "id": "fldPlMZcBJwqADVYY",
+                "name": "Property Code"
+            },
+            {
+                "type": "dateTime",
+                "options": {
+                    "dateFormat": {
+                        "name": "local",
+                        "format": "l"
+                    },
+                    "timeFormat": {
+                        "name": "12hour",
+                        "format": "h:mma"
+                    },
+                    "timeZone": "client"
+                },
+                "id": "fldaYB4YWRFGfXnS7",
+                "name": "Time of Call"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldVYQ5ZAFKTI0mtA",
+                "name": "Offending Unit #"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldtc3XwOWNxzQXDU",
+                "name": "Name of caller"
+            },
+            {
+                "type": "multilineText",
+                "id": "flds6nKw7ESRnem4a",
+                "name": "Reason for the customer's call"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "sel7Fk7IN571qmNIV",
+                            "name": "Onsite Officer",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selFCVp6eig90S3pB",
+                            "name": "Nikkie Schumaker ",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selGXufgmibFBskIE",
+                            "name": "Matt Brugman",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "seluKYFIItwPd9FUt",
+                            "name": "Zakk Fjeldseth",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selBZ3mxF1sgeqKfd",
+                            "name": "Carlos Williams",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selKKUOZASIFg0qRm",
+                            "name": "Zack Zesch",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selzc6I3WCJTJyjwg",
+                            "name": "Zekiah Hurd-Thompson",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selIMIGWtatpOg6Sx",
+                            "name": "Thomas Kosta ",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selNrQB3LjrZV3evH",
+                            "name": "Brad Hart",
+                            "color": "blueLight1"
+                        },
+                        {
+                            "id": "selO1iRk3Y8f9Gzmt",
+                            "name": "Marianne Cliff",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "sel9llaRK6rFZ92DE",
+                            "name": "Nasteho Mohamed",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "sele4Y5tFqeO75HWq",
+                            "name": "Nico Lang",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selJ5ktDlmHUuArIY",
+                            "name": "Kazandra Torres",
+                            "color": "tealLight1"
+                        },
+                        {
+                            "id": "seltLzcqPd3CeksbL",
+                            "name": "EAST ROUTE",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "selUYjt5chjhLiyXc",
+                            "name": "Thomas Ayalew",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selcYXXXdm6AobeDM",
+                            "name": "Hassan Mberwa",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "selO81fUXwzJ6BNRQ",
+                            "name": "Draven Mosher",
+                            "color": "cyanLight1"
+                        },
+                        {
+                            "id": "selKIMJADDs0w6S6u",
+                            "name": "Mohammad Tarin",
+                            "color": "greenLight1"
+                        },
+                        {
+                            "id": "selWunizhdcbMV4dH",
+                            "name": "Oscar Flores",
+                            "color": "yellowLight1"
+                        },
+                        {
+                            "id": "selpKACaW8OFNbq60",
+                            "name": "James Obsborn",
+                            "color": "orangeLight1"
+                        }
+                    ]
+                },
+                "id": "fldb7Kmxoy0eG12aU",
+                "name": "Responding Officer"
+            },
+            {
+                "type": "dateTime",
+                "options": {
+                    "dateFormat": {
+                        "name": "local",
+                        "format": "l"
+                    },
+                    "timeFormat": {
+                        "name": "12hour",
+                        "format": "h:mma"
+                    },
+                    "timeZone": "client"
+                },
+                "id": "fldv6qdJEglGv8z0E",
+                "name": "Time of resolution"
+            },
+            {
+                "type": "multilineText",
+                "id": "fld2I6CivXHQH01Nq",
+                "name": "Resolution"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "seliTjJEFNwyBCPvM",
+                            "name": "Nikkie Schumaker",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selgJDdWIi5qGFYoV",
+                            "name": "Matt Brugman",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "sel07BllMtt2Chfuv",
+                            "name": "Hassan Mbwera",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selj1WD1T0Br7Hlc1",
+                            "name": "Zakk Fjeldseth",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "selStjwZaqksN3Q6Q",
+                            "name": "Zack Zesch",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "sele5LPHlSw0qr9I2",
+                            "name": "Zekiah Hurd-Thompson",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "seldeu08NDgDFux3W",
+                            "name": "Thomas Kosta",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "sellKqqBSqbl6njdZ",
+                            "name": "Brad Hart",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selFmuywAQTC210eT",
+                            "name": "David Polanco",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selsQkYFSFFOYghKw",
+                            "name": "Jevvan Cameron",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "selsZBEJxpR201HfV",
+                            "name": "Nasteho Mohamed",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selc9Pe5J69W2cqY2",
+                            "name": "Kazandra Torres",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "seltKYxdfifZxVZvJ",
+                            "name": "Nico Lang",
+                            "color": "blueLight1"
+                        },
+                        {
+                            "id": "selnLtwN4MO5XvsbI",
+                            "name": "Oscar Flores",
+                            "color": "cyanLight1"
+                        },
+                        {
+                            "id": "selsFkSyQumhLQH13",
+                            "name": "Mohammad Tarin",
+                            "color": "tealLight1"
+                        }
+                    ]
+                },
+                "id": "fldUrgzlU0zmVoHZc",
+                "name": "Dispatch Officer"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": true
+                },
+                "id": "fld0vXIR8D0Zi4svV",
+                "name": "Pictures"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": false
+                },
+                "id": "fldd1fJ8tyHGKD3L1",
+                "name": "Incident Report Picture"
+            },
+            {
+                "type": "multilineText",
+                "id": "fldCkdy96BbfxviW3",
+                "name": "Internal Note"
+            }
+        ],
+        "views": [
+            {
+                "id": "viwn9YGyvhR45LYfm",
+                "name": "All Resident Calls",
+                "type": "grid"
+            }
+        ]
+    },
+    {
+        "id": "tbllw2foIlhECloes",
+        "name": "Incident Reports and Observations",
+        "primaryFieldId": "fld1yBx5pkwCfi1oK",
+        "fields": [
+            {
+                "type": "formula",
+                "options": {
+                    "isValid": true,
+                    "formula": "{fldjyY2CvTYTT6K0e}",
+                    "referencedFieldIds": [
+                        "fldjyY2CvTYTT6K0e"
+                    ],
+                    "result": {
+                        "type": "singleLineText"
+                    }
+                },
+                "id": "fld1yBx5pkwCfi1oK",
+                "name": "Record Code"
+            },
+            {
+                "type": "multipleRecordLinks",
+                "options": {
+                    "linkedTableId": "tblHGGYQmrZWotYol",
+                    "isReversed": true,
+                    "prefersSingleRecordLink": true,
+                    "inverseLinkFieldId": "fldaKwJk7sd6Ye2GX"
+                },
+                "id": "fldjyY2CvTYTT6K0e",
+                "name": "Property Code"
+            },
+            {
+                "type": "dateTime",
+                "options": {
+                    "dateFormat": {
+                        "name": "local",
+                        "format": "l"
+                    },
+                    "timeFormat": {
+                        "name": "12hour",
+                        "format": "h:mma"
+                    },
+                    "timeZone": "client"
+                },
+                "id": "fldEbN7oQ179yqcUn",
+                "name": "Date and Time of Incident"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "sel9P7sw8sICjlSrR",
+                            "name": "Nikkie Schumaker ",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selAQeAJtxWxLSZAM",
+                            "name": "Matt Brugman",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selHgiVwsa0pQp9g1",
+                            "name": "Whitney Barkus",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selP0py6JfqD0027G",
+                            "name": "Hassan Mbwera",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selAp9ie1pVLa1K3w",
+                            "name": "Zakk Fjeldseth",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "seluWgM25q5wvkOGD",
+                            "name": "Carlos Williams",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selZBFYFaDa2xqR46",
+                            "name": "Zack Zesch",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "sel4mItmWkXWUUOKI",
+                            "name": "Charles Brown",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selu4PCQbkU4b4bxr",
+                            "name": "Zekiah Hurd-Thompson",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selTXiB0GRRrj8h6j",
+                            "name": "Thomas Kosta",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "sel7igzBNhKp5LpUu",
+                            "name": "Dan Gruver ",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "selyOaLR6KBDqUatC",
+                            "name": "Marianne Cliff",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "sel7kduDU3UOMNkmi",
+                            "name": "Brad Hart",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "seltCcBb3mAp9x3NM",
+                            "name": "David Polanco",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "selCBtPTmAYQsS6uY",
+                            "name": "Nico Lang",
+                            "color": "blueLight1"
+                        },
+                        {
+                            "id": "selNcgOimLfuw0SQT",
+                            "name": "Kazandra Torres",
+                            "color": "cyanLight1"
+                        },
+                        {
+                            "id": "sel1TzNAJtjdYlyKf",
+                            "name": "Hassan Mberwa ",
+                            "color": "tealLight1"
+                        },
+                        {
+                            "id": "selXO8lcLPTdkgQk5",
+                            "name": "Draven Mosher",
+                            "color": "greenLight1"
+                        },
+                        {
+                            "id": "selU8Q8nItoXhchcT",
+                            "name": "Mohammad Tarin",
+                            "color": "yellowLight1"
+                        },
+                        {
+                            "id": "selOY5IzigyIw7KIY",
+                            "name": "James Osborn",
+                            "color": "orangeLight1"
+                        },
+                        {
+                            "id": "selurQaqV6Rqvpig2",
+                            "name": "Oscar Flores",
+                            "color": "redLight1"
+                        }
+                    ]
+                },
+                "id": "fldFkWpXiIsHZuRca",
+                "name": "Reporting Officer"
+            },
+            {
+                "type": "multilineText",
+                "id": "fldwViFIp79j0tQPG",
+                "name": "Description of incident or observation"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": true
+                },
+                "id": "flde1FfUJHh4hnaK3",
+                "name": "Picture or other attachment if needed"
+            },
+            {
+                "type": "multilineText",
+                "id": "fld61fCMOzJDE1zp4",
+                "name": "Internal Note"
+            },
+            {
+                "type": "multilineText",
+                "id": "fldpXGIKNHhTtskF0",
+                "name": "Management Follow up"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": false
+                },
+                "id": "fldYjqTjc4nblc4Aq",
+                "name": "Incident Report Picture",
+                "description": "picture of PAPER report (if used)"
+            }
+        ],
+        "views": [
+            {
+                "id": "viwRmaJYprjxoeNhC",
+                "name": "All Incident Reports",
+                "type": "grid"
+            },
+            {
+                "id": "viw0N0YgBO4UsdtBH",
+                "name": "Grid 2",
+                "type": "grid"
+            },
+            {
+                "id": "viwtdFrJG4tDo6eql",
+                "name": "182",
+                "type": "grid"
+            },
+            {
+                "id": "viw5AKEl0KpfTCUPA",
+                "name": "Grid 3",
+                "type": "grid"
+            }
+        ]
+    },
+    {
+        "id": "tblL5huaGiVN3BLS6",
+        "name": "Dispatch Summary",
+        "primaryFieldId": "fld1E3yQvykUysUBh",
+        "fields": [
+            {
+                "type": "date",
+                "options": {
+                    "dateFormat": {
+                        "name": "local",
+                        "format": "l"
+                    }
+                },
+                "id": "fld1E3yQvykUysUBh",
+                "name": "Date of Shift Start"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "sel07zNIU9gD471lZ",
+                            "name": "Amber Schumaker",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selCNilIRjLQBmIhz",
+                            "name": "Whitney Barkus",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selslZTaKXef9ZdP2",
+                            "name": "Charles Brown",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selFhGoUZHsVr7FoK",
+                            "name": "Hassan Mberwa",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selKUmtNekuZPiipy",
+                            "name": "Zakk Fjeldseth",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selaWsCv1U4tEP4aO",
+                            "name": "Zack Zesch",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "seleAWNwJabC9LnzX",
+                            "name": "Carlos Williams",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selGtQaKIQnmRubmk",
+                            "name": "Zekiah Hurd-Thompson",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "seleK5wzHhrhLdHoh",
+                            "name": "Thomas Kosta",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selgVeb4ONuUIz6ic",
+                            "name": "Dan Gruver ",
+                            "color": "blueLight1"
+                        },
+                        {
+                            "id": "selLQJXoFMCA46Bil",
+                            "name": "Brad Hart",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selRrpXlvbocFv123",
+                            "name": "David Polanco",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "selHtOxuQvqgb2sPo",
+                            "name": "Jevvan Cameron",
+                            "color": "cyanLight1"
+                        },
+                        {
+                            "id": "selIV0ghFJfwYahAA",
+                            "name": "Nasteho Mohamed",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "sel5NNvMg7DWCIk9j",
+                            "name": "Kazandra Torres",
+                            "color": "tealLight1"
+                        },
+                        {
+                            "id": "selFF05VuiMixKXQM",
+                            "name": "Nico Lang",
+                            "color": "greenLight1"
+                        },
+                        {
+                            "id": "selEMBn9bqhvC0R4R",
+                            "name": "Oscar Flores",
+                            "color": "yellowLight1"
+                        },
+                        {
+                            "id": "selnFfX2gfLVJ0nbZ",
+                            "name": "Mohammad Tarin",
+                            "color": "orangeLight1"
+                        }
+                    ]
+                },
+                "id": "fld0w9stBnKTrQ57t",
+                "name": "Dispatch Officer"
+            },
+            {
+                "type": "multilineText",
+                "id": "fldixP2PPfN4otHxr",
+                "name": "Notes"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": true
+                },
+                "id": "fldk6VhifzbMdOcP9",
+                "name": "Attachments"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldAz6PzRhShNXg7h",
+                "name": "Field 5"
+            }
+        ],
+        "views": [
+            {
+                "id": "viwFLdGOzrxYyNeHZ",
+                "name": "Grid view",
+                "type": "grid"
+            }
+        ]
+    },
+    {
+        "id": "tblHGGYQmrZWotYol",
+        "name": "All Properties",
+        "primaryFieldId": "fld473vUODGa6x5yr",
+        "fields": [
+            {
+                "type": "formula",
+                "options": {
+                    "isValid": true,
+                    "formula": "{fldTaGQWxcOFUwaPW}& \" - \" &{fldjjVg1KE7C2l6ls}",
+                    "referencedFieldIds": [
+                        "fldTaGQWxcOFUwaPW",
+                        "fldjjVg1KE7C2l6ls"
+                    ],
+                    "result": {
+                        "type": "singleLineText"
+                    }
+                },
+                "id": "fld473vUODGa6x5yr",
+                "name": "Name"
+            },
+            {
+                "type": "multipleSelects",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "selaXvoFdcif3khPR",
+                            "name": "NE Route",
+                            "color": "redDark1"
+                        },
+                        {
+                            "id": "selb26QUmF3ubOCbl",
+                            "name": "South Route",
+                            "color": "redBright"
+                        },
+                        {
+                            "id": "selGLO1sZXYu1u5Mc",
+                            "name": "Perm. Onsite",
+                            "color": "redLight1"
+                        },
+                        {
+                            "id": "selKdIRA8unF7tTvN",
+                            "name": "Temporary",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "seleIy4Ibl3XIUg50",
+                            "name": "Fire Watch",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selsil8gTxlBz7PD7",
+                            "name": "Seasonal (May through Sept)",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "selEYyLSoGEPBwGxt",
+                            "name": "NE Unlock",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "selftiHbSceEjj9zY",
+                            "name": "All",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selTzGmv3v0ApRh6E",
+                            "name": "All AOG Routes ",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selgPudrsm5SprNJ6",
+                            "name": "Avalon only",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "sel8fXIhjjonzJRmm",
+                            "name": "Temp Onsite",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selpQtPCcRyRsXqvg",
+                            "name": "Bellevue Community Officer",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selyAJ7AyGtBHJfeE",
+                            "name": "Esterra Park Community Officer",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "selWtgKSGo6HfnMGC",
+                            "name": "287 Community Officer",
+                            "color": "yellowLight1"
+                        },
+                        {
+                            "id": "seleyy7p7okLqEDzJ",
+                            "name": "182 Bellevue Officer",
+                            "color": "greenLight1"
+                        },
+                        {
+                            "id": "selDGpTco782cS8XZ",
+                            "name": "182 Bellevue Community Officer",
+                            "color": "cyanBright"
+                        },
+                        {
+                            "id": "seldsOxOICeTAUCmu",
+                            "name": "terminated",
+                            "color": "orangeDark1"
+                        },
+                        {
+                            "id": "selYOhHQm9NKhjbCv",
+                            "name": "East Route",
+                            "color": "orangeLight1"
+                        }
+                    ]
+                },
+                "id": "fldAwgtbcafoj9JcM",
+                "name": "Route"
+            },
+            {
+                "type": "multipleSelects",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "seluA3Hp7LkFBhUIB",
+                            "name": "Fire Watch",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selAvRCteflvwAKQu",
+                            "name": "Patrol Monthly",
+                            "color": "cyanBright"
+                        },
+                        {
+                            "id": "selyo2D3nEPjcrbjk",
+                            "name": "Perm. Onsite",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selMIRNi6cVmNnhAW",
+                            "name": "Seasonal",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "selJNHd5RFRO8mu3A",
+                            "name": "Temporary Onsite",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selMSwHE73TX10N9R",
+                            "name": "Temporary Patrol",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selDFqUjEsdRlqR3g",
+                            "name": "Role only",
+                            "color": "redLight1"
+                        },
+                        {
+                            "id": "selCSmpwmYG3luUTt",
+                            "name": "Dispatch Only",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "seluVMEDooQh8VNMF",
+                            "name": "Terminated",
+                            "color": "yellowDark1"
+                        }
+                    ]
+                },
+                "id": "fldkHnosw6XEvr8l0",
+                "name": "Status"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldTaGQWxcOFUwaPW",
+                "name": "AOG Property Code"
+            },
+            {
+                "type": "singleSelect",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "seliLmWHAADYGcEOj",
+                            "name": "Avalon",
+                            "color": "tealBright"
+                        },
+                        {
+                            "id": "seluO7leCOSSNoR45",
+                            "name": "Essex",
+                            "color": "tealDark1"
+                        },
+                        {
+                            "id": "sel5pyElcbWmunaLM",
+                            "name": "Private",
+                            "color": "purpleLight2"
+                        },
+                        {
+                            "id": "selDb5iPjBk7xHhj9",
+                            "name": "AMC",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "sel81TrLiduczGmhG",
+                            "name": "NONE",
+                            "color": "pinkLight2"
+                        },
+                        {
+                            "id": "sel9fxbXolQ5qsfCo",
+                            "name": "Urban Self Storage",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "selM15C09ARN6WbTR",
+                            "name": "Allied",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selBaVwROdWsTt9Ih",
+                            "name": "Lincoln Property Company",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "selVpKPv8I8oThbc6",
+                            "name": "Avenue 5",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "selV6HxDRIfeYwwRG",
+                            "name": "SummerHill",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "selIyzCjOCwEAu402",
+                            "name": "GreyStar",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selyAKkcM6mzwjII7",
+                            "name": "Azose",
+                            "color": "redLight2"
+                        },
+                        {
+                            "id": "selWsvkxu6qqgaOyA",
+                            "name": "FPI",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selpwcMmIKwlBPHey",
+                            "name": "NW Building LLC",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "sel2fgIky8PcoZud9",
+                            "name": "Inland Construction",
+                            "color": "orangeLight2"
+                        },
+                        {
+                            "id": "sel8GVN2nTWEcNPMr",
+                            "name": "Exxel",
+                            "color": "grayBright"
+                        },
+                        {
+                            "id": "selMG9Kg2fxSbl9ot",
+                            "name": "Ram Parnters",
+                            "color": "greenBright"
+                        },
+                        {
+                            "id": "sel8g8bDixV33Oci6",
+                            "name": "SRM",
+                            "color": "blueBright"
+                        },
+                        {
+                            "id": "selSI3mD6Z1p6nhCe",
+                            "name": "April Housing",
+                            "color": "grayDark1"
+                        }
+                    ]
+                },
+                "id": "fldjGOB3pGDmvWHsq",
+                "name": "PMC"
+            },
+            {
+                "type": "multipleRecordLinks",
+                "options": {
+                    "linkedTableId": "tblRjQcYObPbjSzcc",
+                    "isReversed": true,
+                    "prefersSingleRecordLink": false,
+                    "inverseLinkFieldId": "fldPlMZcBJwqADVYY"
+                },
+                "id": "fldGxkGUdiLDFLdEH",
+                "name": "Calls"
+            },
+            {
+                "type": "multipleRecordLinks",
+                "options": {
+                    "linkedTableId": "tblYtM9Kwqwecipu3",
+                    "isReversed": true,
+                    "prefersSingleRecordLink": false,
+                    "inverseLinkFieldId": "fldoBbbrOozysOqfv"
+                },
+                "id": "fldpNRVHU8kiyNRaU",
+                "name": "Tagging Vehicles"
+            },
+            {
+                "type": "multipleSelects",
+                "options": {
+                    "choices": [
+                        {
+                            "id": "seliVHn5ippA0wZDo",
+                            "name": "Nightly Report",
+                            "color": "blueLight2"
+                        },
+                        {
+                            "id": "selEfz5ruLtcSJPTt",
+                            "name": "Patrol",
+                            "color": "cyanLight2"
+                        },
+                        {
+                            "id": "selJLjj2KvRTbDnsP",
+                            "name": "Lock Up",
+                            "color": "tealLight2"
+                        },
+                        {
+                            "id": "sel1QzJnpWJ01VrU1",
+                            "name": "UNLOCK",
+                            "color": "greenLight2"
+                        },
+                        {
+                            "id": "selp21gWH3e6PCBWV",
+                            "name": "Hardcheck",
+                            "color": "yellowLight2"
+                        },
+                        {
+                            "id": "selq6Egk9V3VvDYAB",
+                            "name": "Clear Cabana",
+                            "color": "grayLight2"
+                        },
+                        {
+                            "id": "seleU64wa7pSbARS8",
+                            "name": "Foot Patrol",
+                            "color": "purpleLight2"
+                        }
+                    ]
+                },
+                "id": "fldSfTYeKpNWsxd5m",
+                "name": "NE Route Orders"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldjjVg1KE7C2l6ls",
+                "name": "Site Name"
+            },
+            {
+                "type": "multipleRecordLinks",
+                "options": {
+                    "linkedTableId": "tbllw2foIlhECloes",
+                    "isReversed": true,
+                    "prefersSingleRecordLink": false,
+                    "inverseLinkFieldId": "fldjyY2CvTYTT6K0e"
+                },
+                "id": "fldaKwJk7sd6Ye2GX",
+                "name": "Calls copy"
+            },
+            {
+                "type": "multipleRecordLinks",
+                "options": {
+                    "linkedTableId": "tblA4Nca5jJeFMYAN",
+                    "isReversed": true,
+                    "prefersSingleRecordLink": false,
+                    "inverseLinkFieldId": "fldqOMnyftfQoeeRb"
+                },
+                "id": "fldSxOLPuUHiB3kWK",
+                "name": "Property Updates"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldI7oIzZrfugJTO8",
+                "name": "COVID Closures"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldvAyBge13jxihPv",
+                "name": "Table 8"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": false
+                },
+                "id": "fldTU9FDyt3rd3gRq",
+                "name": "Post Orders"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": false
+                },
+                "id": "fldC0qVpbJy7pS10n",
+                "name": "Sample Report"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldwOz8quVKpOF79F",
+                "name": "Site Address"
+            },
+            {
+                "type": "url",
+                "id": "fldbUdIZctCNoGPTW",
+                "name": "Google Maps"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldOuTc3Gy1s0jhn9",
+                "name": "Fast Field Username"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fld3Bbrch6SF0zeX0",
+                "name": "Fast Field Password"
+            },
+            {
+                "type": "checkbox",
+                "options": {
+                    "icon": "check",
+                    "color": "greenBright"
+                },
+                "id": "fld9QZrgnQkp5H98n",
+                "name": "Active"
+            },
+            {
+                "type": "multipleRecordLinks",
+                "options": {
+                    "linkedTableId": "tblAXT4xRAfAZFpau",
+                    "isReversed": false,
+                    "prefersSingleRecordLink": false,
+                    "inverseLinkFieldId": "fldY6GiJKKabqtT09"
+                },
+                "id": "fldjiFPXSBURpnAcj",
+                "name": "Assigned Job Role"
+            },
+            {
+                "type": "manualSort",
+                "id": "fldvWmn9HeHs7xviJ",
+                "name": "Manual sort"
+            }
+        ],
+        "views": [
+            {
+                "id": "viwSumAVmlpHqCLWe",
+                "name": "South Route",
+                "type": "grid"
+            },
+            {
+                "id": "viwLq5W0YAz2A9zyy",
+                "name": "NE Route",
+                "type": "grid"
+            },
+            {
+                "id": "viwq3mFRmaXdQ1FzV",
+                "name": "All Customers - All Records",
+                "type": "grid"
+            },
+            {
+                "id": "viwNZe1o3A6ULnKue",
+                "name": "All data",
+                "type": "grid"
+            },
+            {
+                "id": "viwf9iwSTnhKbcjhl",
+                "name": "Dispatch View",
+                "type": "grid"
+            },
+            {
+                "id": "viwB2SYHZADcz5KDk",
+                "name": "Job Assignments View",
+                "type": "grid"
+            }
+        ]
+    },
+    {
+        "id": "tblAXT4xRAfAZFpau",
+        "name": "Job Assignments",
+        "primaryFieldId": "fldvk4vKJKONeXfnC",
+        "fields": [
+            {
+                "type": "singleLineText",
+                "id": "fldvk4vKJKONeXfnC",
+                "name": "Job Role Name"
+            },
+            {
+                "type": "multipleRecordLinks",
+                "options": {
+                    "linkedTableId": "tblHGGYQmrZWotYol",
+                    "isReversed": false,
+                    "prefersSingleRecordLink": false,
+                    "inverseLinkFieldId": "fldjiFPXSBURpnAcj"
+                },
+                "id": "fldY6GiJKKabqtT09",
+                "name": "Post Orders"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": false
+                },
+                "id": "fldzRmHkfKD89DpO9",
+                "name": "Job Role Documents"
+            },
+            {
+                "type": "multilineText",
+                "id": "fldpZpOHcob7tE4AB",
+                "name": "Notes"
+            },
+            {
+                "type": "checkbox",
+                "options": {
+                    "icon": "check",
+                    "color": "greenBright"
+                },
+                "id": "fldUURJ6eZXz4iZlN",
+                "name": "Active"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldhbaUw9qvr1hHCF",
+                "name": "Start of shift address"
+            },
+            {
+                "type": "url",
+                "id": "fldC94UMXVSRMolup",
+                "name": "Start of Shift Google Maps location"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": false
+                },
+                "id": "fldcfeif53TIOJMWD",
+                "name": "Sample Report"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldX4xeo39nQG8I2z",
+                "name": "Fast Field Username"
+            },
+            {
+                "type": "singleLineText",
+                "id": "fldB0BFxG8VinDJCV",
+                "name": "Fast Field Password"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": false
+                },
+                "id": "fldQLXDySwiwaCmh8",
+                "name": "Additional Attachments"
+            }
+        ],
+        "views": [
+            {
+                "id": "viw5j932mZeSN0C5H",
+                "name": "Active Jobs",
+                "type": "grid"
+            },
+            {
+                "id": "viw67YWZkgwpPtzEg",
+                "name": "All Jobs",
+                "type": "grid"
+            }
+        ]
+    },
+    {
+        "id": "tbli5p1vaTPneBDJH",
+        "name": "All Procedure Documents",
+        "primaryFieldId": "fldOOZEpuzToZAXOJ",
+        "fields": [
+            {
+                "type": "singleLineText",
+                "id": "fldOOZEpuzToZAXOJ",
+                "name": "Name"
+            },
+            {
+                "type": "multilineText",
+                "id": "fldP6SRdkXjQkUcGK",
+                "name": "Notes"
+            },
+            {
+                "type": "multipleAttachments",
+                "options": {
+                    "isReversed": false
+                },
+                "id": "fldeiFW0J2EOFQ8iH",
+                "name": "Attachments"
+            },
+            {
+                "type": "dateTime",
+                "options": {
+                    "dateFormat": {
+                        "name": "local",
+                        "format": "l"
+                    },
+                    "timeFormat": {
+                        "name": "12hour",
+                        "format": "h:mma"
+                    },
+                    "timeZone": "client"
+                },
+                "id": "fldjXflLmMu3ZiQXV",
+                "name": "Last Modified"
+            },
+            {
+                "type": "number",
+                "options": {
+                    "precision": 0
+                },
+                "id": "fldhvBEV4MZt9Z1Pk",
+                "name": "Article"
+            }
+        ],
+        "views": [
+            {
+                "id": "viwfl7IZqEyFsLFJS",
+                "name": "Grid view",
+                "type": "grid"
+            }
+        ]
+    }
+]

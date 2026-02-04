@@ -39,7 +39,7 @@ export default function ObservationReport({rec, errCol}) {
 
 save()
 
-return details({name: "incidentrecord", class: "incidentrecord", id: rec.id+"-record"},
+return details({name: "record-container", class: "incidentrecord", id: rec.id+"-record"},
   summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol};`},
     div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor};`},),
     `${formatTime(timeDateOfReport)}`+ " " + rec.fields['Record Code']

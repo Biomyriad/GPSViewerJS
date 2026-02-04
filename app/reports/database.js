@@ -8,6 +8,9 @@ class AtDb {
     this.allProps = []
     this.propIdToRouteLookup = []
     this.incidentOfficerList = []
+    this.respondingOfficerList = []
+    this.dispatchOfficerList = []
+    this.tagTowOfficerList = []
   }
 
   /// Utils
@@ -38,7 +41,12 @@ class AtDb {
 
   async initDbAsync() {
     this.baseSchema = await cloudDb.getSchema()
+
     this.incidentOfficerList = this.baseSchema.tables[4].fields[3].options.choices
+    this.respondingOfficerList = this.baseSchema.tables[3].fields[6].options.choices
+    this.dispatchOfficerList = this.baseSchema.tables[3].fields[9].options.choices
+    this.tagTowOfficerList = this.baseSchema.tables[2].fields[1].options.choices
+
     this.allProps = await cloudDb.getAll("All Properties")
 
     this.allProps.forEach(prop => {

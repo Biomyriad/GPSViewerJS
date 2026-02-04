@@ -40,8 +40,8 @@
   
 }
 
-.incidentrecord {
-  margin-bottom: 2px;
+[name="record-container"] {
+  margin-bottom: 1px;
 }
 
 .rec-routecolorbox {
@@ -86,3 +86,14 @@
 }
 /* ----------- */
 
+label {
+  color: rgb(129, 129, 129);
+  font-size: 14px;
+  position: absolute;
+  top: 0px;
+  left: 5px;
+}
+
+.dispatchrecord {
+  margin-bottom: 1px;
+}

@@ -1,4 +1,6 @@
 import ObsReport from "./ObservationReport.js"
+import disReport from "./DispatchReports.js"
+
 const { div, button, input, p, hr, span, select, option, article, summary } = van.tags;
 
 function sleep(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
@@ -9,6 +11,7 @@ export default async function Reports() {
   const shiftDateStrVal = van.state(new Date().toLocaleDateString('en-CA'))
   const routeFilterVal = van.state("none")
   const incidentRecsVal = van.state([])
+  const dispatchRecsVal = van.state([])
 
   const dateNavBack = () => {
     let shiftDate = document.getElementById('shift-date')
@@ -30,7 +33,8 @@ export default async function Reports() {
     //console.log(new Date(shiftDateStrVal.val).toLocaleDateString('en-CA'),dataBase.addDays(new Date(shiftDateStrVal.val),1).toLocaleDateString('en-CA') )
     
     var x = await load(dataBase.addDays(new Date(shiftDateStrVal.val),1))
-    incidentRecsVal.val = x
+    incidentRecsVal.val = x[0]
+    dispatchRecsVal.val = x[1]
     //console.log("shiftDateChangedFn ", dataBase.addDays(new Date(shiftDateStrVal.val), 1).toLocaleDateString('en-CA'), x.length)
   }
 
@@ -42,7 +46,8 @@ export default async function Reports() {
     endTimeStamp.setHours(7); endTimeStamp.setMinutes(0)
     var recs = await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, "Incident Reports and Observations", 'Date and Time of Incident', "asc")
     var disRecs = await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, "Calls to Dispatch", 'Time of Call', "asc")
-    console.log("DISPATCH RECORDS LOADED: ", disRecs.length)
+    console.log("DISPATCH RECORDS LOADED: ", disRecs.length, disRecs)
+    console.log(disRecs)
     ///////////////////////////////////////////////////////////////////////////// 
 
     var times = {}
@@ -71,7 +76,7 @@ export default async function Reports() {
     })
 
     //console.log(recs)
-    return recs
+    return [recs, disRecs]
   }
 
   //console.log("RETURNING HTML SECTION") //lifecycle test
@@ -120,17 +125,17 @@ export default async function Reports() {
           }
       )),
       summary({style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;"},"Dispatched Reports"),
-      () => div([].val.map(
+      () => div(dispatchRecsVal.val.map(
         (rec) =>{
-            if(rec.isMandatory == false) {
               if(rec.route.includes(routeFilterVal.val) || routeFilterVal.val == 'none') {
               //   createReportHtml(rec.rec)
-                  return ObsReport({rec: rec.rec,errCol: chkReports(rec)})
+              //    return ObsReport({rec: rec.rec,errCol: chkReports(rec)})
+                  return disReport({rec: rec.rec, errCol: "transparent"})
               } 
-            }
           }
       )),
       summary({style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;"},"Tags & Tow Reports"),
+      /*
       () => div([].val.map(
         (rec) =>{
             if(rec.isMandatory == false) {
@@ -140,7 +145,7 @@ export default async function Reports() {
               } 
             }
           }
-      )),
+      )), */
     ),
   )
 
