@@ -43,6 +43,20 @@ const App = async () => {
 
   return div({style: "height: 100%;"},
     MainTabs  ({
+      // "Summary": "start-flag.svg",
+      // "Home": "home.svg",
+      // "Times": "stopwatch.svg",
+      // "Reports": "report.svg",
+      // "Docs": "books.svg",
+      // "Settings": "settings.svg",
+
+      "Reports": "report.svg",
+      "Summary": "start-flag.svg",
+      "Home": "home.svg",
+      "Times": "stopwatch.svg",
+      "Docs": "books.svg",
+      "Settings": "settings.svg",
+    },{
       "1": await Reports(),//testForm({rec: rec.rec}), //"1": testForm(incidentRecs[6].rec),
       //"1": testForm({rec: rec.rec}),
       "2": div(p("Content for Tab 2")),//testForm(incidentRecs[6].rec),//"start-flag.svg": ,

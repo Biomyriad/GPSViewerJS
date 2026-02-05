@@ -1,7 +1,7 @@
 
 const { img } = van.tags;
 
-export default function MainTabs(children) {
+export default function MainTabs(labels, children) {
     //TODO: Look into stuff and check for tabButtonRowClass
     //IF not found assign random unique class and use to flip
     //IF found used assigned name to flip
@@ -41,13 +41,31 @@ export default function MainTabs(children) {
   var tabsBar = test.getElementsByClassName("XXXX")[0]
   
   //console.log(tabsBar)
+//const tab of tabsBar.children
+Object.entries(labels).forEach((lab, index) => {
+  const tab = tabsBar.children[index]
+  const imgSrc = lab[1]
+  const labelText = lab[0]  
+  tab.replaceChildren()
+  tab.appendChild(
+    van.tags.div(
+      van.tags.img({"src": `../images/${imgSrc}`, "style": "min-height: 30px; max-height: 65px;",}), 
+      //van.tags.span({style: "color: white; font-size: 12px; margin-top: 2px;"}, labelText)
+    ),
+  )
+})
+  // for( const lab of labels) {
+  //   console.log(lab)
 
-  for(const tab of tabsBar.children) {
-    //console.log(tab.innerHTML)
-    tab.replaceChildren()
+  //   // tab.replaceChildren()
     
-    tab.appendChild(img({"src": "../images/home.svg", "style": "height: 60px; width: 200px",}))
-  }
+  //   // tab.appendChild(
+  //   //   div(
+  //   //     img({"src": `../images/${})`, "style": "height: 60px; width: 200px",}),
+  //   //     span()
+  //   //   ),
+  //   // )
+  // }
 
   test.removeChild(tabsBar)
   test.appendChild(tabsBar)

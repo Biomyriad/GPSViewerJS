@@ -1,4 +1,4 @@
-const {div,button,input,textarea,img,label,hr,span,select,option,article,summary,details} = van.tags;
+const {div,button,input,textarea,img,label,hr,span,select,option,article,summary,details,fieldset,h0,h1,h2,h3,h4,h5,h6} = van.tags;
 
 export default function ObservationReport({rec, errCol}) {
   const callTimeOfReport = new Date(rec.fields['Time of Call'])
@@ -41,7 +41,24 @@ export default function ObservationReport({rec, errCol}) {
   var propertySelections = dataBase.allProps.map(item => {
         return option({value: item.id, selected: (propertyIdVal.val == item.id)}, item.fields.Name)})
 
-  
+  function formatTime(dt) {
+    dt = new Date(dt)
+
+    var ap = "AM"
+    var h = dt.getHours()
+    var m = dt.getMinutes()
+    var MM = dt.getMonth() + 1
+    var DD = dt.getDate()
+
+    if(h > 12) {
+      h = h - 12
+      ap = "PM"
+    }
+    if(h == 0) h=12
+    if(m < 10) m = "0" + m
+    if(DD < 10) DD = "0" + DD
+    return `${MM}/${DD} ${h}:${m} ${ap}`
+  }
 
   const save = () => {
   }
@@ -61,7 +78,7 @@ dispatch officer
 pics
 */
 
-return details({name: "record-container", class: "dispatchrecord", id: rec.id+"-record", open:"open"},
+return details({name: "record-container", class: "dispatchrecord", id: rec.id+"-record"},//, open:"open"},
   summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol};`},
     div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor};`},),
     `${formatTime(callTimeOfReport)}`+ " " + callTypeVal.val + " | " + callersAptVal.val + " | " + prop.fields.Name
@@ -75,20 +92,33 @@ return details({name: "record-container", class: "dispatchrecord", id: rec.id+"-
     ),
 
     div({style: "display: flex; gap: 10px; width: 100%;"},
+
       div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-        label("Time Of Call:"), 
+        label("Time Of Call:"),
         input({
-                class: "datetimeinput", id: rec.id+"-timeofcall", type: "datetime-local", style: "display: block;",
-                value: timeOfCallVal.rawVal, onchange: e => timeOfCallVal.rawVal = e.target.value},
+                class: "datetimeinput", id: rec.id+"-timeofcall", type: "datetime-local",
+                style: "position: absolute; opacity: 0%;",
+                value: timeOfCallVal.val, oninput: e => timeOfCallVal.val = e.target.value},
         ),
-      ),
+        div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center; "},
+          van.derive(() => formatTime(timeOfCallVal.val)  ),
+          img({src: `../images/calendar.svg`, style: "height: 30px; width: 30px;"}),
+        ),
+      ),    
+
       div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-        label("Time Of Resolution:"), 
+        label("Time Of Resolution:"),
         input({
-              class: "datetimeinput", id: rec.id+"-timeofresolution", type: "datetime-local", style: "display: block;",
-              value: timeOfResolutionVal.rawVal, onchange: e => timeOfResolutionVal.rawVal = e.target.value},
+                class: "datetimeinput", id: rec.id+"-timeofresolution", type: "datetime-local",
+                style: "position: absolute; opacity: 0%;",
+                value: timeOfResolutionVal.val, oninput: e => timeOfResolutionVal.val = e.target.value},
         ),
-      ),
+        div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center; "},
+          van.derive(() => formatTime(timeOfResolutionVal.val)  ),
+          img({src: `../images/calendar.svg`, style: "height: 30px; width: 30px;"}),
+        ),
+      ),  
+
     ),
     div({style: "display: flex; gap: 10px; width: 100%;"},
       div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
@@ -128,7 +158,7 @@ return details({name: "record-container", class: "dispatchrecord", id: rec.id+"-
       div({style: "position: relative; width: 100%;"},
         label("Call Type:"), 
         select({class: "officerselect", id: rec.id+"-calltype", style: "display: block; margin-bottom: 5px;", value: callTypeVal.rawVal, onchange: e => callTypeVal.rawVal = e.target.value},
-          option({value: ""}, "Select Call Type"), 
+          option({value: ""}, "Select Call Type"), // TODO: populate call types from database
         ),
       ),
     ),

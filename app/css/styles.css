@@ -90,3 +90,57 @@ label {
 .dispatchrecord {
   margin-bottom: 1px;
 }
+
+.readonly-text {
+  margin: 0;
+  padding-block: 1px;
+  padding-inline: 2px;    
+  padding: var(--pico-form-element-spacing-vertical) var(--pico-form-element-spacing-horizontal);
+  height: calc(1rem * var(--pico-line-height) + var(--pico-form-element-spacing-vertical) * 2 + var(--pico-border-width) * 2);
+  border: var(--pico-border-width) solid var(--pico-form-element-border-color);
+  border-radius: var(--pico-border-radius);
+  box-shadow: none;
+  background-color: var(--pico-form-element-background-color);
+  
+  color: var(--pico-form-element-color);
+  font-weight: var(--pico-font-weight);
+  font-size: 1rem;
+  line-height: var(--pico-line-height);
+  font-family: inherit;
+  letter-spacing: inherit;
+
+  appearance: none;
+  outline: 0;
+
+  overflow:visible;
+  
+  margin-bottom: 5px;
+
+  transition: background-color 0.2s ease-in-out,
+  border-color 0.2s ease-in-out,
+  color 0.2s ease-in-out,
+  box-shadow 0.2s ease-in-out;
+
+}
+
+.readonly-text:is(:active) {
+  background-color: var(--pico-form-element-background-color);
+  border-color: var(--pico-form-element-active-border-color);
+
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.readonly-text:is(:focus) {
+  /* --pico-outline-width: 0.125rem; */
+  /* --pico-border-width: 0.012rem; */
+  /* --pico-border-color: var(--pico-form-element-active-border-color); */
+  /* --pico-box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-form-element-focus-color); */
+  /* --pico-background-color: var(--pico-form-element-active-background-color); */
+
+  background-color: var(--pico-form-element-background-color);
+  border: var(--pico-border-width) solid var(--pico-form-element-active-border-color);
+  box-shadow: 0 0 0 0.0625rem var(--pico-form-element-focus-color);
+
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
