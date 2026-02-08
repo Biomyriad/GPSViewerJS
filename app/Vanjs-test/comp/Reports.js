@@ -45,9 +45,15 @@ export default async function Reports() {
     startTimeStamp.setHours(20); startTimeStamp.setMinutes(30)
     endTimeStamp.setHours(7); endTimeStamp.setMinutes(0)
     var recs = await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, "Incident Reports and Observations", 'Date and Time of Incident', "asc")
+    
     var disRecs = await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, "Calls to Dispatch", 'Time of Call', "asc")
     console.log("DISPATCH RECORDS LOADED: ", disRecs.length, disRecs)
     console.log(disRecs)
+
+    var vRecs = await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, "tblYtM9Kwqwecipu3", 'Date of Tag/Tow', "asc")
+    //var vRecs = await dataBase.loadReportsAsync(startTimeStamp, endTimeStamp, "Vehicle Tag/Tow", 'Date of Tag/Tow', "asc")
+    console.log("TagTow RECORDS LOADED: ", vRecs.length, vRecs)
+    console.log(vRecs)
     ///////////////////////////////////////////////////////////////////////////// 
 
     var times = {}
@@ -76,7 +82,7 @@ export default async function Reports() {
     })
 
     //console.log(recs)
-    return [recs, disRecs]
+    return [recs, disRecs, vRecs]
   }
 
   //console.log("RETURNING HTML SECTION") //lifecycle test
@@ -147,29 +153,19 @@ export default async function Reports() {
           }
       )), */
     ),
+    () => {
+      var x = load(dataBase.addDays(new Date(shiftDateStrVal.val),1))
+      .then((x) => {
+        incidentRecsVal.val = x[0]
+        dispatchRecsVal.val = x[1]
+      })
+      .catch((err) => console.log("LOAD ERR: ", err))
+  }
   )
 
 }
 
-/* 
 
-timeDate
-prop
-Officer
-picture
------------
-
-dispatch               tag
---------              -----
-Caller Name           *Tag or Tow
-Calling Unit          *Reason
-Offending Unit        Make Model
-Reason for call       *Color
-Time of Resolution    Plate#
-Resolution Notes      Plate State
-*Dispatch Officer     Notes
-
-*/
 
 
 

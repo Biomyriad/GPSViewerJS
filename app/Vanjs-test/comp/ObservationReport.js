@@ -1,4 +1,4 @@
-const {div,button,input,textarea,img,p,hr,span,select,option,article,summary,details} = van.tags;
+const {label,div,button,input,textarea,img,p,hr,span,select,option,article,summary,details} = van.tags;
 
 //TODO: setup check for edits and errors
 //TODO: Connect buttons
@@ -45,31 +45,46 @@ return details({name: "record-container", class: "incidentrecord", id: rec.id+"-
     `${formatTime(timeDateOfReport)}`+ " " + rec.fields['Record Code']
   ),
   article({class: "rec-content", id: rec.id+"-content"},
-    select({class: "propselect", id: rec.id+"-propertycode", style: "display: block;", value: propertyIdVal.rawVal, onchange: e => propertyIdVal.rawVal = e.target.value},
-      option({value: ""}, "Select Property"),
+    div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+      label("Site/Property:"), 
+      select({class: "propselect", id: rec.id+"-propertycode", style: "display: block;", value: propertyIdVal.rawVal, onchange: e => propertyIdVal.rawVal = e.target.value},
+        option({value: ""}, "Select Property"),
 
-      propertySelections
+        propertySelections
+      ),
     ),
-    input({
-            class: "datetimeinput", id: rec.id+"-datetime", type: "datetime-local", style: "display: block;",
-            value: dateTimeVal.rawVal, onchange: e => dateTimeVal.rawVal = e.target.value},
-          ),
-    select({class: "officerselect", id: rec.id+"-officerselect", style: "display: block;", value: officerVal.rawVal, onchange: e => officerVal.rawVal = e.target.value},
-      option({value: ""}, "Select Officer"),
+    div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+    label("Time of Incident:"), 
+      input({
+              class: "datetimeinput", id: rec.id+"-datetime", type: "datetime-local", style: "display: block;",
+              value: dateTimeVal.rawVal, onchange: e => dateTimeVal.rawVal = e.target.value},
+      ),
+    ),
+    div({ style: "position: relative; flex-grow: 1; flex-shrink: 1;" },
+      label("Officer:"),
+      select({ class: "officerselect", id: rec.id + "-officerselect", style: "display: block;", value: officerVal.rawVal, onchange: e => officerVal.rawVal = e.target.value },
+        option({ value: "" }, "Select Officer"),
 
-      officerSelections
-    ),   
-    textarea({class: "descriptiontextarea", id: rec.id+"-description", value: descriptionVal.rawVal, onchange: e => descriptionVal.rawVal = e.target.value}),
-    article({class: "pictureareaaaa", id: rec.id+"-pictures", style: "display: flex; justify-content: space-between; height: 118px"},
-      (   // ternary
+        officerSelections
+      ),
+    ),    
+    div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+    label("Description:"), 
+      textarea({class: "resolutiontextarea", id: rec.id+"-description", value: descriptionVal.rawVal, onchange: e => descriptionVal.rawVal = e.target.value, style: "margin-bottom: 5px; field-sizing: content; height: 118px;"}),
+    ),
+    div({ style: "position: relative;" },
+      label("Pictures:"),
+      article({ class: "pictureareaaaa", id: rec.id + "-pictures", style: "display: flex; justify-content: space-between; height: 118px" },
+        (   // ternary
           attachmentVal.val.length > 0
-        ?
-          attachmentVal.val.map(item => {
-            return img({src: item.thumbnails.large.url, style: "height: 100px; border-radius: 4px"})
-          })
-        :
-          ""
-      )
+            ?
+            attachmentVal.val.map(item => {
+              return img({ src: item.thumbnails.large.url, style: "height: 100px; border-radius: 4px" })
+            })
+            :
+            ""
+        )
+      ),
     ),
     div({class: "buttonbox ", id: rec.id+"-buttons"},
       button({onclick: save},"Save"),
