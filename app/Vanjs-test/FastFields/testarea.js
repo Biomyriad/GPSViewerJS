@@ -19,19 +19,40 @@ export default async function fftest () {
     // });
     // let data = await response.json();
 
-  let response = await fetch(`https://api.fastfieldforms.com/services/v3/authenticate`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Basic ${loadx(ffun.val, ffpwd.val)}`,
-      //'FastFieldAPI-Key': 'FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038',
+  // let response = await fetch(`https://api.fastfieldforms.com/services/v3/authenticate`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Authorization': `Basic ${loadx(ffun.val, ffpwd.val)}`,
+  //     'FastField-API-Key': 'FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038',
+  //   },
+  //   //body: JSON.stringify(recObj)
+  // });
+  // let data = await response.json();
 
-//     Authorization: `Bearer ${this.fastfield_mobile_forms.$auth.session_token}`,
-//     "X-Gatekeeper-SessionToken": `${this.fastfield_mobile_forms.$auth.session_token}`,
-//     "FastField-API-Key": `FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038`,
-    },
-    //body: JSON.stringify(recObj)
-  });
-  let data = await response.json();
+  let data
+  try {
+    const response = await axios({
+      url: "https://api.fastfieldforms.com/services/v3/authenticate",
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${loadx(ffun.val, ffpwd.val)}`,
+        "FastFieldAPI-Key": "FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038",
+      },
+      // data: recObj,
+      timeout: 15000,
+      withCredentials: true,
+    })
+    data = response.data
+  } catch (err) {
+    if (err?.message?.includes("Network Error")) {
+      throw new Error("CORS or network error: ensure the API allows your origin or use a server-side proxy.")
+    }
+    if (err?.response) {
+      throw new Error(`FastField ${err.response.status}: ${err.response.data?.message || err.response.statusText}`)
+    }
+    throw err
+  }
+
   console.log(data)
 
 
