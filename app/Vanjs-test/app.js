@@ -9,6 +9,7 @@ import Reports from "./comp/Reports.js"
 //import Reports from "./comp/ReportsShell.js"
 //import vjs from "./comp/VehicleReport.js"
 import testForm from "./comp/DispatchReports.js"
+import fftest from "./FastFields/testarea.js"
 import MainTabs from "./comp/MainTabs-vanui.js"
 
 const { div, button, input,p,hr,span,select,option,article,summary} = van.tags;
@@ -57,9 +58,9 @@ const App = async () => {
       "Docs": "books.svg",
       "Settings": "settings.svg",
     },{
-      "1": await Reports(),//testForm({rec: rec.rec}), //"1": testForm(incidentRecs[6].rec),
+      "1": await fftest(),//testForm(incidentRecs[6].rec),//"start-flag.svg": ,
+      "2": p(),//await Reports(),//testForm({rec: rec.rec}), //"1": testForm(incidentRecs[6].rec),
       //"1": testForm({rec: rec.rec}),
-      "2": div(p("Content for Tab 2")),//testForm(incidentRecs[6].rec),//"start-flag.svg": ,
       "3": div(p("Content for Tab 3")),
       "4": div(p("Content for Tab 4")),
       "5": div(p("Content for Tab 5")),
