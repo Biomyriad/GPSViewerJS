@@ -23,7 +23,11 @@ export default async function fftest () {
     method: 'POST',
     headers: {
       'Authorization': `Basic ${loadx(ffun.val, ffpwd.val)}`,
-      'FastFieldAPI-Key': 'FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038',
+      //'FastFieldAPI-Key': 'FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038',
+
+//     Authorization: `Bearer ${this.fastfield_mobile_forms.$auth.session_token}`,
+//     "X-Gatekeeper-SessionToken": `${this.fastfield_mobile_forms.$auth.session_token}`,
+//     "FastField-API-Key": `FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038`,
     },
     //body: JSON.stringify(recObj)
   });
@@ -59,3 +63,31 @@ export default async function fftest () {
   );
 };
 
+
+
+
+// const response = await fetch("https://api.fastfieldforms.com/services/v3/users", {
+//   method: "GET",
+//   headers: {
+//     Authorization: `Bearer ${this.fastfield_mobile_forms.$auth.session_token}`,
+//     "X-Gatekeeper-SessionToken": `${this.fastfield_mobile_forms.$auth.session_token}`,
+//     "FastField-API-Key": `${this.fastfield_mobile_forms.$auth.api_key}`,
+//   },
+// });
+
+// if (response.status === 400) {
+//   const errorBody = await response.json().catch(() => ({}));
+//   throw new Error(`FastField 400: ${errorBody.message || "Bad Request"}`);
+// }
+
+// if (response.status === 403) {
+//   const errorBody = await response.json().catch(() => ({}));
+//   throw new Error(`FastField 403: ${errorBody.message || "Forbidden"}`);
+// }
+
+// if (!response.ok) {
+//   const errorBody = await response.text().catch(() => "");
+//   throw new Error(`FastField ${response.status}: ${errorBody || response.statusText}`);
+// }
+
+// const data = await response.json();
