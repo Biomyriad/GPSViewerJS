@@ -10,33 +10,52 @@ export default async function fftest () {
 //Authorization: Basic 
 // FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038
 
-// let response = await fetch(`${cloudDb.base_host}/${cloudDb.base_id}/${tableName}/`+recId, {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${cloudDb.token()}`
-    //   }
-    // });
-    // let data = await response.json();
+// try {
+//  let response = await fetch(`https://api.fastfieldforms.com/services/v3/authenticate`, {
+//     method: 'POST',
+//     headers: {
+//       content: "application/json",
 
-try {
- let response = await fetch(`https://api.fastfieldforms.com/services/v3/authenticate`, {
-    method: 'POST',
-    headers: {
-      content: "application/json",
-    },
-    body: JSON.stringify({
-      'Authorization': `Basic ${loadx(ffun.val, ffpwd.val)}`,
-      'FastFieldAPI-Key': 'FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038',
+//       Authorization: `Basic ${loadx(ffun.val, ffpwd.val)}`,
+//       'FastField-API-Key': 'FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038',      
+//     },
+//     body: JSON.stringify({
+
+//     })
+//   });
+//   let data = await response.json();
+// alert(data)
+
+// }
+// catch (err) {
+//   alert(err)
+// }
+
+    await fetch(`https://api.fastfieldforms.com/services/v3/authenticate`, {
+      method: 'POST',
+      headers: {
+        content: "application/json",
+        //Authorization: `Basic ${loadx(ffun.val, ffpwd.val)}`,
+        'FastField-API-Key': 'FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038',
+      },
+      body: JSON.stringify({
+
+      })
     })
-  });
-  let data = await response.json();
-alert(data)
-
-}
-catch (err) {
-  alert(err)
-}
+    .then(function (response) {
+      if (!response.ok) {
+        console.log('Network response was not ok', response.status, response.statusText);
+        //throw new Error('Network response was not ok');
+      }
+      // response.json() returns another promise
+      return response.json();
+    })
+    .then(function (jsonData) {
+      console.log(jsonData);
+    })
+    .catch(function (error) {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
 
  
   // let data
@@ -96,30 +115,33 @@ catch (err) {
 };
 
 
+//https://app.requestly.io/rules/editor/edit/Script_hklf6
+/* <script type="text/javascript">
+    fetch(`https://api.fastfieldforms.com/services/v3/authenticate`, {
+      method: 'POST',
+      headers: {
+        content: "application/json",
+        Authorization: `Basic A==`,
+        //Authorization: `Basic ${loadx(ffun.val, ffpwd.val)}`,
+        'FastField-API-Key': 'FF-d3015e0740286416e02921e39f6dd0e6_0_d962f8f2647c270840b8c9dcabb71038',
+      },
+      body: JSON.stringify({
 
-
-// const response = await fetch("https://api.fastfieldforms.com/services/v3/users", {
-//   method: "GET",
-//   headers: {
-//     Authorization: `Bearer ${this.fastfield_mobile_forms.$auth.session_token}`,
-//     "X-Gatekeeper-SessionToken": `${this.fastfield_mobile_forms.$auth.session_token}`,
-//     "FastField-API-Key": `${this.fastfield_mobile_forms.$auth.api_key}`,
-//   },
-// });
-
-// if (response.status === 400) {
-//   const errorBody = await response.json().catch(() => ({}));
-//   throw new Error(`FastField 400: ${errorBody.message || "Bad Request"}`);
-// }
-
-// if (response.status === 403) {
-//   const errorBody = await response.json().catch(() => ({}));
-//   throw new Error(`FastField 403: ${errorBody.message || "Forbidden"}`);
-// }
-
-// if (!response.ok) {
-//   const errorBody = await response.text().catch(() => "");
-//   throw new Error(`FastField ${response.status}: ${errorBody || response.statusText}`);
-// }
-
-// const data = await response.json();
+      })
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          console.log('Network response was not ok', response.status, response.statusText);
+          //throw new Error('Network response was not ok');
+        }
+        // response.json() returns another promise
+        return response.json();
+      })
+      .then(function (jsonData) {
+        console.log(jsonData);
+      })
+      .catch(function (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
+	console.log("Hello World");
+</script> */
