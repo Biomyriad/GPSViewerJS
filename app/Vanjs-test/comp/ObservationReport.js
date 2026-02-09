@@ -53,21 +53,30 @@ return details({name: "record-container", class: "incidentrecord", id: rec.id+"-
         propertySelections
       ),
     ),
-    div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-    label("Time of Incident:"), 
-      input({
-              class: "datetimeinput", id: rec.id+"-datetime", type: "datetime-local", style: "display: block;",
-              value: dateTimeVal.rawVal, onchange: e => dateTimeVal.rawVal = e.target.value},
+    div({style: "display: flex; gap: 10px; width: 100%;"},
+      div({style: "position: relative; flex-basis: 50%; flex-grow: 1; flex-shrink: 1;"},
+        label("Time of Incident:"),
+        input({
+                class: "datetimeinput", id: rec.id+"-datetime", type: "datetime-local",
+                style: "position: absolute; opacity: 0%;",
+                value: dateTimeVal.rawVal, oninput: e => dateTimeVal.rawVal = e.target.value},
+        ),
+        div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center; white-space: nowrap;"},
+          van.derive(() => formatTime(dateTimeVal.rawVal)  ),
+          img({src: `../images/calendar.svg`, style: "height: 30px; width: 30px;"}),
+        ),
+      ), 
+
+      
+      div({ style: "position: relative; flex-basis: 50%; flex-grow: 1; flex-shrink: 1;" },
+        label("Officer:"),
+        select({ class: "officerselect", id: rec.id + "-officerselect", style: "display: block; overflow: hidden;", value: officerVal.rawVal, onchange: e => officerVal.rawVal = e.target.value },
+          option({ value: "" }, "Select Officer"),
+
+          officerSelections
+        ),
       ),
     ),
-    div({ style: "position: relative; flex-grow: 1; flex-shrink: 1;" },
-      label("Officer:"),
-      select({ class: "officerselect", id: rec.id + "-officerselect", style: "display: block;", value: officerVal.rawVal, onchange: e => officerVal.rawVal = e.target.value },
-        option({ value: "" }, "Select Officer"),
-
-        officerSelections
-      ),
-    ),    
     div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
     label("Description:"), 
       textarea({class: "resolutiontextarea", id: rec.id+"-description", value: descriptionVal.rawVal, onchange: e => descriptionVal.rawVal = e.target.value, style: "margin-bottom: 5px; field-sizing: content; height: 118px;"}),
@@ -93,6 +102,25 @@ return details({name: "record-container", class: "incidentrecord", id: rec.id+"-
   ),
 )
 };
+
+  function formatTime(dt) {
+    dt = new Date(dt)
+
+    var ap = "AM"
+    var h = dt.getHours()
+    var m = dt.getMinutes()
+    var MM = dt.getMonth() + 1
+    var DD = dt.getDate()
+
+    if(h > 12) {
+      h = h - 12
+      ap = "PM"
+    }
+    if(h == 0) h=12
+    if(m < 10) m = "0" + m
+    if(DD < 10) DD = "0" + DD
+    return `${MM}/${DD} ${h}:${m} ${ap}`
+  }
 
 ///////////////////////
 // export default function Reports() {
