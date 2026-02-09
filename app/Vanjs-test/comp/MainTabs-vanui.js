@@ -23,6 +23,7 @@ export default function MainTabs(labels, children) {
         "top": "0",
         "height": "93%",
         "width": "100%",
+        "padding": "0px",
       },
       tabButtonRowStyleOverrides: 
       {

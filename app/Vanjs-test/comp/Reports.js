@@ -91,7 +91,7 @@ export default async function Reports() {
 
 
   //console.log("RETURNING HTML SECTION") //lifecycle test
-  return div({ class: "container", style: "margin-top: 15px;" },
+  return div({ class: "container", style: "margin-top: 15px; padding: 6px;" },
     div({ style: "display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px;" },
       button({ onclick: dateNavBack }, "<-"),
 
