@@ -21,6 +21,7 @@ let rec = {
         "id": "recMcLFHlAxbn6TwV",
         "createdTime": "2026-02-06T13:21:04.000Z",
         "fields": {
+            "Other notes": "Vehicle was parked in fire lane. Officer left a tag on the windshield.",
             "Date of Tag/Tow": "2026-02-06T13:19:38.427Z",
             "Reason for Tag": [
                 "Fire lane"
@@ -88,9 +89,9 @@ let rec = {
       "Docs": "books.svg",
       "Settings": "settings.svg",
     },{
-      "1": await vjs({rec: rec.rec, errCol: "transparent"}),
+      //"1": await vjs({rec: rec.rec, errCol: "transparent"}),
       //"1": await fftest(),
-      //"1": await Reports(),
+      "1": await Reports(),
       "2": p(),//await Reports(),
       "3": div(p("Content for Tab 3")),
       "4": div(p("Content for Tab 4")),

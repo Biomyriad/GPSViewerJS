@@ -1,5 +1,6 @@
 import ObsReport from "./ObservationReport.js"
 import disReport from "./DispatchReports.js"
+import vehReport from "./VehicleReport.js"
 
 const { div, button, input, p, hr, span, select, option, article, summary } = van.tags;
 
@@ -12,7 +13,8 @@ export default async function Reports() {
   const routeFilterVal = van.state("none")
   const incidentRecsVal = van.state([])
   const dispatchRecsVal = van.state([])
-
+  const vehicleRecsVal = van.state([])
+  
   const dateNavBack = () => {
     let shiftDate = document.getElementById('shift-date')
     shiftDate.value = dataBase.subDays(new Date(shiftDate.value), 1).toLocaleDateString('en-CA')
@@ -35,6 +37,7 @@ export default async function Reports() {
     var x = await load(dataBase.addDays(new Date(shiftDateStrVal.val),1))
     incidentRecsVal.val = x[0]
     dispatchRecsVal.val = x[1]
+    vehicleRecsVal.val = x[2]
     //console.log("shiftDateChangedFn ", dataBase.addDays(new Date(shiftDateStrVal.val), 1).toLocaleDateString('en-CA'), x.length)
   }
 
@@ -141,17 +144,15 @@ export default async function Reports() {
           }
       )),
       summary({style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;"},"Tags & Tow Reports"),
-      /*
-      () => div([].val.map(
+      () => div(vehicleRecsVal.val.map(
         (rec) =>{
-            if(rec.isMandatory == false) {
               if(rec.route.includes(routeFilterVal.val) || routeFilterVal.val == 'none') {
               //   createReportHtml(rec.rec)
-                  return ObsReport({rec: rec.rec,errCol: chkReports(rec)})
+              //    return ObsReport({rec: rec.rec,errCol: chkReports(rec)})
+                  return vehReport({rec: rec.rec, errCol: "transparent"})
               } 
-            }
           }
-      )), */
+      )),
     ),
     () => {
       var x = load(dataBase.addDays(new Date(shiftDateStrVal.val),1))
