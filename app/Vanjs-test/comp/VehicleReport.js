@@ -1,27 +1,38 @@
 const {div,button,input,textarea,img,label,hr,span,select,option,article,summary,details,fieldset,h0,h1,h2,h3,h4,h5,h6} = van.tags;
 
 export default function ObservationReport({rec, errCol}) {
-  const callTimeOfReport = new Date(rec.fields['Time of Call'])
-  const resolutionTimeOfReport = new Date(rec.fields['Time of resolution'])
+// prop
+// timeDate
+// Officer
+// -----------
+// *Tag or Tow
+// *Reason
+// Make Model
+// Plate#
+// *Plate State
+// *Color
+// Notes
+// picture
 
-  callTimeOfReport.setSeconds(0,0)
-  resolutionTimeOfReport.setSeconds(0,0)
+  const timeOfReport = new Date(rec.fields['Date of Tag/Tow'])
+  timeOfReport.setSeconds(0,0)
 
-	const callersAptVal = van.state(rec.fields['Unit Number'] || "")
   const propertyIdVal = van.state(rec.fields['Property Code'] ? rec.fields['Property Code'][0] : "")
-  const timeOfCallVal = van.state( (new Date(callTimeOfReport.getTime() - callTimeOfReport.getTimezoneOffset() * 60000).toISOString()).slice(0, -1) || "")
-  const offendersAptVal = van.state(rec.fields['Offending Unit'] || "")
-  const nameOfCallerVal = van.state(rec.fields['Name of caller'] || "")
-  const reasonForCallVal = van.state(rec.fields["Reason for the customer's call"] || "")
-  const respondingOfficerVal = van.state(rec.fields['Responding Officer'] || "")
-  const timeOfResolutionVal = van.state( (new Date(resolutionTimeOfReport.getTime() - resolutionTimeOfReport.getTimezoneOffset() * 60000).toISOString()).slice(0, -1) || "")
-  const resolutionVal = van.state(rec.fields['Resolution'] || "")
-  const dispatchOfficerVal = van.state(rec.fields['Dispatch Officer'] || "")
-  const picturesVal = van.state(rec.fields['Pictures'] || [])
-  const callTypeVal = van.state(rec.fields['Call Type'] || "")
+  const timeOfReportVal = van.state( (new Date(timeOfReport.getTime() - timeOfReport.getTimezoneOffset() * 60000).toISOString()).slice(0, -1) || "")
+  const officerVal = van.state(rec.fields['Officer name'] || "")
+  const tagTowVal = van.state(rec.fields['Tag or Tow?'] || "")
+  const reasonVal = van.state(rec.fields['Reason for Tag'] || [])
+  const makeModelVal = van.state(rec.fields['Vehicle Make and Model'] || "")
+	const plateNumberVal = van.state(rec.fields['Vehicle Lic#'] || "")
+  const plateStateVal = van.state(rec.fields['Lic plate state'] || "")
+	const colorVal = van.state(rec.fields['Car color'] || "")
+  const notesVal = van.state(rec.fields['Other notes'] || "")
+  const picturesVal = van.state(rec.fields['Pic'] || [])
+
+
 
   var routeColor = ""
-  var prop = dataBase.allProps.find(prec => prec.id == rec.fields['Property Code'][0])
+  var prop = dataBase.allProps.find(prop => prop.id == propertyIdVal.val) //rec.fields['Property Code'][0]) //might trigger refresh
   if(prop.fields.Route.includes('South Route')) {
     routeColor = "green"
   }
@@ -33,13 +44,23 @@ export default function ObservationReport({rec, errCol}) {
     routeColor = "gray"
   }
 
-  var respondingOfficerSelections = dataBase.respondingOfficerList.map(item => {
-        return option({value: item.id, selected: (respondingOfficerVal.val == item.name)}, item.name)})
-  var dispatchOfficerSelections = dataBase.dispatchOfficerList.map(item => {
-        return option({value: item.id, selected: (dispatchOfficerVal.val == item.name)}, item.name)})
 
   var propertySelections = dataBase.allProps.map(item => {
         return option({value: item.id, selected: (propertyIdVal.val == item.id)}, item.fields.Name)})
+  var officerSelections = dataBase.vehicleOfficerList.map(item => {
+        return option({value: item.id, selected: (officerVal.val == item.name)}, item.name)})
+
+  var tagTowSelections = dataBase.tagTowOptionsList.map(item => {
+        return option({value: item.id, selected: (tagTowVal.val == item.name)}, item.name)})
+  var plateSelections = dataBase.licPlateList.map(item => {
+        return option({value: item.id, selected: (plateStateVal.val == item.name)}, item.name)})
+  var colorSelections = dataBase.carColorList.map(item => {
+        return option({value: item.id, selected: (colorVal.val == item.name)}, item.name)})
+
+  var reasonForIncidentMultiSelections = dataBase.reasonForIncidentList.map(item => {
+        return option({value: item.id, selected: (reasonVal.val == item.name)}, item.name)})        
+
+
 
   function formatTime(dt) {
     dt = new Date(dt)
@@ -65,25 +86,26 @@ export default function ObservationReport({rec, errCol}) {
 
 save()
 
-/*in order: 
-callers apt
-prop
-time of call
-offend unit
-name caller
-reason for call
-responding officer
-time of resolution
-dispatch officer
-pics
-*/
+// prop
+// timeDate
+// Officer
+// -----------
+// *Tag or Tow
+// *Reason
+// Make Model
+// Plate#
+// *Plate State
+// *Color
+// Notes
+// picture
 
-return details({name: "record-container", class: "dispatchrecord", id: rec.id+"-record"},//, open:"open"},
+return details({name: "record-container", class: "vehiclerecord", id: rec.id+"-record"}, //open:"open"},
   summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol};`},
     div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor};`},),
-    `${formatTime(callTimeOfReport)}`+ " " + callTypeVal.val + " | " + callersAptVal.val + " | " + prop.fields.Name
+    `${formatTime(timeOfReport)}`+ " " + prop.fields.Name
   ),
   article({class: "rec-content", id: rec.id+"-content"},
+
     div({style: "position: relative;"},
       label("Site/Property:"), 
       select({class: "propselect", id: rec.id+"-propertycode", style: "display: block;", value: propertyIdVal.rawVal, onchange: e => propertyIdVal.rawVal = e.target.value},
@@ -94,89 +116,76 @@ return details({name: "record-container", class: "dispatchrecord", id: rec.id+"-
     div({style: "display: flex; gap: 10px; width: 100%;"},
 
       div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-        label("Time Of Call:"),
+        label("Time Of Report:"),
         input({
-                class: "datetimeinput", id: rec.id+"-timeofcall", type: "datetime-local",
+                class: "datetimeinput", id: rec.id+"-timeofreport", type: "datetime-local",
                 style: "position: absolute; opacity: 0%;",
-                value: timeOfCallVal.val, oninput: e => timeOfCallVal.val = e.target.value},
+                value: timeOfReportVal.val, oninput: e => timeOfReportVal.val = e.target.value},
         ),
         div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center; "},
-          van.derive(() => formatTime(timeOfCallVal.val)  ),
+          van.derive(() => formatTime(timeOfReportVal.val)  ),
           img({src: `../images/calendar.svg`, style: "height: 30px; width: 30px;"}),
         ),
-      ),    
+      ),
 
       div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-        label("Time Of Resolution:"),
-        input({
-                class: "datetimeinput", id: rec.id+"-timeofresolution", type: "datetime-local",
-                style: "position: absolute; opacity: 0%;",
-                value: timeOfResolutionVal.val, oninput: e => timeOfResolutionVal.val = e.target.value},
+        label("Officer:"), 
+        select({class: "officerselect", id: rec.id+"-officer", style: "display: block;", value: officerVal.rawVal, onchange: e => officerVal.rawVal = e.target.value},
+          option({value: ""}, "Select Officer"), officerSelections
         ),
-        div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center; "},
-          van.derive(() => formatTime(timeOfResolutionVal.val)  ),
-          img({src: `../images/calendar.svg`, style: "height: 30px; width: 30px;"}),
-        ),
-      ),  
+      ),
 
     ),
+
     div({style: "display: flex; gap: 10px; width: 100%;"},
       div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-        label("Dispatching Officer:"), 
-        select({class: "officerselect", id: rec.id+"-dispatchofficer", style: "display: block;", value: dispatchOfficerVal.rawVal, onchange: e => dispatchOfficerVal.rawVal = e.target.value},
-          option({value: ""}, "Select Officer"), dispatchOfficerSelections
+        label("Tag/Tow:"),     
+        select({class: "officerselect", id: rec.id+"-tagtow", style: "display: block;", value: tagTowVal.rawVal, onchange: e => tagTowVal.rawVal = e.target.value},
+          option({value: ""}, "Select Tag/Tow"), tagTowSelections
         ),
       ),
+
       div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-        label("Responding Officer:"),     
-        select({class: "officerselect", id: rec.id+"-respondingofficer", style: "display: block;", value: respondingOfficerVal.rawVal, onchange: e => respondingOfficerVal.rawVal = e.target.value},
-          option({value: ""}, "Select Officer"), respondingOfficerSelections
+        label("Car Color:"),     
+        select({class: "officerselect", id: rec.id+"-carcolor", style: "display: block;", value: colorVal.rawVal, onchange: e => colorVal.rawVal = e.target.value},
+          option({value: ""}, "Select Car Color"), colorSelections
         ),
       ),
     ),
-    div({style: "display: flex; gap: 10px; width: 100%;"},
-      div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-        label("Caller's Unit Number:"),     
-        input({class: "callersaptinput", id: rec.id+"-callersapt", type: "text", style: "display: block; margin-bottom: 5px;",
-              value: callersAptVal.rawVal, onchange: e => callersAptVal.rawVal = e.target.value},
-        ),
-      ),
-      div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-        label("Offending Unit's Number:"), 
-        input({class: "offendersaptinput", id: rec.id+"-offendersapt", type: "text", style: "display: block; margin-bottom: 5px;",
-                value: offendersAptVal.rawVal, onchange: e => offendersAptVal.rawVal = e.target.value},
-        ),
-      ),
-    ),
+
     div({style: "display: flex; gap: 10px; width: 100%;"},
       div({style: "position: relative; width: 100%;"},
-        label("Caller's Name:"), 
-        input({class: "nameofcallerinput", id: rec.id+"-nameofcaller", type: "text", style: "display: block; margin-bottom: 5px;",
-                value: nameOfCallerVal.rawVal, onchange: e => nameOfCallerVal.rawVal = e.target.value},
+        label("Plate #:"), 
+        input({class: "platenumberinput", id: rec.id+"-platenumber", type: "text", style: "display: block; margin-bottom: 5px;",
+                value: plateNumberVal.rawVal, onchange: e => plateNumberVal.rawVal = e.target.value},
         ),
       ),
-      div({style: "position: relative; width: 100%;"},
-        label("Call Type:"), 
-        select({class: "officerselect", id: rec.id+"-calltype", style: "display: block; margin-bottom: 5px;", value: callTypeVal.rawVal, onchange: e => callTypeVal.rawVal = e.target.value},
-          option({value: ""}, "Select Call Type"), // TODO: populate call types from database
+
+      div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+        label("Plate State:"),     
+        select({class: "officerselect", id: rec.id+"-platestate", style: "display: block;", value: plateStateVal.rawVal, onchange: e => plateStateVal.rawVal = e.target.value},
+          option({value: ""}, "Select Plate State"), plateSelections
         ),
       ),
     ),
-    div({style: "position: relative;"},
-      label("Description of Incident:"),     
-      textarea({class: "reasonforcalltextarea", id: rec.id+"-reasonforcall", style: "margin-bottom: 5px; field-sizing: content; height: 118px;",
-        value: reasonForCallVal.rawVal, onchange: e => reasonForCallVal.rawVal = e.target.value},
+
+    div({style: "position: relative; width: 100%;"},
+      label("Make/Model:"), 
+      input({class: "makemodelinput", id: rec.id+"-makemodel", type: "text", style: "display: block; margin-bottom: 5px;",
+              value: makeModelVal.rawVal, onchange: e => makeModelVal.rawVal = e.target.value},
       ),
     ),
+
     div({style: "position: relative;"},
-      label("Resolution:"), 
-      textarea({class: "resolutiontextarea", id: rec.id+"-resolution", style: "margin-bottom: 5px; field-sizing: content; height: 118px;",
-        value: resolutionVal.rawVal, onchange: e => resolutionVal.rawVal = e.target.value},
+      label("Notes:"),     
+      textarea({class: "tagnotestextarea", id: rec.id+"-notes", style: "margin-bottom: 5px; field-sizing: content; height: 70px;",
+        value: notesVal.rawVal, onchange: e => notesVal.rawVal = e.target.value},
       ),
     ),
+
     div({style: "position: relative;"},
       label("Pictures:"), 
-      article({class: "pictureareaaa", id: rec.id+"-pictures", style: "display: flex; justify-content: space-between; height: 118px"},
+      article({class: "pictureareaaa", id: rec.id+"-pictures", style: "display: flex; justify-content: space-between; height: 118px;  margin-bottom: 5px;"},
         (   // ternary
             picturesVal.val.length > 0
           ?
@@ -188,6 +197,92 @@ return details({name: "record-container", class: "dispatchrecord", id: rec.id+"-
         )
       ),
     ),
+
+    
+
+    // div({style: "display: flex; gap: 10px; width: 100%;"},
+    //   div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+    //     label("Time Of Resolution:"),
+    //     input({
+    //             class: "datetimeinput", id: rec.id+"-timeofresolution", type: "datetime-local",
+    //             style: "position: absolute; opacity: 0%;",
+    //             value: timeOfResolutionVal.val, oninput: e => timeOfResolutionVal.val = e.target.value},
+    //     ),
+    //     div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center; "},
+    //       van.derive(() => formatTime(timeOfResolutionVal.val)  ),
+    //       img({src: `../images/calendar.svg`, style: "height: 30px; width: 30px;"}),
+    //     ),
+    //   ),  
+
+    //   div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+    //     label("Responding Officer:"),     
+    //     select({class: "officerselect", id: rec.id+"-respondingofficer", style: "display: block;", value: officerVal.rawVal, onchange: e => officerVal.rawVal = e.target.value},
+    //       option({value: ""}, "Select Officer"), respondingOfficerSelections
+    //     ),
+    //   ),
+    // ),
+
+    // div({style: "display: flex; gap: 10px; width: 100%;"},
+    //   div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+    //     label("Caller's Unit Number:"),     
+    //     input({class: "callersaptinput", id: rec.id+"-callersapt", type: "text", style: "display: block; margin-bottom: 5px;",
+    //           value: callersAptVal.rawVal, onchange: e => callersAptVal.rawVal = e.target.value},
+    //     ),
+    //   ),
+
+    //   div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+    //     label("Offending Unit's Number:"), 
+    //     input({class: "offendersaptinput", id: rec.id+"-offendersapt", type: "text", style: "display: block; margin-bottom: 5px;",
+    //             value: offendersAptVal.rawVal, onchange: e => offendersAptVal.rawVal = e.target.value},
+    //     ),
+    //   ),
+    // ),
+
+    // div({style: "display: flex; gap: 10px; width: 100%;"},
+    //   div({style: "position: relative; width: 100%;"},
+    //     label("Caller's Name:"), 
+    //     input({class: "nameofcallerinput", id: rec.id+"-nameofcaller", type: "text", style: "display: block; margin-bottom: 5px;",
+    //             value: nameOfCallerVal.rawVal, onchange: e => nameOfCallerVal.rawVal = e.target.value},
+    //     ),
+    //   ),
+
+    //   div({style: "position: relative; width: 100%;"},
+    //     label("Call Type:"), 
+    //     select({class: "officerselect", id: rec.id+"-calltype", style: "display: block; margin-bottom: 5px;", value: callTypeVal.rawVal, onchange: e => callTypeVal.rawVal = e.target.value},
+    //       option({value: ""}, "Select Call Type"), // TODO: populate call types from database
+    //     ),
+    //   ),
+    // ),
+
+    // div({style: "position: relative;"},
+    //   label("Description of Incident:"),     
+    //   textarea({class: "reasonforcalltextarea", id: rec.id+"-reasonforcall", style: "margin-bottom: 5px; field-sizing: content; height: 118px;",
+    //     value: reasonForCallVal.rawVal, onchange: e => reasonForCallVal.rawVal = e.target.value},
+    //   ),
+    // ),
+
+    // div({style: "position: relative;"},
+    //   label("Resolution:"), 
+    //   textarea({class: "resolutiontextarea", id: rec.id+"-resolution", style: "margin-bottom: 5px; field-sizing: content; height: 118px;",
+    //     value: resolutionVal.rawVal, onchange: e => resolutionVal.rawVal = e.target.value},
+    //   ),
+    // ),
+
+    // div({style: "position: relative;"},
+    //   label("Pictures:"), 
+    //   article({class: "pictureareaaa", id: rec.id+"-pictures", style: "display: flex; justify-content: space-between; height: 118px"},
+    //     (   // ternary
+    //         picturesVal.val.length > 0
+    //       ?
+    //         picturesVal.val.map(item => {
+    //           return img({src: item.thumbnails.large.url, style: "height: 100px; border-radius: 4px"})
+    //         })
+    //       :
+    //         ""
+    //     )
+    //   ),
+    // ),
+
     div({class: "buttonbox ", id: rec.id+"-buttons"},
       button({onclick: save},"Save"),
       button("Cancel"),
