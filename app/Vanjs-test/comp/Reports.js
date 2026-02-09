@@ -9,7 +9,7 @@ function sleep(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 export default async function Reports() {
   //console.log("COMPONENT RELOAD") //lifecycle test
 
-  const shiftDateStrVal = van.state(new Date().toLocaleDateString('en-CA'))
+  const shiftDateStrVal = van.state(dataBase.addDays(new Date(),1).toLocaleDateString('en-CA'))
   const routeFilterVal = van.state("none")
   const incidentRecsVal = van.state([])
   const dispatchRecsVal = van.state([])
@@ -42,6 +42,7 @@ export default async function Reports() {
   }
 
   const load = async (sDate) => {
+    console.log(sDate.toLocaleDateString('en-CA'))
     //console.log("CALL AIRTABLE REPORTS") //lifecycle test
     let startTimeStamp = sDate
     let endTimeStamp = dataBase.addDays(sDate,1)
@@ -87,6 +88,7 @@ export default async function Reports() {
     //console.log(recs)
     return [recs, disRecs, vRecs]
   }
+
 
   //console.log("RETURNING HTML SECTION") //lifecycle test
   return div({ class: "container", style: "margin-top: 15px;" },
@@ -155,10 +157,11 @@ export default async function Reports() {
       )),
     ),
     () => {
-      var x = load(dataBase.addDays(new Date(shiftDateStrVal.val),1))
+      load(new Date(shiftDateStrVal.val))
       .then((x) => {
         incidentRecsVal.val = x[0]
         dispatchRecsVal.val = x[1]
+        vehicleRecsVal.val = x[2]
       })
       .catch((err) => console.log("LOAD ERR: ", err))
   }
