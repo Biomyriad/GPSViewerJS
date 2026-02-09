@@ -21,7 +21,7 @@ export default function ObservationReport({rec, errCol}) {
   const timeOfReportVal = van.state( (new Date(timeOfReport.getTime() - timeOfReport.getTimezoneOffset() * 60000).toISOString()).slice(0, -1) || "")
   const officerVal = van.state(rec.fields['Officer name'] || "")
   const tagTowVal = van.state(rec.fields['Tag or Tow?'] || "")
-  const reasonVal = van.state(rec.fields['Reason for Tag'] || [])
+  const infractionsVal = van.state(rec.fields['Reason for Tag'] || [])
   const makeModelVal = van.state(rec.fields['Vehicle Make and Model'] || "")
 	const plateNumberVal = van.state(rec.fields['Vehicle Lic#'] || "")
   const plateStateVal = van.state(rec.fields['Lic plate state'] || "")
@@ -57,8 +57,8 @@ export default function ObservationReport({rec, errCol}) {
   var colorSelections = dataBase.carColorList.map(item => {
         return option({value: item.id, selected: (colorVal.val == item.name)}, item.name)})
 
-  var reasonForIncidentMultiSelections = dataBase.reasonForIncidentList.map(item => {
-        return option({value: item.id, selected: (reasonVal.val == item.name)}, item.name)})        
+  var infractionsMultiSelections = dataBase.reasonForIncidentList.map(item => {
+        return option({value: item.id, selected: (infractionsVal.val == item.name)}, item.name)})        
 
 
 
@@ -115,7 +115,7 @@ return details({name: "record-container", class: "vehiclerecord", id: rec.id+"-r
 
     div({style: "display: flex; gap: 10px; width: 100%;"},
 
-      div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+      div({style: "position: relative; flex-basis: 50%; flex-grow: 1; flex-shrink: 1;"},
         label("Time Of Report:"),
         input({
                 class: "datetimeinput", id: rec.id+"-timeofreport", type: "datetime-local",
@@ -128,7 +128,7 @@ return details({name: "record-container", class: "vehiclerecord", id: rec.id+"-r
         ),
       ),
 
-      div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+      div({style: "position: relative; flex-basis: 50%; flex-grow: 1; flex-shrink: 1;"},
         label("Officer:"), 
         select({class: "officerselect", id: rec.id+"-officer", style: "display: block;", value: officerVal.rawVal, onchange: e => officerVal.rawVal = e.target.value},
           option({value: ""}, "Select Officer"), officerSelections
@@ -138,14 +138,14 @@ return details({name: "record-container", class: "vehiclerecord", id: rec.id+"-r
     ),
 
     div({style: "display: flex; gap: 10px; width: 100%;"},
-      div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+      div({style: "position: relative; flex-basis: 50%; flex-grow: 1; flex-shrink: 1;"},
         label("Tag/Tow:"),     
         select({class: "officerselect", id: rec.id+"-tagtow", style: "display: block;", value: tagTowVal.rawVal, onchange: e => tagTowVal.rawVal = e.target.value},
           option({value: ""}, "Select Tag/Tow"), tagTowSelections
         ),
       ),
 
-      div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+      div({style: "position: relative; flex-basis: 50%; flex-grow: 1; flex-shrink: 1;"},
         label("Car Color:"),     
         select({class: "officerselect", id: rec.id+"-carcolor", style: "display: block;", value: colorVal.rawVal, onchange: e => colorVal.rawVal = e.target.value},
           option({value: ""}, "Select Car Color"), colorSelections
@@ -154,14 +154,14 @@ return details({name: "record-container", class: "vehiclerecord", id: rec.id+"-r
     ),
 
     div({style: "display: flex; gap: 10px; width: 100%;"},
-      div({style: "position: relative; width: 100%;"},
+      div({style: "position: relative; flex-basis: 50%; width: 100%;"},
         label("Plate #:"), 
         input({class: "platenumberinput", id: rec.id+"-platenumber", type: "text", style: "display: block; margin-bottom: 5px;",
                 value: plateNumberVal.rawVal, onchange: e => plateNumberVal.rawVal = e.target.value},
         ),
       ),
 
-      div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+      div({style: "position: relative; flex-basis: 50%; flex-grow: 1; flex-shrink: 1;"},
         label("Plate State:"),     
         select({class: "officerselect", id: rec.id+"-platestate", style: "display: block;", value: plateStateVal.rawVal, onchange: e => plateStateVal.rawVal = e.target.value},
           option({value: ""}, "Select Plate State"), plateSelections
@@ -169,10 +169,17 @@ return details({name: "record-container", class: "vehiclerecord", id: rec.id+"-r
       ),
     ),
 
-    div({style: "position: relative; width: 100%;"},
+    div({style: "position: relative;"},
       label("Make/Model:"), 
       input({class: "makemodelinput", id: rec.id+"-makemodel", type: "text", style: "display: block; margin-bottom: 5px;",
               value: makeModelVal.rawVal, onchange: e => makeModelVal.rawVal = e.target.value},
+      ),
+    ),
+
+    div({style: "position: relative; margin-bottom: 5px;"},
+      label("Infractions:"),     
+      select({class: "infractionsselectx", id: rec.id+"-infractions", style: "display: block; margin-bottom: 0px;", multiple: true, "data-multi-select":true, size: 2, value: infractionsVal.rawVal, onchange: e => infractionsVal.rawVal = e.target.value},
+        option({value: ""}, "Select Infractions"), infractionsMultiSelections
       ),
     ),
 
@@ -198,91 +205,6 @@ return details({name: "record-container", class: "vehiclerecord", id: rec.id+"-r
       ),
     ),
 
-    
-
-    // div({style: "display: flex; gap: 10px; width: 100%;"},
-    //   div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-    //     label("Time Of Resolution:"),
-    //     input({
-    //             class: "datetimeinput", id: rec.id+"-timeofresolution", type: "datetime-local",
-    //             style: "position: absolute; opacity: 0%;",
-    //             value: timeOfResolutionVal.val, oninput: e => timeOfResolutionVal.val = e.target.value},
-    //     ),
-    //     div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center; "},
-    //       van.derive(() => formatTime(timeOfResolutionVal.val)  ),
-    //       img({src: `../images/calendar.svg`, style: "height: 30px; width: 30px;"}),
-    //     ),
-    //   ),  
-
-    //   div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-    //     label("Responding Officer:"),     
-    //     select({class: "officerselect", id: rec.id+"-respondingofficer", style: "display: block;", value: officerVal.rawVal, onchange: e => officerVal.rawVal = e.target.value},
-    //       option({value: ""}, "Select Officer"), respondingOfficerSelections
-    //     ),
-    //   ),
-    // ),
-
-    // div({style: "display: flex; gap: 10px; width: 100%;"},
-    //   div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-    //     label("Caller's Unit Number:"),     
-    //     input({class: "callersaptinput", id: rec.id+"-callersapt", type: "text", style: "display: block; margin-bottom: 5px;",
-    //           value: callersAptVal.rawVal, onchange: e => callersAptVal.rawVal = e.target.value},
-    //     ),
-    //   ),
-
-    //   div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
-    //     label("Offending Unit's Number:"), 
-    //     input({class: "offendersaptinput", id: rec.id+"-offendersapt", type: "text", style: "display: block; margin-bottom: 5px;",
-    //             value: offendersAptVal.rawVal, onchange: e => offendersAptVal.rawVal = e.target.value},
-    //     ),
-    //   ),
-    // ),
-
-    // div({style: "display: flex; gap: 10px; width: 100%;"},
-    //   div({style: "position: relative; width: 100%;"},
-    //     label("Caller's Name:"), 
-    //     input({class: "nameofcallerinput", id: rec.id+"-nameofcaller", type: "text", style: "display: block; margin-bottom: 5px;",
-    //             value: nameOfCallerVal.rawVal, onchange: e => nameOfCallerVal.rawVal = e.target.value},
-    //     ),
-    //   ),
-
-    //   div({style: "position: relative; width: 100%;"},
-    //     label("Call Type:"), 
-    //     select({class: "officerselect", id: rec.id+"-calltype", style: "display: block; margin-bottom: 5px;", value: callTypeVal.rawVal, onchange: e => callTypeVal.rawVal = e.target.value},
-    //       option({value: ""}, "Select Call Type"), // TODO: populate call types from database
-    //     ),
-    //   ),
-    // ),
-
-    // div({style: "position: relative;"},
-    //   label("Description of Incident:"),     
-    //   textarea({class: "reasonforcalltextarea", id: rec.id+"-reasonforcall", style: "margin-bottom: 5px; field-sizing: content; height: 118px;",
-    //     value: reasonForCallVal.rawVal, onchange: e => reasonForCallVal.rawVal = e.target.value},
-    //   ),
-    // ),
-
-    // div({style: "position: relative;"},
-    //   label("Resolution:"), 
-    //   textarea({class: "resolutiontextarea", id: rec.id+"-resolution", style: "margin-bottom: 5px; field-sizing: content; height: 118px;",
-    //     value: resolutionVal.rawVal, onchange: e => resolutionVal.rawVal = e.target.value},
-    //   ),
-    // ),
-
-    // div({style: "position: relative;"},
-    //   label("Pictures:"), 
-    //   article({class: "pictureareaaa", id: rec.id+"-pictures", style: "display: flex; justify-content: space-between; height: 118px"},
-    //     (   // ternary
-    //         picturesVal.val.length > 0
-    //       ?
-    //         picturesVal.val.map(item => {
-    //           return img({src: item.thumbnails.large.url, style: "height: 100px; border-radius: 4px"})
-    //         })
-    //       :
-    //         ""
-    //     )
-    //   ),
-    // ),
-
     div({class: "buttonbox ", id: rec.id+"-buttons"},
       button({onclick: save},"Save"),
       button("Cancel"),
@@ -290,3 +212,5 @@ return details({name: "record-container", class: "vehiclerecord", id: rec.id+"-r
   ),
 )
 };
+
+

@@ -93,27 +93,27 @@ return details({name: "record-container", class: "dispatchrecord", id: rec.id+"-
 
     div({style: "display: flex; gap: 10px; width: 100%;"},
 
-      div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+      div({style: "position: relative; flex-basis: 50%; flex-grow: 1; flex-shrink: 1;"},
         label("Time Of Call:"),
         input({
                 class: "datetimeinput", id: rec.id+"-timeofcall", type: "datetime-local",
                 style: "position: absolute; opacity: 0%;",
                 value: timeOfCallVal.val, oninput: e => timeOfCallVal.val = e.target.value},
         ),
-        div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center; "},
+        div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center;white-space: nowrap;"},
           van.derive(() => formatTime(timeOfCallVal.val)  ),
           img({src: `../images/calendar.svg`, style: "height: 30px; width: 30px;"}),
         ),
       ),    
 
-      div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
+      div({style: "position: relative; flex-basis: 50%; flex-grow: 1; flex-shrink: 1;"},
         label("Time Of Resolution:"),
         input({
                 class: "datetimeinput", id: rec.id+"-timeofresolution", type: "datetime-local",
                 style: "position: absolute; opacity: 0%;",
                 value: timeOfResolutionVal.val, oninput: e => timeOfResolutionVal.val = e.target.value},
         ),
-        div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center; "},
+        div({class: "readonly-text",tabindex:"0", style: "display: flex; justify-content: space-between; align-items: center;white-space: nowrap;"},
           van.derive(() => formatTime(timeOfResolutionVal.val)  ),
           img({src: `../images/calendar.svg`, style: "height: 30px; width: 30px;"}),
         ),
