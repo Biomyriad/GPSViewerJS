@@ -4,7 +4,7 @@ const {label,div,button,input,textarea,img,p,hr,span,select,option,article,summa
 //TODO: Connect buttons
 
 export default function ObservationReport({rec, errCol}) {
-  const timeDateOfReport = new Date(rec.fields['Date and Time of Incident'])
+  const timeDateOfReport = new Date(rec.fields['Date and Time of Incident'] ? rec.fields['Date and Time of Incident'] : "")
 
   const propertyIdVal = van.state(rec.fields['Property Code'] ? rec.fields['Property Code'][0] : "")
   const dateTimeVal = van.state( (new Date(timeDateOfReport.getTime() - timeDateOfReport.getTimezoneOffset() * 60000).toISOString()).slice(0, -1))
@@ -13,13 +13,15 @@ export default function ObservationReport({rec, errCol}) {
   const attachmentVal = van.state(rec.fields['Picture or other attachment if needed'] || [])
 
   var routeColor = ""
+  var routeAbbr = ""
   var prop = dataBase.allProps.find(prec => prec.id == rec.fields['Property Code'][0])
   if(prop.fields.Route.includes('South Route')) {
     routeColor = "green"
+    routeAbbr = "S"
   }
   if(prop.fields.Route.includes('NE Route')) {
-    if(routeColor == "green") {routeColor = "purple"}
-    else {routeColor = "blue"}
+    if(routeColor == "green") {routeColor = "purple"; routeAbbr = "NS"}
+    else {routeColor = "blue"; routeAbbr = "N"}
   }
 
   var officerSelections = dataBase.incidentOfficerList.map(item => {
@@ -40,9 +42,11 @@ export default function ObservationReport({rec, errCol}) {
 save()
 
 return details({name: "record-container", class: "incidentrecord", id: rec.id+"-record"},
-  summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol};`},
-    div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor};`},),
-    `${formatTime(timeDateOfReport)}`+ " " + rec.fields['Record Code']
+  summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol}; display: flex; justify-content: space-between; align-items: center;`},
+    div({style: "display: flex; align-items: center; white-space: nowrap;"},
+      div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor}; display: flex; align-items: center; justify-content: center;`}, span(`${routeAbbr}`)),
+      span(`${formatTime(timeDateOfReport)}`+ " " + rec.fields['Record Code']),
+    ),
   ),
   article({class: "rec-content", id: rec.id+"-content"},
     div({style: "position: relative; flex-grow: 1; flex-shrink: 1;"},
