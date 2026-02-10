@@ -15,6 +15,11 @@
   display: none !important;
 }
 
+article {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .rec-title {
   background-color: rgb(38, 47, 66);
   display: flex;
