@@ -1,36 +1,58 @@
 const {div,button,input,textarea,img,label,hr,span,select,option,article,summary,details,fieldset,h0,h1,h2,h3,h4,h5,h6} = van.tags;
 
 export default function ObservationReport({rec, errCol}) {
-  const callTimeOfReport = new Date(rec.fields['Time of Call'])
-  const resolutionTimeOfReport = new Date(rec.fields['Time of resolution'])
+  var callTimeOfReport = ''
+  var calculatedCallTimeOfReport = ''
+  var calculatedResolutionTimeOfReport = ''
 
-  callTimeOfReport.setSeconds(0,0)
-  resolutionTimeOfReport.setSeconds(0,0)
+  
+  if(rec.fields["Time of Call"] == "" || rec.fields["Time of Call"] == undefined) {
+
+  } else {
+    callTimeOfReport = new Date(rec.fields['Time of Call'] ? rec.fields['Time of Call'] : "")
+    callTimeOfReport.setSeconds(0,0)
+    calculatedCallTimeOfReport = new Date(callTimeOfReport.getTime() - callTimeOfReport.getTimezoneOffset() * 60000).toISOString().slice(0, -1)
+  }
+  console.log(rec.fields["Time of resolution"])
+  if(rec.fields["Time of resolution"] == "" || rec.fields["Time of resolution"] == undefined) {
+
+  } else {
+    var resolutionTimeOfReport = new Date(rec.fields['Time of resolution'] ? rec.fields['Time of resolution'] : "" )
+    resolutionTimeOfReport.setSeconds(0,0)
+    console.log(resolutionTimeOfReport)
+    calculatedResolutionTimeOfReport = new Date(resolutionTimeOfReport.getTime() - resolutionTimeOfReport.getTimezoneOffset() * 60000).toISOString().slice(0, -1)
+  }
+
 
 	const callersAptVal = van.state(rec.fields['Unit Number'] || "")
   const propertyIdVal = van.state(rec.fields['Property Code'] ? rec.fields['Property Code'][0] : "")
-  const timeOfCallVal = van.state( (new Date(callTimeOfReport.getTime() - callTimeOfReport.getTimezoneOffset() * 60000).toISOString()).slice(0, -1) || "")
+  const timeOfCallVal = van.state( calculatedCallTimeOfReport )
   const offendersAptVal = van.state(rec.fields['Offending Unit'] || "")
   const nameOfCallerVal = van.state(rec.fields['Name of caller'] || "")
   const reasonForCallVal = van.state(rec.fields["Reason for the customer's call"] || "")
   const respondingOfficerVal = van.state(rec.fields['Responding Officer'] || "")
-  const timeOfResolutionVal = van.state( (new Date(resolutionTimeOfReport.getTime() - resolutionTimeOfReport.getTimezoneOffset() * 60000).toISOString()).slice(0, -1) || "")
+  const timeOfResolutionVal = van.state( calculatedResolutionTimeOfReport )
   const resolutionVal = van.state(rec.fields['Resolution'] || "")
   const dispatchOfficerVal = van.state(rec.fields['Dispatch Officer'] || "")
   const picturesVal = van.state(rec.fields['Pictures'] || [])
   const callTypeVal = van.state(rec.fields['Call Type'] || "")
 
+  var prop = dataBase.allProps.find(prec => prec.id == rec.fields['Property Code'][0])
+
   var routeColor = ""
+  var routeAbbr = ""
   var prop = dataBase.allProps.find(prec => prec.id == rec.fields['Property Code'][0])
   if(prop.fields.Route.includes('South Route')) {
     routeColor = "green"
+    routeAbbr = "S"
   }
   if(prop.fields.Route.includes('NE Route')) {
-    if(routeColor == "green") {routeColor = "purple"}
-    else {routeColor = "blue"}
+    if(routeColor == "green") {routeColor = "purple"; routeAbbr = "NS"}
+    else {routeColor = "blue"; routeAbbr = "N"}
   }
   if(routeColor == "" ) {
     routeColor = "gray"
+    routeAbbr = "X"
   }
 
   var respondingOfficerSelections = dataBase.respondingOfficerList.map(item => {
@@ -79,10 +101,13 @@ pics
 */
 
 return details({name: "record-container", class: "dispatchrecord", id: rec.id+"-record"},//, open:"open"},
-  summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol};`},
-    div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor};`},),
-    `${formatTime(callTimeOfReport)}`+ " " + callTypeVal.val + " | " + callersAptVal.val + " | " + prop.fields.Name
+  summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol}; display: flex; justify-content: space-between; align-items: center;`},
+    div({style: "display: flex; align-items: center; white-space: nowrap;"},
+      div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor}; display: flex; align-items: center; justify-content: center;`}, span(`${routeAbbr}`)),
+      span(`${formatTime(callTimeOfReport)}`+ " " + callTypeVal.val + " | " + callersAptVal.val + " | " + prop.fields.Name),
+    ),
   ),
+
   article({class: "rec-content", id: rec.id+"-content"},
     div({style: "position: relative;"},
       label("Site/Property:"), 

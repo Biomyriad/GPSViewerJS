@@ -18,7 +18,7 @@ export default function ObservationReport({rec, errCol}) {
   timeOfReport.setSeconds(0,0)
 
   const propertyIdVal = van.state(rec.fields['Property Code'] ? rec.fields['Property Code'][0] : "")
-  const timeOfReportVal = van.state( (new Date(timeOfReport.getTime() - timeOfReport.getTimezoneOffset() * 60000).toISOString()).slice(0, -1) || "")
+  const timeOfReportVal = van.state( (new Date(timeOfReport.getTime() - timeOfReport.getTimezoneOffset() * 60000).toISOString()).slice(0, -1))
   const officerVal = van.state(rec.fields['Officer name'] || "")
   const tagTowVal = van.state(rec.fields['Tag or Tow?'] || "")
   const infractionsVal = van.state(rec.fields['Reason for Tag'] || [])
@@ -29,19 +29,22 @@ export default function ObservationReport({rec, errCol}) {
   const notesVal = van.state(rec.fields['Other notes'] || "")
   const picturesVal = van.state(rec.fields['Pic'] || [])
 
-
-
-  var routeColor = ""
   var prop = dataBase.allProps.find(prop => prop.id == propertyIdVal.val) //rec.fields['Property Code'][0]) //might trigger refresh
+  
+  var routeColor = ""
+  var routeAbbr = ""
+  var prop = dataBase.allProps.find(prec => prec.id == rec.fields['Property Code'][0])
   if(prop.fields.Route.includes('South Route')) {
     routeColor = "green"
+    routeAbbr = "S"
   }
   if(prop.fields.Route.includes('NE Route')) {
-    if(routeColor == "green") {routeColor = "purple"}
-    else {routeColor = "blue"}
+    if(routeColor == "green") {routeColor = "purple"; routeAbbr = "NS"}
+    else {routeColor = "blue"; routeAbbr = "N"}
   }
   if(routeColor == "" ) {
     routeColor = "gray"
+    routeAbbr = "X"
   }
 
 
@@ -100,10 +103,13 @@ save()
 // picture
 
 return details({name: "record-container", class: "vehiclerecord", id: rec.id+"-record"}, //open:"open"},
-  summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol};`},
-    div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor};`},),
-    `${formatTime(timeOfReport)}`+ " " + prop.fields.Name
+  summary({class: "rec-title", id: rec.id+"-title", style: `border-color: ${errCol}; display: flex; justify-content: space-between; align-items: center;`},
+    div({style: "display: flex; align-items: center; white-space: nowrap;"},
+      div({class: "rec-routecolorbox", id: rec.id+"-routecolorbox", style: `background-color: ${routeColor}; display: flex; align-items: center; justify-content: center;`}, span(`${routeAbbr}`)),
+      span(`${formatTime(timeOfReport)}`+ " " + prop.fields.Name),
+    ),
   ),
+
   article({class: "rec-content", id: rec.id+"-content"},
 
     div({style: "position: relative;"},
