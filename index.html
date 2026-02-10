@@ -21,14 +21,14 @@
 </div> -->
 <span style="font-size: 12px;">This page is here to be a buffer form the web.</span>
 <div style="width: 100%;">
-    <button style="display: block; font-size: 50px; font-weight: bold; margin: 200px auto; height: 150px; width: 300px;" onclick="window.location.replace('/app/Vanjs-test/')">Enter</button>
+    <button style="display: block; font-size: 50px; font-weight: bold; margin: 200px auto; height: 150px; width: 300px;" onclick="redirect()">Enter</button>
 </div>
 <script>
     const redirect = () => {
         if (window.location.host === "127.0.0.1:5500") {
-            window.location.replace("/app/Vanjs-test/")
+            window.location.replace("https://" + window.location.host +  "/app/Vanjs-test/")
         } else {
-            window.location.replace("/GPSViewerJS/app/Vanjs-test/")
+            window.location.replace("https://" + window.location.host + "/GPSViewerJS/app/Vanjs-test/")
         }
 
     }
