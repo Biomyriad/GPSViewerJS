@@ -35,7 +35,7 @@ export default async function fftest () {
     await fetch(`https://api.fastfieldforms.com/services/v3/authenticate`, {
       method: 'POST',
       headers: {
-        content: "application/json",
+        content: "application/json", "Cache-Control": "no-cache",
         Authorization: `Basic ${loadx(ffun.val, ffpwd.val)}`,
         'FastField-API-Key': '1a9ea71e79ab459d825f562f8aa4188d', // primary
         //'FastField-API-Key': '22b602553cce45f8a9b5ba840e1d299e', // secondary
