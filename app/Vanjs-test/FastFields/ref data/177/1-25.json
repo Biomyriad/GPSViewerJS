@@ -1,0 +1,302 @@
+{
+  "accountId": 151844,
+  "isWebForm": false,
+  "userId": 337226,
+  "userName": "patrol1@aogsecurity.com",
+  "formMetaData": {
+    "deviceMetaData": {
+      "appType": "Android",
+      "appName": "FastField",
+      "appVersion": "3.9.1 (201)",
+      "device": "pa2q",
+      "sdkInt": 36,
+      "sdkRelease": "16",
+      "brand": "samsung",
+      "manufacturer": "samsung",
+      "model": "SM-S936U",
+      "product": "pa2qsqw",
+      "totalMemoryMb": 61,
+      "freeMemoryMb": 34,
+      "totalDiskMb": 226268,
+      "freeDiskMb": 170391
+    },
+    "startFormTimeStamp": "2026-01-25T02:14:27.287-08:00",
+    "endFormTimeStamp": "2026-01-25T05:44:16.140-08:00",
+    "fieldMetaData": [
+      {
+        "fieldKey": "subform_1",
+        "subformData": [
+          {
+            "subform_1_1": [
+              {
+                "fieldKey": "multiphoto_picker_1",
+                "hidden": false,
+                "timestamp": "2026-01-25T05:37:33.002-08:00"
+              }
+            ]
+          },
+          {
+            "subform_1_2": [
+              {
+                "fieldKey": "multiphoto_picker_1",
+                "hidden": false,
+                "timestamp": "2026-01-25T05:38:25.353-08:00"
+              }
+            ]
+          },
+          {
+            "subform_1_3": [
+              {
+                "fieldKey": "multiphoto_picker_1",
+                "hidden": false,
+                "timestamp": "2026-01-25T05:39:00.596-08:00"
+              }
+            ]
+          },
+          {
+            "subform_1_4": [
+              {
+                "fieldKey": "multiphoto_picker_1",
+                "hidden": false,
+                "timestamp": "2026-01-25T05:39:37.941-08:00"
+              }
+            ]
+          },
+          {
+            "subform_1_5": [
+              {
+                "fieldKey": "multiphoto_picker_1",
+                "hidden": false,
+                "timestamp": "2026-01-25T05:40:04.715-08:00"
+              }
+            ]
+          },
+          {
+            "subform_1_6": [
+              {
+                "fieldKey": "multiphoto_picker_1",
+                "hidden": false,
+                "timestamp": "2026-01-25T05:40:21.150-08:00"
+              }
+            ]
+          },
+          {
+            "subform_1_7": [
+              {
+                "fieldKey": "multiphoto_picker_1",
+                "hidden": false,
+                "timestamp": "2026-01-25T05:40:52.527-08:00"
+              }
+            ]
+          },
+          {
+            "subform_1_8": [
+              {
+                "fieldKey": "multiphoto_picker_1",
+                "hidden": false,
+                "timestamp": "2026-01-25T05:41:09.330-08:00"
+              }
+            ]
+          },
+          {
+            "subform_1_9": [
+              {
+                "fieldKey": "multiphoto_picker_1",
+                "hidden": false,
+                "timestamp": "2026-01-25T05:41:55.741-08:00"
+              }
+            ]
+          },
+          {
+            "subform_1_10": [
+              {
+                "fieldKey": "multiphoto_picker_1",
+                "hidden": false,
+                "timestamp": "2026-01-25T05:43:12.917-08:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "formId": 574062,
+  "formName": "Avalon Bear Creek Parking Enforcment ",
+  "submissionId": "d1664119-4945-417f-ab54-e5df550bde17",
+  "emailRecipientsOnSubmit": "",
+  "dispatchId": 0,
+  "formVersion": 28,
+  "displayReferenceValue": "01-25-2026",
+  "creationTimeStamp": "2026-01-25T02:14:27.287-08:00",
+  "submissionTimeStamp": "2026-01-25T05:44:22.720-08:00",
+  "startFormTimeStamp": "2026-01-25T02:14:27.287-08:00",
+  "endFormTimeStamp": "2026-01-25T05:44:16.140-08:00",
+  "updatedAt": "2026-01-25T05:44:22.720-08:00",
+  "tokenId": "",
+  "datepicker_1": "2026-01-25T02:14:27.333-08:00",
+  "alpha_1": "Carlos Williams ",
+  "textlabel_1": "If there are adverse weather conditions preventing you from accurately performing this audit, please document below otherwise leave the next two areas blank. \n\nExamples: Snow, Ice, Excessive condensation/Rain preventing you from being able to see parking tags on vehicles.",
+  "tri_1": 1,
+  "photo_picker_1": "151844_d1664119-4945-417f-ab54-e5df550bde17_e2da4399-ac8c-4377-b57f-bc27ee4da209.jpg",
+  "alpha_2": "Frost",
+  "textlabel_2": "We are only tagging vehicles in unmarked spaces who do not have a parking pass. DO NOT TAG vehicles in RESERVED spaces. ",
+  "documentviewer_1": "151844_3515cff9da4c4b5ea034937fe09d7124.pdf",
+  "subform_1": [
+    {
+      "reserved_instanceGuid": "35e66240-15f6-4576-b759-fe550919f374",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_d1664119-4945-417f-ab54-e5df550bde17_058a1871-1412-477a-ba06-390ecf228bb1.jpg"
+        }
+      ],
+      "alpha_1": "Subaru Crosstrek",
+      "alpha_2": "CBL0054",
+      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "35e66240-15f6-4576-b759-fe550919f374",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_d1664119-4945-417f-ab54-e5df550bde17_2c428ec4-b7de-445b-91d7-0bcc7c343c95.jpg"
+        }
+      ],
+      "alpha_1": "Toyota ",
+      "alpha_2": "CKX0521",
+      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "35e66240-15f6-4576-b759-fe550919f374",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_d1664119-4945-417f-ab54-e5df550bde17_f7fef32c-206a-42e6-bb6d-b0a84d481241.jpg"
+        }
+      ],
+      "alpha_1": "Hyundai Sonata",
+      "alpha_2": "CKT6550 ",
+      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "35e66240-15f6-4576-b759-fe550919f374",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_d1664119-4945-417f-ab54-e5df550bde17_922af8ed-81ab-43d5-974d-8f2f89d10979.jpg"
+        }
+      ],
+      "alpha_1": "Honda Passport",
+      "alpha_2": "CEA9064",
+      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "35e66240-15f6-4576-b759-fe550919f374",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_d1664119-4945-417f-ab54-e5df550bde17_9be6a330-0c6f-4a1e-8f40-c6e2589588c0.jpg"
+        }
+      ],
+      "alpha_1": "Dodge Journey",
+      "alpha_2": "CLB5770 ",
+      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "35e66240-15f6-4576-b759-fe550919f374",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_d1664119-4945-417f-ab54-e5df550bde17_ef9a1437-9843-4d3c-b702-fadd8d4e488e.jpg"
+        }
+      ],
+      "alpha_1": "Honda ",
+      "alpha_2": "BBH5786 ",
+      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "35e66240-15f6-4576-b759-fe550919f374",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_d1664119-4945-417f-ab54-e5df550bde17_eda15a07-5b7a-4ce5-9dd3-405698d36e69.jpg"
+        }
+      ],
+      "alpha_1": "Honda Civic",
+      "alpha_2": "CUL8171 ",
+      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "35e66240-15f6-4576-b759-fe550919f374",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_d1664119-4945-417f-ab54-e5df550bde17_c44895c8-d805-43d8-91cd-a65084dcd672.jpg"
+        }
+      ],
+      "alpha_1": "Toyota Corolla",
+      "alpha_2": "CPV8381",
+      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "35e66240-15f6-4576-b759-fe550919f374",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_d1664119-4945-417f-ab54-e5df550bde17_a729208a-38ce-4f8f-a109-7e26e45d788d.jpg"
+        }
+      ],
+      "alpha_1": "Honda HRV",
+      "alpha_2": "CNK3702",
+      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "35e66240-15f6-4576-b759-fe550919f374",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_d1664119-4945-417f-ab54-e5df550bde17_5221f83e-2252-4ec6-9c63-dc8f87d75682.jpg"
+        }
+      ],
+      "alpha_1": "Audi Q5",
+      "alpha_2": "CFP0839 ",
+      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
+    }
+  ],
+  "CURRENT_USER_VAR": "patrol1@aogsecurity.com",
+  "stage_var": "Form Submit Actions",
+  "reserved_summarySections": [
+    {
+      "sectionKey": "section_1",
+      "subFormSummarySections": []
+    }
+  ],
+  "workflowData": {
+    "stage": "Form Submit Actions",
+    "forwardTo": 0,
+    "forwardToEmail": "",
+    "stages": [
+      {
+        "name": "Form Submit Actions",
+        "comment": "",
+        "creationTimeStamp": "2026-01-25T05:43:26.364-08:00",
+        "userName": "patrol1@aogsecurity.com",
+        "userId": 337226,
+        "fullName": "Patrol Guard",
+        "forwardTo": 0,
+        "forwardToEmail": ""
+      },
+      {
+        "name": "Form Submit Actions",
+        "comment": "",
+        "creationTimeStamp": "2026-01-25T05:44:17.010-08:00",
+        "userName": "patrol1@aogsecurity.com",
+        "userId": 337226,
+        "fullName": "Patrol Guard",
+        "forwardTo": 0,
+        "forwardToEmail": ""
+      }
+    ]
+  },
+  "submitId": "f502ecdf-d128-4fef-b1bc-24fdd2d383b4"
+}

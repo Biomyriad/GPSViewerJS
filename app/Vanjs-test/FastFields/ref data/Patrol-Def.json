@@ -1,0 +1,395 @@
+{
+    "id": 579031,
+    "uniqueId": "b2c90397-b4a4-4990-acfa-0f38bfd4bc70",
+    "name": "Patrol Summary",
+    "accountId": 151844,
+    "isSubForm": false,
+    "isDeleted": null,
+    "reportTemplatePdf": null,
+    "formJson": {
+        "formId": 579031,
+        "accountId": 151844,
+        "version": 85,
+        "displayReferenceMask": "$datepicker_ShiftDate$ - $lookuplistpicker_GuardName$ - $lookuplistpicker_RouteName$",
+        "formName": "Patrol Summary",
+        "keyCounters": {
+            "pageKeyCounter": 1,
+            "sectionKeyCounter": 1,
+            "fieldKeyCounter": 1
+        },
+        "page": [{
+            "section": [{
+                "sectionHeader": "Beginning of shift",
+                "sectionLabel": "Beginning of shift",
+                "sectionKey": "section_1",
+                "maxSections": 500,
+                "field": [{
+                    "fieldKey": "datepicker_ShiftDate",
+                    "subForm": {},
+                    "defaultValue": "CurrentDate",
+                    "required": true,
+                    "fieldType": "DatePicker",
+                    "fieldName": "Shift Date",
+                    "enabled": true,
+                    "captureGeoLocation": true,
+                    "captureTimeStamp": true,
+                    "fieldValueType": "DateOnly"
+                }, {
+                    "fieldKey": "lookuplistpicker_GuardName",
+                    "subForm": {},
+                    "required": true,
+                    "fieldType": "LookupListPicker",
+                    "fieldName": "Guard Name",
+                    "enabled": true,
+                    "isMemoryField": true,
+                    "lookupListId": "lookup_dcfb31e75db0406f9bf048ce7cffd413",
+                    "nameColumn": "col_GuardName",
+                    "fieldValueType": "Array"
+                }, {
+                    "fieldKey": "lookuplistpicker_GuardEmail",
+                    "subForm": {},
+                    "required": true,
+                    "fieldType": "LookupListPicker",
+                    "fieldName": "Guard Email",
+                    "enabled": true,
+                    "isMemoryField": true,
+                    "lookupListId": "lookup_dcfb31e75db0406f9bf048ce7cffd413",
+                    "nameColumn": "col_GuardEmail",
+                    "valueColumn": "col_GuardEmail",
+                    "excludeFromReports": true,
+                    "fieldValueType": "Array"
+                }, {
+                    "fieldKey": "computedlabel_TotalMiles",
+                    "alertType": "SUCCESS",
+                    "bgColor": "#dff0d8",
+                    "fontColor": "#468847",
+                    "subForm": {},
+                    "fieldType": "ComputedLabel",
+                    "fieldName": "Total Miles Driven",
+                    "enabled": true,
+                    "calculationFormula": "$numeric_EndingOdometer$ - $numeric_BeginningOdometer$",
+                    "fieldSuffix": "miles",
+                    "fieldValueType": "Integer"
+                }, {
+                    "fieldKey": "time_in",
+                    "hidden": true,
+                    "subForm": {},
+                    "allowTime": true,
+                    "defaultValue": "NoDate",
+                    "required": true,
+                    "fieldType": "DatePicker",
+                    "fieldName": "Shift Start Time",
+                    "enabled": true,
+                    "captureGeoLocation": true,
+                    "captureTimeStamp": true,
+                    "fieldValueType": "TimeOnly"
+                }, {
+                    "placeholderText": "Your beginning odometer reading at the office",
+                    "fieldKey": "numeric_BeginningOdometer",
+                    "subForm": {},
+                    "required": true,
+                    "fieldType": "SingleLineEntryNumeric",
+                    "fieldName": "Beginning Odometer Reading",
+                    "enabled": true,
+                    "captureGeoLocation": true,
+                    "captureTimeStamp": true,
+                    "fieldValueType": "Integer"
+                }, {
+                    "labelHidden": true,
+                    "fieldKey": "computedlabel_3",
+                    "subForm": {},
+                    "fieldType": "ComputedLabel",
+                    "fieldName": "Ending Odometer Reading",
+                    "enabled": true,
+                    "calculationFormula": "$numeric_EndingOdometer$",
+                    "fieldValueType": "Integer"
+                }, {
+                    "fieldKey": "lookuplistpicker_RouteName",
+                    "subForm": {},
+                    "required": true,
+                    "fieldType": "LookupListPicker",
+                    "fieldName": "Scheduled Route",
+                    "enabled": true,
+                    "isMemoryField": true,
+                    "lookupListId": "lookup_970aefc441db4f7fb22222158293f036",
+                    "nameColumn": "col_Route",
+                    "fieldValueType": "Array"
+                }]
+            }, {
+                "sectionHeader": "Route Activity",
+                "sectionLabel": "Route Activity",
+                "sectionKey": "section_3",
+                "maxSections": 500,
+                "field": [{
+                    "fieldKey": "subform_5",
+                    "subForm": {
+                        "formName": "Patrol Properties",
+                        "formId": 597942,
+                        "version": 20,
+                        "displayMask": "$datepicker_1$ - $lookuplistpicker_2$$lookuplistpicker_4$$lookuplistpicker_5$$lookuplistpicker_6$$lookuplistpicker_7$$lookuplistpicker_8$",
+                        "section": [{
+                            "sectionHeader": "Section 1",
+                            "sectionLabel": "Section 1",
+                            "sectionKey": "section_1",
+                            "maxSections": 500,
+                            "field": [{
+                                "fieldKey": "lookuplistpicker_1",
+                                "subForm": {},
+                                "required": true,
+                                "fieldType": "LookupListPicker",
+                                "fieldName": "Properties List",
+                                "enabled": true,
+                                "isMemoryField": true,
+                                "lookupListId": "lookup_970aefc441db4f7fb22222158293f036",
+                                "nameColumn": "col_Route",
+                                "fieldRules": [{
+                                    "condition": "equals",
+                                    "values": ["South Route"],
+                                    "action": "show",
+                                    "elseAction": "hide",
+                                    "targetKeys": ["lookuplistpicker_5"]
+                                }, {
+                                    "condition": "equals",
+                                    "values": ["NE Route"],
+                                    "action": "show",
+                                    "elseAction": "hide",
+                                    "targetKeys": ["lookuplistpicker_4"]
+                                }, {
+                                    "condition": "equals",
+                                    "values": ["Double Cover"],
+                                    "action": "show",
+                                    "elseAction": "hide",
+                                    "targetKeys": ["lookuplistpicker_2"]
+                                }, {
+                                    "condition": "equals",
+                                    "values": ["All Properties"],
+                                    "action": "show",
+                                    "elseAction": "hide",
+                                    "targetKeys": ["lookuplistpicker_6"]
+                                }, {
+                                    "condition": "equals",
+                                    "values": ["Summer South"],
+                                    "action": "show",
+                                    "elseAction": "hide",
+                                    "targetKeys": ["lookuplistpicker_7"]
+                                }, {
+                                    "condition": "equals",
+                                    "values": ["Summer NE"],
+                                    "action": "show",
+                                    "elseAction": "hide",
+                                    "targetKeys": ["lookuplistpicker_8"]
+                                }],
+                                "excludeFromReports": true,
+                                "fieldValueType": "Array"
+                            }, {
+                                "fieldKey": "datepicker_1",
+                                "subForm": {},
+                                "allowTime": true,
+                                "defaultValue": "CurrentDate",
+                                "required": true,
+                                "fieldType": "DatePicker",
+                                "fieldName": "Time In",
+                                "enabled": true,
+                                "fieldValueType": "TimeOnly"
+                            }, {
+                                "fieldKey": "lookuplistpicker_7",
+                                "subForm": {},
+                                "fieldType": "LookupListPicker",
+                                "fieldName": "Summer South",
+                                "enabled": true,
+                                "lookupListId": "lookup_45e724fa6c7444958b1dbb32edada1de",
+                                "nameColumn": "col_PropertyName",
+                                "captureGeoLocation": true,
+                                "captureTimeStamp": true,
+                                "fieldValueType": "Array"
+                            }, {
+                                "fieldKey": "lookuplistpicker_8",
+                                "subForm": {},
+                                "fieldType": "LookupListPicker",
+                                "fieldName": "Summer NE",
+                                "enabled": true,
+                                "lookupListId": "lookup_98b4846c436247988d0ba63e4fbe53c4",
+                                "nameColumn": "col_PropertyName",
+                                "captureGeoLocation": true,
+                                "captureTimeStamp": true,
+                                "fieldValueType": "Array"
+                            }, {
+                                "placeholderText": "Select what property you are at.",
+                                "fieldKey": "lookuplistpicker_2",
+                                "subForm": {},
+                                "fieldType": "LookupListPicker",
+                                "fieldName": "Double Cover",
+                                "enabled": true,
+                                "lookupListId": "lookup_06db6602dd614295bd690b02e7149ebf",
+                                "nameColumn": "col_PropertyName",
+                                "captureGeoLocation": true,
+                                "captureTimeStamp": true,
+                                "fieldValueType": "Array"
+                            }, {
+                                "placeholderText": "Select what property you are at.",
+                                "fieldKey": "lookuplistpicker_4",
+                                "subForm": {},
+                                "fieldType": "LookupListPicker",
+                                "fieldName": "NE RTE",
+                                "enabled": true,
+                                "lookupListId": "lookup_22324c08b75c403db5c5a86967c0c794",
+                                "nameColumn": "col_PropertyName",
+                                "captureGeoLocation": true,
+                                "captureTimeStamp": true,
+                                "fieldValueType": "Array"
+                            }, {
+                                "placeholderText": "Select what property you are at.",
+                                "fieldKey": "lookuplistpicker_5",
+                                "subForm": {},
+                                "fieldType": "LookupListPicker",
+                                "fieldName": "SOUTH RTE",
+                                "enabled": true,
+                                "lookupListId": "lookup_b39ae4a053894cd7851efbbff4b9d555",
+                                "nameColumn": "col_PropertyName",
+                                "captureGeoLocation": true,
+                                "captureTimeStamp": true,
+                                "fieldValueType": "Array"
+                            }, {
+                                "fieldKey": "lookuplistpicker_6",
+                                "subForm": {},
+                                "fieldType": "LookupListPicker",
+                                "fieldName": "All Properties",
+                                "enabled": true,
+                                "lookupListId": "lookup_e5d5b25275864ea19a26ed5bab72946c",
+                                "nameColumn": "col_Name",
+                                "captureGeoLocation": true,
+                                "captureTimeStamp": true,
+                                "fieldValueType": "Array"
+                            }, {
+                                "fieldKey": "multiline_1",
+                                "subForm": {},
+                                "fieldType": "MultiLineEntry",
+                                "fieldName": "Note to supervisor (if applicable)",
+                                "enabled": true,
+                                "fieldValueType": "String"
+                            }]
+                        }],
+                        "allowQuickbaseUpdates": false
+                    },
+                    "allowMulti": true,
+                    "required": true,
+                    "fieldType": "SubFormPicker",
+                    "fieldName": "Patrol",
+                    "enabled": true,
+                    "fieldValueType": "Uncomparable"
+                }]
+            }, {
+                "sectionHeader": "End of shift",
+                "sectionLabel": "End of shift",
+                "sectionKey": "section_2",
+                "maxSections": 500,
+                "field": [{
+                    "fieldKey": "time_out",
+                    "hidden": true,
+                    "subForm": {},
+                    "allowTime": true,
+                    "defaultValue": "NoDate",
+                    "required": true,
+                    "fieldType": "DatePicker",
+                    "fieldName": "Shift End Time",
+                    "enabled": true,
+                    "captureGeoLocation": true,
+                    "captureTimeStamp": true,
+                    "fieldValueType": "TimeOnly"
+                }, {
+                    "placeholderText": "Your ending odometer reading at the office",
+                    "fieldKey": "numeric_EndingOdometer",
+                    "decimalPositions": 2,
+                    "subForm": {},
+                    "required": true,
+                    "fieldType": "SingleLineEntryNumeric",
+                    "fieldName": "Ending Odometer Reading",
+                    "enabled": true,
+                    "captureGeoLocation": true,
+                    "captureTimeStamp": true,
+                    "fieldValueType": "Double"
+                }, {
+                    "fieldKey": "multiline_1",
+                    "subForm": {},
+                    "fieldType": "MultiLineEntry",
+                    "fieldName": "Any additional notes about your shift",
+                    "enabled": true,
+                    "fieldValueType": "String"
+                }, {
+                    "labelHidden": true,
+                    "fieldKey": "worked_hours",
+                    "decimalPositions": 2,
+                    "alertType": "SUCCESS",
+                    "bgColor": "#dff0d8",
+                    "fontColor": "#468847",
+                    "subForm": {},
+                    "fieldType": "ComputedLabel",
+                    "fieldName": "Hours worked this shift",
+                    "enabled": true,
+                    "calculationFormula": "// calculate difference between $time_in$ and $time_out$\n\n// store $time_in$ in ISO format\nvar date1 = dateFromString($time_in$);\n\n// store $time_out$ in ISO format\nvar date2 = dateFromString($time_out$);\n\n// store $time_in$ in milliseconds\nvar ms1 = date1.getTime();\n\n// if $time_out$ is before $time_in$, add offset to $time_out$ to push to next day and store result in milliseconds\n// else store $time_out$ in milliseconds\nvar ms2 = date2 < date1 ? date2.getTime() + 864e5 : date2.getTime();\n\n// calculate hours between times\nvar hours = Math.abs(ms2 - ms1) / 36e5;\n\nreturn hours;\n\n// convert date to ISO format\nfunction dateFromString(isoDateString) {\n  var parts = isoDateString.match(/\\d+/g);\n  var isoTime = Date.UTC(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);\n  var isoDate = new Date(isoTime);\n\nreturn isoDate;\n}",
+                    "fieldValueType": "Double"
+                }, {
+                    "fieldKey": "requiredacknowledgment_1",
+                    "subForm": {},
+                    "required": true,
+                    "fieldType": "RequiredAcknowledgment",
+                    "fieldName": "Did you review Airtable for accuracy?",
+                    "enabled": true,
+                    "acknowledgmentText": "I have reviewed report dates, times, spelling and accuracy. \n\nIf I am assigned to dispatch, I understand my bonus may be affected if ANY reports tonight are missing from Airtable or contain errors.",
+                    "acknowledgmentButtonText": "Yes, I agree.",
+                    "acknowledgmentButtonClickedText": "Thank You! Have a great night!",
+                    "fieldValueType": "Boolean"
+                }, {
+                    "fieldKey": "photo_picker_1",
+                    "photoQuality": "JpgLow",
+                    "imageScale": 0.5,
+                    "allowAnnotation": true,
+                    "subForm": {},
+                    "required": true,
+                    "fieldType": "PhotoPicker",
+                    "cameraEnabled": true,
+                    "fieldName": "Photo of AOG flashlight and phone on the charger.",
+                    "enabled": true,
+                    "fieldValueType": "Uncomparable"
+                }, {
+                    "fieldKey": "tri_1",
+                    "alertType": "ERROR",
+                    "bgColor": "#f2dede",
+                    "fontColor": "#b94a48",
+                    "subForm": {},
+                    "required": true,
+                    "fieldType": "ThreeState",
+                    "fieldName": "Do you have any miles sheets to turn in? They are due twice a month on the 1ST and the 16TH.",
+                    "enabled": true,
+                    "fieldValueType": "ThreeState"
+                }]
+            }],
+            "pageName": "Page 1"
+        }],
+        "newSubForms": true,
+        "workflowData": {
+            "stage": "Form Submit Actions",
+            "current": 1,
+            "total": 1
+        },
+        "updatedAt": "2025-06-18T18:17:05.427Z"
+    },
+    "version": 85,
+    "formDisplayMask": null,
+    "emailRecipients": null,
+    "formThumbnail": null,
+    "updatedAt": "2025-06-18T18:17:05.85Z",
+    "formConfiguration": null,
+    "subFormConfiguration": null,
+    "locationOutlierFactor": 0.0,
+    "showLocationAddress": false,
+    "hideAllEmptyFieldsFromReports": false,
+    "isDefaultTaskForm": false,
+    "jsonPath": "151844/forms/579031.json",
+    "qbAppAdminUserGuid": null,
+    "qbAppIntegrationGuid": null,
+    "isQBConnectedForm": false,
+    "isQBSyncEnabled": false,
+    "formToken": null,
+    "webAppId": null
+}

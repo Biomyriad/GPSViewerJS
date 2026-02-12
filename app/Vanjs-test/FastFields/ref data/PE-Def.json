@@ -1,0 +1,216 @@
+{
+    "id": 574062,
+    "uniqueId": "b740c11f-49bc-4f76-9444-8f0ff143aba0",
+    "name": "Avalon Bear Creek Parking Enforcment ",
+    "accountId": 151844,
+    "isSubForm": false,
+    "isDeleted": null,
+    "reportTemplatePdf": null,
+    "formJson": {
+        "formId": 574062,
+        "accountId": 151844,
+        "version": 28,
+        "displayReferenceMask": "$datepicker_1$",
+        "formName": "Avalon Bear Creek Parking Enforcment ",
+        "keyCounters": {
+            "pageKeyCounter": 1,
+            "sectionKeyCounter": 1,
+            "fieldKeyCounter": 1
+        },
+        "page": [{
+            "section": [{
+                "sectionDescription": "Avalon Bear Creek Parking Enforcment ",
+                "sectionLabel": "Avalon Bear Creek Parking Enforcment ",
+                "sectionKey": "section_1",
+                "maxSections": 500,
+                "field": [{
+                    "fieldKey": "datepicker_1",
+                    "subForm": {},
+                    "defaultValue": "CurrentDate",
+                    "required": true,
+                    "fieldType": "DatePicker",
+                    "fieldName": "Date",
+                    "enabled": true,
+                    "captureTimeStamp": true,
+                    "fieldValueType": "DateOnly"
+                }, {
+                    "fieldKey": "alpha_1",
+                    "subForm": {},
+                    "required": true,
+                    "fieldType": "SingleLineEntryAlpha",
+                    "fieldName": "Guard Name",
+                    "enabled": true,
+                    "format": "DEFAULT",
+                    "fieldValueType": "String"
+                }, {
+                    "fieldKey": "textlabel_1",
+                    "alertType": "ERROR",
+                    "bgColor": "#f2dede",
+                    "fontColor": "#b94a48",
+                    "subForm": {},
+                    "fieldType": "TextLabel",
+                    "fieldName": "Adverse Weather",
+                    "enabled": true,
+                    "value": "If there are adverse weather conditions preventing you from accurately performing this audit, please document below otherwise leave the next two areas blank. \n\nExamples: Snow, Ice, Excessive condensation/Rain preventing you from being able to see parking tags on vehicles.",
+                    "excludeFromReports": true,
+                    "fieldValueType": "Uncomparable"
+                }, {
+                    "fieldKey": "tri_1",
+                    "alertType": "ERROR",
+                    "bgColor": "#f2dede",
+                    "fontColor": "#b94a48",
+                    "subForm": {},
+                    "fieldType": "ThreeState",
+                    "fieldName": "Were there adverse weather conditions preventing a thorough parking audit?",
+                    "enabled": true,
+                    "fieldRules": [{
+                        "condition": "equals",
+                        "values": ["0"],
+                        "action": "hide",
+                        "elseAction": "show",
+                        "targetKeys": ["textlabel_1", "photo_picker_1", "alpha_2"]
+                    }],
+                    "excludeFromReports": true,
+                    "fieldValueType": "ThreeState"
+                }, {
+                    "fieldKey": "photo_picker_1",
+                    "photoQuality": "JpgLow",
+                    "alertType": "ERROR",
+                    "bgColor": "#f2dede",
+                    "fontColor": "#b94a48",
+                    "imageScale": 0.5,
+                    "subForm": {},
+                    "fieldType": "PhotoPicker",
+                    "cameraEnabled": true,
+                    "fieldName": "Adverse Weather Preventing Tagging",
+                    "enabled": true,
+                    "fieldValueType": "Uncomparable"
+                }, {
+                    "fieldKey": "alpha_2",
+                    "alertType": "ERROR",
+                    "bgColor": "#f2dede",
+                    "fontColor": "#b94a48",
+                    "subForm": {},
+                    "fieldType": "SingleLineEntryAlpha",
+                    "fieldName": "Adverse Weather Preventing Tagging",
+                    "enabled": true,
+                    "format": "DEFAULT",
+                    "fieldValueType": "String"
+                }, {
+                    "fieldKey": "textlabel_2",
+                    "alertType": "SUCCESS",
+                    "bgColor": "#dff0d8",
+                    "fontColor": "#468847",
+                    "subForm": {},
+                    "fieldType": "TextLabel",
+                    "fieldName": "REMEMBER:",
+                    "enabled": true,
+                    "value": "We are only tagging vehicles in unmarked spaces who do not have a parking pass. DO NOT TAG vehicles in RESERVED spaces. ",
+                    "excludeFromReports": true,
+                    "fieldValueType": "Uncomparable"
+                }, {
+                    "placeholderText": "Click here for a brief overview of how to perform 177 PE duties.",
+                    "fieldKey": "documentviewer_1",
+                    "alertType": "SUCCESS",
+                    "bgColor": "#dff0d8",
+                    "fontColor": "#468847",
+                    "subForm": {},
+                    "defaultValue": "151844_3515cff9da4c4b5ea034937fe09d7124.pdf",
+                    "fieldType": "DocumentViewer",
+                    "fieldName": "Document Viewer",
+                    "enabled": true,
+                    "excludeFromReports": true,
+                    "fieldValueType": "String"
+                }, {
+                    "fieldKey": "subform_1",
+                    "alertType": "SUCCESS",
+                    "bgColor": "#dff0d8",
+                    "fontColor": "#468847",
+                    "subForm": {
+                        "formName": "Parking Enforcement Sub",
+                        "formId": 574060,
+                        "version": 8,
+                        "displayMask": "$alpha_1$ $alpha_2$",
+                        "section": [{
+                            "sectionDescription": "Vehicle info can't be listed twice so this section name will remain blank",
+                            "sectionLabel": "Vehicle info can't be listed twice so this section name will remain blank",
+                            "sectionKey": "section_1",
+                            "maxSections": 500,
+                            "field": [{
+                                "fieldKey": "multiphoto_picker_1",
+                                "photoQuality": "JpgLow",
+                                "imageScale": 0.5,
+                                "allowAnnotation": true,
+                                "photoLibraryEnabled": true,
+                                "subForm": {},
+                                "required": true,
+                                "fieldType": "MultiPhotoPicker",
+                                "cameraEnabled": true,
+                                "allowMultiSelect": true,
+                                "fieldName": "Vehicle Photo",
+                                "enabled": true,
+                                "captureTimeStamp": true,
+                                "fieldValueType": "Uncomparable"
+                            }, {
+                                "fieldKey": "alpha_1",
+                                "subForm": {},
+                                "fieldType": "SingleLineEntryAlpha",
+                                "fieldName": "Vehicle Make and Model",
+                                "enabled": true,
+                                "format": "DEFAULT",
+                                "fieldValueType": "String"
+                            }, {
+                                "fieldKey": "alpha_2",
+                                "subForm": {},
+                                "fieldType": "SingleLineEntryAlpha",
+                                "fieldName": "Vehicle License Plate ",
+                                "enabled": true,
+                                "format": "DEFAULT",
+                                "fieldValueType": "String"
+                            }, {
+                                "fieldKey": "textlabel_1",
+                                "subForm": {},
+                                "fieldType": "TextLabel",
+                                "fieldName": " ",
+                                "enabled": true,
+                                "fieldValueType": "Uncomparable"
+                            }]
+                        }],
+                        "allowQuickbaseUpdates": false
+                    },
+                    "allowMulti": true,
+                    "fieldType": "SubFormPicker",
+                    "fieldName": "Tagged Vehicle",
+                    "enabled": true,
+                    "fieldValueType": "Uncomparable"
+                }]
+            }],
+            "pageName": "Page 1"
+        }],
+        "newSubForms": true,
+        "workflowData": {
+            "stage": "Form Submit Actions",
+            "current": 1,
+            "total": 1
+        },
+        "updatedAt": "2025-03-15T22:37:08.09Z"
+    },
+    "version": 28,
+    "formDisplayMask": null,
+    "emailRecipients": null,
+    "formThumbnail": null,
+    "updatedAt": "2025-03-15T22:37:24.737Z",
+    "formConfiguration": null,
+    "subFormConfiguration": null,
+    "locationOutlierFactor": 0.0,
+    "showLocationAddress": false,
+    "hideAllEmptyFieldsFromReports": false,
+    "isDefaultTaskForm": false,
+    "jsonPath": "151844/forms/574062.json",
+    "qbAppAdminUserGuid": null,
+    "qbAppIntegrationGuid": null,
+    "isQBConnectedForm": false,
+    "isQBSyncEnabled": false,
+    "formToken": null,
+    "webAppId": null
+}
