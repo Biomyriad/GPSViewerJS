@@ -6,7 +6,7 @@ export default async function fftest () {
   const ffpwd = van.state("")
 
   const load = async () => {
-
+  var data = {}
 
 ////////////////////////// AWAIT //////////////////////////////////    
 // try {
@@ -32,7 +32,9 @@ export default async function fftest () {
 
 /////////////////////////// THEN /////////////////////////////////////////
     console.log(`Basic ${loadx(ffun.val, ffpwd.val)}`)
-    await fetch(`https://api.fastfieldforms.com/services/v3/authenticate`, {
+    await fetch(`https://test.cors.workers.dev/?https://api.fastfieldforms.com/services/v3/authenticate`, {
+      //referrerPolicy: 'no-referrer-when-downgrade',
+      credentials: "include",
       method: 'POST',
       headers: {
         content: "application/json", "Cache-Control": "no-cache",
@@ -53,6 +55,7 @@ export default async function fftest () {
       return response.json();
     })
     .then(function (jsonData) {
+      data = jsonData
       console.log(jsonData);
       // localStorage.setItem('username', 'JohnDoe');
       // const username = localStorage.getItem('username'); // 'JohnDoe'
