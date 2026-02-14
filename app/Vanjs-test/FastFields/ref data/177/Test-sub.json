@@ -1,0 +1,60 @@
+{
+  "accountId": 151844,
+  "isWebForm": false,
+  "userId": 333461,
+  "userName": "dispatch@aogsecurity.com",
+  "formMetaData": {
+    "deviceMetaData": {
+      "appType": "Android",
+      "appName": "FastField",
+      "appVersion": "3.9.1 (201)",
+      "device": "b0q",
+      "sdkInt": 36,
+      "sdkRelease": "16",
+      "brand": "samsung",
+      "manufacturer": "samsung",
+      "model": "SM-S908U",
+      "product": "b0qsqw",
+      "totalMemoryMb": 32,
+      "freeMemoryMb": 15,
+      "totalDiskMb": 472703,
+      "freeDiskMb": 372841
+    },
+    "startFormTimeStamp": "2026-02-13T13:31:34.999-08:00",
+    "endFormTimeStamp": "2026-02-13T13:32:02.917-08:00"
+  },
+  "formId": 585136,
+  "formName": "Test",
+  "submissionId": "2522ca74-bac9-4167-bb97-bcb74fc7039d",
+  "emailRecipientsOnSubmit": "",
+  "dispatchId": 0,
+  "formVersion": 3,
+  "displayReferenceValue": "",
+  "creationTimeStamp": "2026-02-13T13:31:34.999-08:00",
+  "submissionTimeStamp": "2026-02-13T13:32:04.891-08:00",
+  "startFormTimeStamp": "2026-02-13T13:31:34.999-08:00",
+  "endFormTimeStamp": "2026-02-13T13:32:02.917-08:00",
+  "updatedAt": "2026-02-13T13:32:04.891-08:00",
+  "tokenId": "",
+  "alpha_1": "hibye123",
+  "stage_var": "Form Submit Actions",
+  "CURRENT_USER_VAR": "dispatch@aogsecurity.com",
+  "workflowData": {
+    "stage": "Form Submit Actions",
+    "forwardTo": 0,
+    "forwardToEmail": "",
+    "stages": [
+      {
+        "name": "Form Submit Actions",
+        "comment": "",
+        "creationTimeStamp": "2026-02-13T13:32:04.666-08:00",
+        "userName": "dispatch@aogsecurity.com",
+        "userId": 333461,
+        "fullName": "Dispatch Guard",
+        "forwardTo": 0,
+        "forwardToEmail": ""
+      }
+    ]
+  },
+  "submitId": "33a040b7-b145-4c93-a0ac-323c6e130d55"
+}
