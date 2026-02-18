@@ -61,14 +61,14 @@ cors_proxy.createServer({
   originWhitelist: [],
   //requireHeader: ['origin', 'x-requested-with'],
   removeHeaders: [
-    'cookie',
-    'cookie2',
+    // 'cookie',
+    // 'cookie2',
     // Strip Heroku-specific headers
-    'x-request-start',
-    'x-request-id',
-    'via',
-    'connect-time',
-    'total-route-time',
+    // 'x-request-start',
+    // 'x-request-id',
+    // 'via',
+    // 'connect-time',
+    // 'total-route-time',
 
   ],
   // httpProxyOptions: {
