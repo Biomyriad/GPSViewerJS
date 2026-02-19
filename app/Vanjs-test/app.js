@@ -15,7 +15,7 @@
 // };
 // })();
 
-//await dataBase.initDbAsync()
+await dataBase.initDbAsync()
 
 
 
