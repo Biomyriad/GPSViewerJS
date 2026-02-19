@@ -49,7 +49,9 @@ export default async function fftest() {
   var ffapi = new FastFieldsAPI()
   //await ffapi.authenticate(ffun.val, ffpwd.val)
 
-  await ffapi.updateLookupList()
+  //await ffapi.updateLookupList()
+  await ffapi.uploadMedia()
+
 
   }
 

@@ -2,9 +2,11 @@ class FastFieldsAPI {
 
   constructor(apiKey=false) {
     //this.baseUrl = 'https://api.fastfieldforms.com/services/v3/'
-    this.baseUrl = 'http://127.0.0.1:3001/https://api.fastfieldforms.com/services/v3/'
+    //this.baseUrl = 'http://127.0.0.1:3001/https://api.fastfieldforms.com/services/v3/'
+    this.baseUrl = 'https://proxy.corsfix.com/?https://api.fastfieldforms.com/services/v3/'
+
     this.apiKey = '1a9ea71e79ab459d825f562f8aa4188d'
-    this.sessionToken = ''
+    this.sessionToken = ''//''
     this.authCredentials = ''
 
     if(apiKey) this.apiKey = apiKey
@@ -43,7 +45,15 @@ class FastFieldsAPI {
     return response.downloadUrl
   }
 
-  async uploadMedia(awsMediaKey) {
+  async uploadMedia() {
+
+  const formData = new FormData();
+    fetch('../images/car.jpg')
+    .then(response => response.blob())
+    .then(data => {
+      formData.append('file', data, 'car.jpg');
+      this.sendRequest('media/upload', 'POST', formData)
+    })
 
   }
 
@@ -67,6 +77,7 @@ class FastFieldsAPI {
   }
 
   async getLookupLists() {
+// GET https://portal.fastfieldforms.com/api/lookuplist/lookup_22324c08b75c403db5c5a86967c0c794/data
 
   }
 
@@ -82,9 +93,6 @@ class FastFieldsAPI {
     ], { type: 'text/plain' });
     const formData = new FormData();
     formData.append('file', textBlob, 'tst5.csv');
-    
-
-    
     
     this.sendRequest('lookuplists/lookup_fffbcfcefc224f98bba1b2b046afb57e', 'PUT', formData)
 
@@ -132,12 +140,16 @@ class FastFieldsAPI {
             'Cache-Control': 'no-cache',
             'FastField-API-Key': this.apiKey,
             ...headers,
+            // "x-corsfix-headers": JSON.stringify({
+            //     "User-Agent": "MyAgent/1.0",
+            // }),
           },
           body: body ? body : null
         })
 
         if (!response.ok) {
           console.log("FastFieldsAPI|sendRequest: ",'Network response was not ok', response.status, response.statusText);
+          console.log("FastFieldsAPI|sendRequest: ",'', response);
           return {isErrorStatus: response.status, response: response}
           //throw new Error('Network response was not ok');
         } else {
@@ -176,9 +188,3 @@ class FastFieldsAPI {
     // use context (call name) to do call specific error handling
   }
 }
-
-  console.log("starting load")
-  var ffapi = new FastFieldsAPI()
-  await ffapi.authenticate('', '')
-
-  await ffapi.updateLookupList()
