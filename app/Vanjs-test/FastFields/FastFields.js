@@ -6,7 +6,7 @@ class FastFieldsAPI {
     this.baseUrl = 'https://proxy.corsfix.com/?https://api.fastfieldforms.com/services/v3/'
 
     this.apiKey = '1a9ea71e79ab459d825f562f8aa4188d'
-    this.sessionToken = ''//''
+    this.sessionToken = '37416c0b0cc0497f9e3fc371d6441116'//''
     this.authCredentials = ''
 
     if(apiKey) this.apiKey = apiKey
@@ -34,8 +34,11 @@ class FastFieldsAPI {
 
   }
 
-  async createPDFReport() {
+  async createPDFReport(formObj) {
+    var response = await this.sendRequest('reports/pdf', 'POST', JSON.stringify(formObj), {}, true)
+    if(this.isRequestError(response, "createPDFReport")) return false
 
+    return response.data?.blob()
   }
 
   async getMediaDownloadURL(awsMediaKey) {
@@ -45,23 +48,20 @@ class FastFieldsAPI {
     return response.downloadUrl
   }
 
-  async uploadMedia() {
+  async uploadMedia(filename, blob) {
+    const formData = new FormData();
+    formData.append('file', blob, filename);
+    var response = await this.sendRequest('media/upload', 'POST', formData)
+    if(this.isRequestError(response, "uploadMedia")) return false
 
-  const formData = new FormData();
-    fetch('../images/car.jpg')
-    .then(response => response.blob())
-    .then(data => {
-      formData.append('file', data, 'car.jpg');
-      this.sendRequest('media/upload', 'POST', formData)
-    })
-
+    return response.data
   }
 
   async createDispatch(formObj) {
-    var response = await this.sendRequest('dispatch', 'POST', formObj)
+    var response = await this.sendRequest('dispatch', 'POST', JSON.stringify(formObj))
     if(this.isRequestError(response, "createDispatch")) return false
 
-    return response.downloadUrl
+    return response.data
   }
 
   async recallDispatch() {
@@ -130,7 +130,8 @@ class FastFieldsAPI {
 
   }
 
-  async sendRequest(endpoint, method = 'GET', body = null, headers = {} ) {
+  async sendRequest(endpoint, method = 'GET', body = null, headers = {}, rawResponse = false) {
+    // TODO: add XMLHttpRequest for file handling giving progress and better handling
     // TODO: Add error handling, retries, rate limit or loss on internet, etc.
     try {
         if(this.sessionToken != '') headers['X-Gatekeeper-SessionToken'] = this.sessionToken
@@ -155,16 +156,18 @@ class FastFieldsAPI {
         } else {
 
           console.log("FastFieldsAPI|sendRequest: ",'Network response WAS ok?', response.status, response.statusText);
-          const responseClone = response.clone(); // Create a clone
-          var text = await responseClone.text()
-          console.log("Raw body text:", text);
+          if(rawResponse) {return {data: response}}
 
-          if(!text==""){
-            var jsonData = await response.json()
-            console.log(jsonData)
+          const responseClone = response.clone(); // Create a clone
+          var data = await responseClone.text()
+          //console.log("Raw body text:", text);
+
+          if(!data==""){
+            var data = await response.json()
+            console.log(data)
           }
 
-          return {data: jsonData}
+          return {data: data}
         }
     } catch(error) {
         console.error("FastFieldsAPI|sendRequest: ",'There has been a problem with your fetch operation:', error);

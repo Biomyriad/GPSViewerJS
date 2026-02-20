@@ -133,23 +133,23 @@ async function formData() {
   var fileNameA = selectedRouteValue + "_" + getDateString(selectedDate)
   var fileNameB = selectedRouteValue + "_" + getDateString(selectedNextDate)
 
-  var sndObj = {
-      "fields": {
-        "email": dateSelect.value + " - " + selectedRouteValue,
-        "timestamp": new Date().toLocaleTimeString(),
-        "version": ""
-      }
-    }
+  // var sndObj = {
+  //     "fields": {
+  //       "email": dateSelect.value + " - " + selectedRouteValue,
+  //       "timestamp": new Date().toLocaleTimeString(),
+  //       "version": ""
+  //     }
+  //   }
 
-    let response = await fetch(`https://api.airtable.com/v0/appU9Tu1u6TzVrKnP/Opened/`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer patoXqL65Pc6L8c7j.01d6100deac10905bf6a41e139824d1f1cc1482264861f3bb09c373309b50e34`
-    },
-    body: JSON.stringify(sndObj)
-  });
-  //let datat = await response.json();
+  // let response = await fetch(`https://api.airtable.com/v0/appU9Tu1u6TzVrKnP/Opened/`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer patoXqL65Pc6L8c7j.01d6100deac10905bf6a41e139824d1f1cc1482264861f3bb09c373309b50e34`
+  //   },
+  //   body: JSON.stringify(sndObj)
+  // });
+  // let datat = await response.json();
 
 
   sRte = new GPXRoute()

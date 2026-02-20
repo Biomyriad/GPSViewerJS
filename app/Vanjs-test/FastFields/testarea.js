@@ -1,85 +1,74 @@
-const { label, div, button, input, p, hr, span, select, option, article, summary } = van.tags;
+const { label, div, button, input, img, hr, span, select, option, article, summary, h1, h2 , h3 } = van.tags;
 
 export default async function fftest() {
 
   const ffun = van.state("")
-  const ffpwd = van.state("")
+  const shiftDateStrVal = van.state(new Date().toLocaleDateString('en-CA'))
 
-  const load = async () => {
-  //   var data = {}
+  const load = async () => { }
 
-  //   //  let res = await fetch(``, {
-  //   //     method: 'POST',
-  //   //     headers: {content: "application/json"}, body: JSON.stringify({})
-  //   //   });//   let data = await res.json();
-
-  //   /////////////////////////// /////////////////////////////////////////
-  //   await fetch(``, {
-  //     method: 'POST',
-  //     headers: {
-  //       content: "application/json",
-  //       'Cache-Control': 'no-cache',
-  //     },
-  //   })
-  //     .then(function (response) {
-  //       if (!response.ok) {
-  //         console.log('Network response was not ok', response.status, response.statusText);
-  //         //throw new Error('Network response was not ok');
-  //         return response
-  //       } else {
-  //         return response.json()
-  //       }
-  //     })
-  //     .then(function (jsonData) {
-  //       data = jsonData
-  //       console.log(jsonData);
-  //       // localStorage.setItem('username', 'JohnDoe');
-  //       // const username = localStorage.getItem('username'); // 'JohnDoe'
-  //       // localStorage.removeItem('username');
-  //       // localStorage.clear();
-  //       // localStorage.key(index): Retrieves the name of the key at a specified index, useful for looping through all stored items. 
-  //     })
-  //     .catch(function (error) {
-  //       console.error('There has been a problem with your fetch operation:', error)
-  //     });
-
-  //   return div(JSON.stringify(data))
-
-  console.log("starting load")
-  var ffapi = new FastFieldsAPI()
-  //await ffapi.authenticate(ffun.val, ffpwd.val)
-
-  //await ffapi.updateLookupList()
-  await ffapi.uploadMedia()
+  return div({ class: "container", style: "margin-top: 15px; padding: 6px;" },
+    //{ "aria-busy": "true" },
 
 
-  }
 
-  return div({ style: "height: 100%;" },
-    div({ style: "display: flex; gap: 10px; width: 100%;" },
-      div({ style: "position: relative; flex-grow: 1; flex-shrink: 1;" },
-        label("UN:"),
-        input({
-          class: "", id: "fftst-un", type: "text", style: "display: block; margin-bottom: 5px;",
-          value: ffun.val, onchange: e => ffun.val = e.target.value
-        },
-        ),
+    div({ style: "position: relative; flex-grow: 1; flex-shrink: 1;" },
+      label("Date:"),
+      input({
+        id: "shift-date", value: shiftDateStrVal.val, type: "date",
+        style: "", onchange: e => shiftDateStrVal.val = e.currentTarget.value}),
+    ),
+
+    div({ style: "position: relative; flex-grow: 1; flex-shrink: 1;" },
+      label("Guard Name:"),
+      input({
+        class: "", id: "fftst-un", type: "text", style: "display: block; margin-bottom: 5px;",
+        value: ffun.val, onchange: e => ffun.val = e.target.value
+      },
       ),
-      div({ style: "position: relative; flex-grow: 1; flex-shrink: 1;" },
-        label("PWD:"),
-        input({
-          class: "", id: "fftst-pwd", type: "text", style: "display: block; margin-bottom: 5px;",
-          value: ffpwd.val, onchange: e => ffpwd.val = e.target.value
-        },
-        ),
+    ),
+
+    div({ style: "display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px;" },
+      button({ onclick: () => {} }, "<-"),
+
+      button({ onclick: () => {} }, "->"),
+    ),
+
+    hr(),
+
+    // span("Filter by route"),
+    // select({ id: "filterbyroute", value: "none", onchange: e => { var x = e.target.value; } },
+    //   option({ value: "none" }, "No Filter"),
+    //   option({ value: "South Route" }, "South Route"),
+    //   option({ value: "NE Route" }, "NE Route"),
+    // ),
+
+    article({ id: "recordslist" },
+
+      summary({ style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;" }, 
+        "Reported Vehicles",
+        
       ),
-      input({ type: "button", value: "Load Data", onclick: async (e) => await load(), style: "width: 110px;" }),
-    )
+
+      // () => div(vehicleRecsVal.val.map(
+      //   (rec) => {
+      //     if (rec.route.includes(routeFilterVal.val) || routeFilterVal.val == 'none') {
+      //       //   createReportHtml(rec.rec)
+      //       //    return ObsReport({rec: rec.rec,errCol: chkReports(rec)})
+      //       return vehReport({ rec: rec.rec, errCol: "transparent" })
+      //     }
+      //   }
+      // )),
+      ///...
+    ),
+    button({
+      style: "position: absolute; bottom: 10px; right: 50%; transform: translateX(50%); border-radius: 50%; height: 60px; width: 60px;",
+
+      onclick: () => {} }, img({ src:"../images/plus.svg"})
+    ),
+
   );
 };
 
 
-
-
-
-
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }

@@ -1,3 +1,27 @@
+// localStorage.setItem('username', 'JohnDoe');
+// const username = localStorage.getItem('username'); // 'JohnDoe'
+// localStorage.removeItem('username');
+// localStorage.clear();
+// localStorage.key(index): Retrieves the name of the key at a specified index, useful for looping through all stored items. 
+
+
+  console.log("starting load")
+  var ffapi = new FastFieldsAPI()
+  //await ffapi.authenticate(ffun.val, ffpwd.val)
+  var blob = await ffapi.createPDFReport(data)
+
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  // Set the filename
+  a.download = 'downloaded-file.pdf';
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+
+
+
 POST Authenticate
 POST Create PDF Report
 
@@ -83,30 +107,151 @@ var data =
   ]
 }
 
+{ // CREATE PDF REPORT EXAMPLE
+  "formVersion": 28,
+  "formId": 574062,
+  "formName": "Avalon Bear Creek Parking Enforcment ",
+  "updatedAt": "2026-02-13T05:20:13.552-08:00",
+
+  "datepicker_1": "2026-02-13T02:03:25.667-08:00",
+  "alpha_1": "Thomas K",
+  "subform_1": [
+    {
+      "multiphoto_picker_1": [
+        {
+          "comment": "A comment if there was one",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_9df9679e-e6a3-40da-b8eb-85649a8cbc2a.jpg"
+        },
+        {
+          "comment": "",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_ef91025f-984e-46c8-82a2-cde19a662287.jpg"
+        }
+      ],
+      "alpha_1": "Q5",
+      "alpha_2": "CFP0839",
+    },
+    {
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_abcd7d3a-0ac0-4623-b4b7-12343f4c8bfe.jpg"
+        },
+        {
+          "comment": "",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_7ac68ab3-5fdb-42f9-a3ef-03dc6c51ecde.jpg"
+        }
+      ],
+      "alpha_1": "bronco sport",
+      "alpha_2": "CJZ8069",
+    },
+    {
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_a5bafd66-b96e-4db1-b2b9-aad14cd0b93e.jpg"
+        },
+        {
+          "comment": "",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_c37e50b7-a878-4a4e-92e1-6ab6c872d120.jpg"
+        }
+      ],
+      "alpha_1": "Toyota RAV4",
+      "alpha_2": "CNZ8952",
+    }
+  ]
+}
+
+
+{ // DISPATCHABLE?
+  "formVersion": 28, // IDK if can include to FF_API/createPDF but should always include in all form objects
+  "formId": 574062,
+  "formName": "Avalon Bear Creek Parking Enforcment ",  // might need to be "name"
+  
+  "autoCreateUsers": false,
+  "recipients": [{"userId": 333461}], // dispatch 333461 // (OR UserId))    
+  "dispatchEmailSubject": "New Test Dispatched Form!",
+  "dispatchEmailMessage": "Please work ;P",
+  "message": "We can get chatty here ... ",
+  "mergeFields": [ //(optional)
+    { 
+      "datepicker_1": "2026-02-06T02:35:49.031-08:00",
+      "alpha_1": "Nico Lang",
+
+      "subform_1": [
+        {
+          "multiphoto_picker_1": [
+            {
+              "comment": "This is where a comment would go if there was one",
+              "photo": "151844_bd38f957-02d0-4003-adff-a8b129ae431e_16fbbf27-1c89-4fd0-a37b-ea518d4d1611.jpg"
+            }
+          ],
+          "alpha_1": "Volkswagen Tiguan",
+          "alpha_2": "CRT4560",
+        },
+        {
+          "multiphoto_picker_1": [
+            {
+              "comment": "",
+              "photo": "151844_bd38f957-02d0-4003-adff-a8b129ae431e_3c7d8095-4b7e-4b3f-9abb-c230fa5c9d98.jpg"
+            }
+          ],
+          "alpha_1": "Honda ?",
+          "alpha_2": "BBH5786",
+        },
+        {
+          "multiphoto_picker_1": [
+            {
+              "comment": "",
+              "photo": "151844_bd38f957-02d0-4003-adff-a8b129ae431e_f3fb225c-55b1-4fd4-9930-c92119465430.jpg"
+            }
+          ],
+          "alpha_1": "Lexus CT200h",
+          "alpha_2": "CLG3117",
+        },
+        {
+          "multiphoto_picker_1": [
+            {
+              "comment": "",
+              "photo": "151844_bd38f957-02d0-4003-adff-a8b129ae431e_f704f649-627c-4fba-b376-7fddbc75478d.jpg"
+            }
+          ],
+          "alpha_1": "Honda HR-V",
+          "alpha_2": "CNK3702",
+        }
+      ]
+
+    }
+  ]
+}
+
+////////////////////////////////////////////////////////////
+//                      PDF REPORT
+////////////////////////////////////////////////////////////
 
 {
-  "userId": 337226,
-  "userName": "patrol1@aogsecurity.com",
-  "formId": 574062,
-  "formVersion": 28,
-  "formName": "Avalon Bear Creek Parking Enforcment ", 
-
-  "creationTimeStamp": "2026-02-06T02:35:48.845-08:00",
-  "startFormTimeStamp": "2026-02-06T02:35:48.845-08:00",
-  "endFormTimeStamp": "2026-02-06T05:25:32.654-08:00",
-  "submissionTimeStamp": "2026-02-06T05:25:37.279-08:00",
-  "updatedAt": "2026-02-06T05:25:37.279-08:00",
-
-  "reserved_summarySections": [
-    {
-      "sectionKey": "section_1",
-      "subFormSummarySections": []
-    }
-  ],
-
+  "accountId": 151844,
+  "isWebForm": false,
+  "userId": 333461,
+  "userName": "dispatch@aogsecurity.com",
   "formMetaData": {
-    "startFormTimeStamp": "2026-02-06T02:35:48.845-08:00",
-    "endFormTimeStamp": "2026-02-06T05:25:32.654-08:00",
+    "deviceMetaData": {
+      "appType": "Android",
+      "appName": "FastField",
+      "appVersion": "3.9.1 (201)",
+      "device": "b0q",
+      "sdkInt": 36,
+      "sdkRelease": "16",
+      "brand": "samsung",
+      "manufacturer": "samsung",
+      "model": "SM-S908U",
+      "product": "b0qsqw",
+      "totalMemoryMb": 55,
+      "freeMemoryMb": 14,
+      "totalDiskMb": 472703,
+      "freeDiskMb": 373009
+    },
+    "startFormTimeStamp": "2026-02-13T02:03:25.504-08:00",
+    "endFormTimeStamp": "2026-02-13T05:20:09.577-08:00",
     "fieldMetaData": [
       {
         "fieldKey": "subform_1",
@@ -115,7 +260,7 @@ var data =
             "subform_1_1": [
               {
                 "fieldKey": "multiphoto_picker_1",
-                "timestamp": "2026-02-06T02:42:16.852-08:00"
+                "timestamp": "2026-02-13T02:14:21.724-08:00"
               }
             ]
           },
@@ -123,7 +268,7 @@ var data =
             "subform_1_2": [
               {
                 "fieldKey": "multiphoto_picker_1",
-                "timestamp": "2026-02-06T02:46:01.895-08:00"
+                "timestamp": "2026-02-13T02:18:42.144-08:00"
               }
             ]
           },
@@ -131,15 +276,7 @@ var data =
             "subform_1_3": [
               {
                 "fieldKey": "multiphoto_picker_1",
-                "timestamp": "2026-02-06T02:48:41.065-08:00"
-              }
-            ]
-          },
-          {
-            "subform_1_4": [
-              {
-                "fieldKey": "multiphoto_picker_1",
-                "timestamp": "2026-02-06T02:51:59.978-08:00"
+                "timestamp": "2026-02-13T02:20:44.673-08:00"
               }
             ]
           }
@@ -147,255 +284,109 @@ var data =
       }
     ]
   },
-
-  "datepicker_1": "2026-02-06T02:35:49.031-08:00",
-  "alpha_1": "Nico Lang",
-|EXCLUDE BELOW|
+  "formId": 574062,
+  "formName": "Avalon Bear Creek Parking Enforcment ",
+  "submissionId": "4d51c7a9-5fe1-422b-b223-766da0890096",
+  "emailRecipientsOnSubmit": "",
+  "dispatchId": 0,
+  "formVersion": 28,
+  "displayReferenceValue": "02-13-2026",
+  "creationTimeStamp": "2026-02-13T02:03:25.504-08:00",
+  "submissionTimeStamp": "2026-02-13T05:20:13.552-08:00",
+  "startFormTimeStamp": "2026-02-13T02:03:25.504-08:00",
+  "endFormTimeStamp": "2026-02-13T05:20:09.577-08:00",
+  "updatedAt": "2026-02-13T05:20:13.552-08:00",
+  "tokenId": "",
+  "datepicker_1": "2026-02-13T02:03:25.667-08:00",
+  "alpha_1": "Thomas K",
   "textlabel_1": "If there are adverse weather conditions preventing you from accurately performing this audit, please document below otherwise leave the next two areas blank. \n\nExamples: Snow, Ice, Excessive condensation/Rain preventing you from being able to see parking tags on vehicles.",
-|EXCLUDE BELOW|
   "tri_1": 0,
-|EXCLUDE BELOW|
   "textlabel_2": "We are only tagging vehicles in unmarked spaces who do not have a parking pass. DO NOT TAG vehicles in RESERVED spaces. ",
   "documentviewer_1": "151844_3515cff9da4c4b5ea034937fe09d7124.pdf",
   "subform_1": [
     {
-      "reserved_instanceGuid": "634421a1-d2e8-47d6-814b-fcd2a133682f",
+      "reserved_instanceGuid": "522c6978-e453-4ed7-aa71-f2a7354e7641",
       "multiphoto_picker_1": [
         {
           "comment": "",
-          "photo": "151844_bd38f957-02d0-4003-adff-a8b129ae431e_16fbbf27-1c89-4fd0-a37b-ea518d4d1611.jpg"
-        }
-      ],
-      "alpha_1": "Volkswagen Tiguan",
-      "alpha_2": "CRT4560",
-      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
-    },
-    {
-      "reserved_instanceGuid": "634421a1-d2e8-47d6-814b-fcd2a133682f",
-      "multiphoto_picker_1": [
-        {
-          "comment": "",
-          "photo": "151844_bd38f957-02d0-4003-adff-a8b129ae431e_3c7d8095-4b7e-4b3f-9abb-c230fa5c9d98.jpg"
-        }
-      ],
-      "alpha_1": "Honda ?",
-      "alpha_2": "BBH5786",
-      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
-    },
-    {
-      "reserved_instanceGuid": "634421a1-d2e8-47d6-814b-fcd2a133682f",
-      "multiphoto_picker_1": [
-        {
-          "comment": "",
-          "photo": "151844_bd38f957-02d0-4003-adff-a8b129ae431e_f3fb225c-55b1-4fd4-9930-c92119465430.jpg"
-        }
-      ],
-      "alpha_1": "Lexus CT200h",
-      "alpha_2": "CLG3117",
-      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
-    },
-    {
-      "reserved_instanceGuid": "634421a1-d2e8-47d6-814b-fcd2a133682f",
-      "multiphoto_picker_1": [
-        {
-          "comment": "",
-          "photo": "151844_bd38f957-02d0-4003-adff-a8b129ae431e_f704f649-627c-4fba-b376-7fddbc75478d.jpg"
-        }
-      ],
-      "alpha_1": "Honda HR-V",
-      "alpha_2": "CNK3702",
-      "CURRENT_USER_VAR": "patrol1@aogsecurity.com"
-    }
-  ]
-}
-
-{
-    "id": 574062,
-    "name": "Avalon Bear Creek Parking Enforcment ",
-    "version": 28,
-    "updatedAt": "2025-03-15T22:37:24.737Z",
-    "hideAllEmptyFieldsFromReports": false,    
-
-    "formJson": {
-        "formId": 574062,
-        "formName": "Avalon Bear Creek Parking Enforcment ",
-        "version": 28,
-        "displayReferenceMask": "$datepicker_1$",
-        
-        "keyCounters": {
-            "pageKeyCounter": 1,
-            "sectionKeyCounter": 1,
-            "fieldKeyCounter": 1
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_9df9679e-e6a3-40da-b8eb-85649a8cbc2a.jpg"
         },
-        "page": [{
-            "section": [{
-                "sectionDescription": "Avalon Bear Creek Parking Enforcment ",
-                "sectionLabel": "Avalon Bear Creek Parking Enforcment ",
-                "sectionKey": "section_1",
-                "maxSections": 500,
-                "field": [{
-                    "fieldKey": "datepicker_1",
-                    "subForm": {},
-                    "defaultValue": "CurrentDate",
-                    "required": true,
-                    "fieldType": "DatePicker",
-                    "fieldName": "Date",
-                    "enabled": true,
-                    "captureTimeStamp": true,
-                    "fieldValueType": "DateOnly"
-                }, {
-                    "fieldKey": "alpha_1",
-                    "subForm": {},
-                    "required": true,
-                    "fieldType": "SingleLineEntryAlpha",
-                    "fieldName": "Guard Name",
-                    "enabled": true,
-                    "format": "DEFAULT",
-                    "fieldValueType": "String"
-                }, {
-                    "fieldKey": "textlabel_1",
-                    "alertType": "ERROR",
-                    "bgColor": "#f2dede",
-                    "fontColor": "#b94a48",
-                    "subForm": {},
-                    "fieldType": "TextLabel",
-                    "fieldName": "Adverse Weather",
-                    "enabled": true,
-                    "value": "If there are adverse weather conditions preventing you from accurately performing this audit, please document below otherwise leave the next two areas blank. \n\nExamples: Snow, Ice, Excessive condensation/Rain preventing you from being able to see parking tags on vehicles.",
-                    "excludeFromReports": true,
-                    "fieldValueType": "Uncomparable"
-                }, {
-                    "fieldKey": "tri_1",
-                    "alertType": "ERROR",
-                    "bgColor": "#f2dede",
-                    "fontColor": "#b94a48",
-                    "subForm": {},
-                    "fieldType": "ThreeState",
-                    "fieldName": "Were there adverse weather conditions preventing a thorough parking audit?",
-                    "enabled": true,
-                    "fieldRules": [{
-                        "condition": "equals",
-                        "values": ["0"],
-                        "action": "hide",
-                        "elseAction": "show",
-                        "targetKeys": ["textlabel_1", "photo_picker_1", "alpha_2"]
-                    }],
-                    "excludeFromReports": true,
-                    "fieldValueType": "ThreeState"
-                }, {
-                    "fieldKey": "photo_picker_1",
-                    "photoQuality": "JpgLow",
-                    "alertType": "ERROR",
-                    "bgColor": "#f2dede",
-                    "fontColor": "#b94a48",
-                    "imageScale": 0.5,
-                    "subForm": {},
-                    "fieldType": "PhotoPicker",
-                    "cameraEnabled": true,
-                    "fieldName": "Adverse Weather Preventing Tagging",
-                    "enabled": true,
-                    "fieldValueType": "Uncomparable"
-                }, {
-                    "fieldKey": "alpha_2",
-                    "alertType": "ERROR",
-                    "bgColor": "#f2dede",
-                    "fontColor": "#b94a48",
-                    "subForm": {},
-                    "fieldType": "SingleLineEntryAlpha",
-                    "fieldName": "Adverse Weather Preventing Tagging",
-                    "enabled": true,
-                    "format": "DEFAULT",
-                    "fieldValueType": "String"
-                }, {
-                    "fieldKey": "textlabel_2",
-                    "alertType": "SUCCESS",
-                    "bgColor": "#dff0d8",
-                    "fontColor": "#468847",
-                    "subForm": {},
-                    "fieldType": "TextLabel",
-                    "fieldName": "REMEMBER:",
-                    "enabled": true,
-                    "value": "We are only tagging vehicles in unmarked spaces who do not have a parking pass. DO NOT TAG vehicles in RESERVED spaces. ",
-                    "excludeFromReports": true,
-                    "fieldValueType": "Uncomparable"
-                }, {
-                    "placeholderText": "Click here for a brief overview of how to perform 177 PE duties.",
-                    "fieldKey": "documentviewer_1",
-                    "alertType": "SUCCESS",
-                    "bgColor": "#dff0d8",
-                    "fontColor": "#468847",
-                    "subForm": {},
-                    "defaultValue": "151844_3515cff9da4c4b5ea034937fe09d7124.pdf",
-                    "fieldType": "DocumentViewer",
-                    "fieldName": "Document Viewer",
-                    "enabled": true,
-                    "excludeFromReports": true,
-                    "fieldValueType": "String"
-                }, {
-                    "fieldKey": "subform_1",
-                    "alertType": "SUCCESS",
-                    "bgColor": "#dff0d8",
-                    "fontColor": "#468847",
-                    "subForm": {
-                        "formName": "Parking Enforcement Sub",
-                        "formId": 574060,
-                        "version": 8,
-                        "displayMask": "$alpha_1$ $alpha_2$",
-                        "section": [{
-                            "sectionDescription": "Vehicle info can't be listed twice so this section name will remain blank",
-                            "sectionLabel": "Vehicle info can't be listed twice so this section name will remain blank",
-                            "sectionKey": "section_1",
-                            "maxSections": 500,
-                            "field": [{
-                                "fieldKey": "multiphoto_picker_1",
-                                "photoQuality": "JpgLow",
-                                "imageScale": 0.5,
-                                "allowAnnotation": true,
-                                "photoLibraryEnabled": true,
-                                "subForm": {},
-                                "required": true,
-                                "fieldType": "MultiPhotoPicker",
-                                "cameraEnabled": true,
-                                "allowMultiSelect": true,
-                                "fieldName": "Vehicle Photo",
-                                "enabled": true,
-                                "captureTimeStamp": true,
-                                "fieldValueType": "Uncomparable"
-                            }, {
-                                "fieldKey": "alpha_1",
-                                "subForm": {},
-                                "fieldType": "SingleLineEntryAlpha",
-                                "fieldName": "Vehicle Make and Model",
-                                "enabled": true,
-                                "format": "DEFAULT",
-                                "fieldValueType": "String"
-                            }, {
-                                "fieldKey": "alpha_2",
-                                "subForm": {},
-                                "fieldType": "SingleLineEntryAlpha",
-                                "fieldName": "Vehicle License Plate ",
-                                "enabled": true,
-                                "format": "DEFAULT",
-                                "fieldValueType": "String"
-                            }, {
-                                "fieldKey": "textlabel_1",
-                                "subForm": {},
-                                "fieldType": "TextLabel",
-                                "fieldName": " ",
-                                "enabled": true,
-                                "fieldValueType": "Uncomparable"
-                            }]
-                        }],
-                        "allowQuickbaseUpdates": false
-                    },
-                    "allowMulti": true,
-                    "fieldType": "SubFormPicker",
-                    "fieldName": "Tagged Vehicle",
-                    "enabled": true,
-                    "fieldValueType": "Uncomparable"
-                }]
-            }],
-            "pageName": "Page 1"
-        }]
+        {
+          "comment": "",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_ef91025f-984e-46c8-82a2-cde19a662287.jpg"
+        }
+      ],
+      "alpha_1": "Q5",
+      "alpha_2": "CFP0839",
+      "CURRENT_USER_VAR": "dispatch@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "522c6978-e453-4ed7-aa71-f2a7354e7641",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_abcd7d3a-0ac0-4623-b4b7-12343f4c8bfe.jpg"
+        },
+        {
+          "comment": "",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_7ac68ab3-5fdb-42f9-a3ef-03dc6c51ecde.jpg"
+        }
+      ],
+      "alpha_1": "bronco sport",
+      "alpha_2": "CJZ8069",
+      "CURRENT_USER_VAR": "dispatch@aogsecurity.com"
+    },
+    {
+      "reserved_instanceGuid": "522c6978-e453-4ed7-aa71-f2a7354e7641",
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_a5bafd66-b96e-4db1-b2b9-aad14cd0b93e.jpg"
+        },
+        {
+          "comment": "",
+          "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_c37e50b7-a878-4a4e-92e1-6ab6c872d120.jpg"
+        }
+      ],
+      "alpha_1": "Toyota RAV4",
+      "alpha_2": "CNZ8952",
+      "CURRENT_USER_VAR": "dispatch@aogsecurity.com"
     }
+  ],
+  "CURRENT_USER_VAR": "dispatch@aogsecurity.com",
+  "stage_var": "Form Submit Actions",
+  "reserved_summarySections": [
+    {
+      "sectionKey": "section_1",
+      "subFormSummarySections": []
+    }
+  ],
+  "workflowData": {
+    "stage": "Form Submit Actions",
+    "forwardTo": 0,
+    "forwardToEmail": "",
+    "stages": [
+      {
+        "name": "Form Submit Actions",
+        "comment": "",
+        "creationTimeStamp": "2026-02-13T05:19:33.562-08:00",
+        "userName": "dispatch@aogsecurity.com",
+        "userId": 333461,
+        "fullName": "Dispatch Guard",
+        "forwardTo": 0,
+        "forwardToEmail": ""
+      },
+      {
+        "name": "Form Submit Actions",
+        "comment": "",
+        "creationTimeStamp": "2026-02-13T05:20:10.603-08:00",
+        "userName": "dispatch@aogsecurity.com",
+        "userId": 333461,
+        "fullName": "Dispatch Guard",
+        "forwardTo": 0,
+        "forwardToEmail": ""
+      }
+    ]
+  },
+  "submitId": "2ac3f995-66a1-4a93-8601-4b491d4dcbbe"
 }
