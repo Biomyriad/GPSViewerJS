@@ -7,10 +7,8 @@ export default async function fftest() {
 
   const load = async () => { }
 
-  return div({ class: "container", style: "margin-top: 15px; padding: 6px;" },
+  return div({ class: "container", style: "margin-top: 80px; padding: 6px;" },
     //{ "aria-busy": "true" },
-
-
 
     div({ style: "position: relative; flex-grow: 1; flex-shrink: 1;" },
       label("Date:"),
@@ -28,11 +26,11 @@ export default async function fftest() {
       ),
     ),
 
-    div({ style: "display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px;" },
-      button({ onclick: () => {} }, "<-"),
+    // div({ style: "display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px;" },
+    //   button({ onclick: () => {} }, "<-"),
 
-      button({ onclick: () => {} }, "->"),
-    ),
+    //   button({ onclick: () => {} }, "->"),
+    // ),
 
     hr(),
 
@@ -61,6 +59,30 @@ export default async function fftest() {
       // )),
       ///...
     ),
+    //// OUT OF POSITION
+    // background: conic-gradient(#000 0% 25%, #8a08aa 0% 50%, #000 0% 75%, #8a08aa 0% 100%);
+    // background-size: 40px 40px; /* Controls the size of the squares */
+    div({ style: `
+      position: absolute; 
+      top: 0px; 
+      left: 50%; 
+      transform: translateX(-50%);
+
+      height: 70px;
+      width: 100%;  
+      line-height: 70px;
+
+      box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.35);
+      -webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.35); 
+
+      display: flex; 
+      justify-content: space-around; 
+      align-items: center;
+    `},
+      span({style: "font-size: 25px; font-weight: bold;"}, "177-Avalon Bear Creek PE"),
+      button({ style: "", onclick: () => { } }, "Submit"),
+    ),
+
     button({
       style: "position: absolute; bottom: 10px; right: 50%; transform: translateX(50%); border-radius: 50%; height: 60px; width: 60px;",
 
