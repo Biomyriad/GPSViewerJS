@@ -1,53 +1,70 @@
-const { label, div, button, input, img, hr, span, select, option, article, summary, h1, h2 , h3 } = van.tags;
+import TagForm from "./PE_SubForm.js";
+import Accord from "./Accordion.js";
+import mini from "./PE_Subform_mini.js";
+
+const { label, div, button, input, img, hr, span, select, option, article, summary, details, h2 , h3,p } = van.tags;
 
 export default async function fftest() {
 
-  const ffun = van.state("")
-  const shiftDateStrVal = van.state(new Date().toLocaleDateString('en-CA'))
+  const guardNameVal = van.state("")
+  const reportDateStrVal = van.state(new Date().toLocaleDateString('en-CA'))
+  const vehicleSubFormsVal = van.state([])
+
+  const subFormClosedVal = van.state(false)
 
   const load = async () => { }
 
   return div({ class: "container", style: "margin-top: 80px; padding: 6px;" },
     //{ "aria-busy": "true" },
+    Modal({
+        closed: subFormClosedVal,
+        blurBackground: true,
+        backgroundColor: "rgba(0,0,0,0.35)",
+        backgroundClass: "qwerty",
+        backgroundStyleOverrides: "",
+        modalStyleOverrides: {'background-color': 'transparent', padding: "0px", borderRadius: "0.5rem"},
+      },
+      //TagForm()
+      Accord({ },
+       
+      ),
+    ),
+
+    //   div(input({type: "radio", name: "lang", value: "Zig", checked: true}), "Zig"),
+    //   div(input({type: "radio", name: "lang", value: "Rust"}), "Rust"),
+    //   div(input({type: "radio", name: "lang", value: "Kotlin"}), "Kotlin"),
+    //   div(input({type: "radio", name: "lang", value: "TypeScript"}), "TypeScript"),
+    //   div(input({type: "radio", name: "lang", value: "JavaScript"}), "JavaScript"),
+
+    //   p({style: "display: flex; justify-content: space-evenly;"},
+    //     button({onclick:() => {}}, "Ok"),
+    //     button({onclick: () => subFormClosedVal.val = true}, "Cancel"),
+    //   )
+    // ),
 
     div({ style: "position: relative; flex-grow: 1; flex-shrink: 1;" },
       label("Date:"),
       input({
-        id: "shift-date", value: shiftDateStrVal.val, type: "date",
-        style: "", onchange: e => shiftDateStrVal.val = e.currentTarget.value}),
+        value: reportDateStrVal.val, type: "date",
+        style: "", onchange: e => reportDateStrVal.val = e.currentTarget.value}),
     ),
 
     div({ style: "position: relative; flex-grow: 1; flex-shrink: 1;" },
       label("Guard Name:"),
       input({
-        class: "", id: "fftst-un", type: "text", style: "display: block; margin-bottom: 5px;",
-        value: ffun.val, onchange: e => ffun.val = e.target.value
+        class: "", type: "text", style: "display: block; margin-bottom: 5px;",
+        value: guardNameVal.val, onchange: e => guardNameVal.val = e.target.value
       },
       ),
     ),
 
-    // div({ style: "display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px;" },
-    //   button({ onclick: () => {} }, "<-"),
-
-    //   button({ onclick: () => {} }, "->"),
-    // ),
-
     hr(),
 
-    // span("Filter by route"),
-    // select({ id: "filterbyroute", value: "none", onchange: e => { var x = e.target.value; } },
-    //   option({ value: "none" }, "No Filter"),
-    //   option({ value: "South Route" }, "South Route"),
-    //   option({ value: "NE Route" }, "NE Route"),
-    // ),
-
-    article({ id: "recordslist" },
+    article({  },
 
       summary({ style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;" }, 
         "Reported Vehicles",
-        
       ),
-
       // () => div(vehicleRecsVal.val.map(
       //   (rec) => {
       //     if (rec.route.includes(routeFilterVal.val) || routeFilterVal.val == 'none') {
@@ -57,8 +74,9 @@ export default async function fftest() {
       //     }
       //   }
       // )),
-      ///...
     ),
+
+
     //// OUT OF POSITION
     // background: conic-gradient(#000 0% 25%, #8a08aa 0% 50%, #000 0% 75%, #8a08aa 0% 100%);
     // background-size: 40px 40px; /* Controls the size of the squares */
@@ -78,13 +96,14 @@ export default async function fftest() {
       display: flex; 
       justify-content: space-around; 
       align-items: center;
+      overflow: hidden;
     `},
-      span({style: "font-size: 25px; font-weight: bold;"}, "177-Avalon Bear Creek PE"),
+      span({style: "font-size: 25px; font-weight: bold; overflow: hidden;text-overflow: ellipsis; white-space: nowrap;"}, "177-Avalon Bear Creek PE"),
       button({ style: "", onclick: () => { } }, "Submit"),
     ),
 
     button({
-      style: "position: absolute; bottom: 10px; right: 50%; transform: translateX(50%); border-radius: 50%; height: 60px; width: 60px;",
+      style: "position: fixed; bottom: 8%; right: 50%; transform: translateX(50%); border-radius: 50%; height: 60px; width: 60px;",
 
       onclick: () => {} }, img({ src:"../images/plus.svg"})
     ),
