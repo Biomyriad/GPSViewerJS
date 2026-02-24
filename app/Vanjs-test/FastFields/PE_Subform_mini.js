@@ -1,6 +1,6 @@
 const { label, div, button, input, img, hr, span, select, option, article, summary, details, h2 , h3 } = van.tags;
 
-export default function PE_SubForm(recLive = null) {
+export default function PE_SubForm(recLive = null, cancelBtnCallback = null, saveBtnCallback = null) {
 /*{
   "multiphoto_picker_1": [
     {
@@ -15,8 +15,9 @@ export default function PE_SubForm(recLive = null) {
   "alpha_1": "bronco sport",
   "alpha_2": "CJZ8069",
 }*/
-
-  if(!recLive) {
+console.log("Subform data:", recLive);
+  if(!recLive || recLive == null || recLive == undefined) {
+    console.log("No data provided to subform, using defaults");
     recLive = {
       "multiphoto_picker_1": [
         {
@@ -33,13 +34,26 @@ export default function PE_SubForm(recLive = null) {
     }
   }
 
-  const makeModelVal = van.state("Nissan Versa")
-  const plateNumVal = van.state("ABC1234")
-  const imagesVal = van.state([{photo: null, comment: ""}])
+  const makeModelVal = van.state(recLive.alpha_1)
+  const plateNumVal = van.state(recLive.alpha_2)
+  //const imagesVal = van.state(recLive.multiphoto_picker_1)
 
-  const load = async () => { }
+  const returnData = () => { return {
+      "multiphoto_picker_1": [
+        {
+          "comment": "",
+          "photo": ""
+        },
+        {
+          "comment": "",
+          "photo": ""
+        }
+      ],
+      "alpha_1": makeModelVal.val,
+      "alpha_2": plateNumVal.val,
+    }}
 
-return div({},//{class: "rec-content"},
+return div({style: "width: 100%; height: 100%;"},// padding: 8px; background-color: #262f42;"},//{class: "rec-content"},
       div({ style: "position: relative;" },
         label("Pictures:"),
         article({ class: "pictureareaaaa", style: "display: flex; justify-content: center; height: 140px; margin-bottom: 5px;" },
@@ -69,15 +83,15 @@ return div({},//{class: "rec-content"},
         label("Plate Number:"),
         input({
           class: "", type: "text", style: "display: block; margin-bottom: 5px;",
-          value: plateNumVal, onchange: e => plateNumVal.val = e.currentTarget.value.toUpperCase()
+          value: plateNumVal.val, onchange: e => plateNumVal.val = e.currentTarget.value.toUpperCase()
         },
         ),
       ),
 
 
       div({class: "buttonbox"},
-        button({onclick: () => {} },"Edit"),
-        button("Delete"),
+        button({onclick: cancelBtnCallback, style: 'width: 100px;' },"Cancel"),
+        button({onclick: () => {saveBtnCallback(returnData()); console.log(returnData(),)}, style: 'width: 100px;' },"Save"),
       ),  
     )
 };
