@@ -15,9 +15,9 @@ export default function PE_SubForm(recLive = null, cancelBtnCallback = null, sav
   "alpha_1": "bronco sport",
   "alpha_2": "CJZ8069",
 }*/
-console.log("Subform data:", recLive);
+//console.log("Subform data:", recLive);
   if(!recLive || recLive == null || recLive == undefined) {
-    console.log("No data provided to subform, using defaults");
+    //console.log("No data provided to subform, using defaults");
     recLive = {
       "multiphoto_picker_1": [
         {
@@ -90,8 +90,8 @@ return div({style: "width: 100%; height: 100%;"},// padding: 8px; background-col
 
 
       div({class: "buttonbox"},
-        button({onclick: cancelBtnCallback, style: 'width: 100px;' },"Cancel"),
-        button({onclick: () => {saveBtnCallback(returnData()); console.log(returnData(),)}, style: 'width: 100px;' },"Save"),
+        button({onclick: cancelBtnCallback, style: 'width: 110px;' },"Cancel"),
+        button({onclick: () => saveBtnCallback(returnData()), style: 'width: 110px;' },"Save"),
       ),  
     )
 };

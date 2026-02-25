@@ -6,6 +6,7 @@ const { label, div, button, input, img, hr, span, select, option, article, summa
 
 export default async function fftest() {
 
+  const updateToggle = van.state(0)
   const guardNameVal = van.state("")
   const reportDateStrVal = van.state(new Date().toLocaleDateString('en-CA'))
 
@@ -42,9 +43,13 @@ export default async function fftest() {
 
   const VehicleSubFormDataVal = van.state(null)
 
-  function subFormsList(xxx) {
+  
 
-    return xxx.val.map(subf => 
+
+  ////////////////////////////////////////////////////////////////////////////
+
+  function subFormsList(xxx) {
+    var retVal =xxx.map(subf => 
       Accord({ isOpen: false },
         div({ style: "display: flex; justify-content: space-between; align-items: center; white-space: nowrap; width: 100%;" },
           // div({class: "rec-routecolorbox", style: `background-color: red; display: flex; align-items: center; justify-content: center;`}, ),
@@ -54,6 +59,9 @@ export default async function fftest() {
         mini(subf, () => { }, () => { })
       )
     )
+    
+    console.log("render list ----------------------------", retVal);
+    return retVal
   }
 
   // Accord({isOpen: true },
@@ -64,6 +72,17 @@ export default async function fftest() {
   //   ),
   //   mini(),
   // ),
+
+    const test = () => {
+    document.getElementById("popup-overlay").style.display = "none"; console.log("close")
+  }
+
+function formSaveBtnCB(formObj) {
+  vehicleSubFormsVal.val = [...vehicleSubFormsVal.val, formObj];
+  console.log(vehicleSubFormsVal.val);
+  document.getElementById("popup-overlay").style.display = "none";
+  updateToggle.val++;
+}
 
   return div({ class: "container", style: "margin-top: 80px; padding: 6px;" },
     //{ "aria-busy": "true" },
@@ -80,22 +99,21 @@ export default async function fftest() {
       label("Guard Name:"),
       input({
         class: "", type: "text", style: "display: block; margin-bottom: 5px;",
-        value: guardNameVal.val, onchange: e => guardNameVal.val = e.target.value
+        value: updateToggle.val, onchange: e => guardNameVal.val = e.target.value
       }),
     ),
 
     hr(),
 
-    article({ style: "padding: 0px 8px; padding-bottom: 8px; " },
+    article({ style: `padding: 0px 8px; padding-bottom: 8px; background-color: #ff0000${updateToggle.val}0` },
 
       summary({ style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;" },
         "Reported Vehicles",
       ),
       div({style: "display: flex; flex-direction: column; gap: 8px;" },
-          subFormsList(vehicleSubFormsVal)
+        subFormsList(vehicleSubFormsVal.val)
       ),
     ),
-
 
     // () => Accord({isOpen: true },
     //   div({style: "display: flex; justify-content: space-between; align-items: center; white-space: nowrap; width: 100%;"},
@@ -164,12 +182,13 @@ export default async function fftest() {
       article({ style: "width: 90vw; background-color: rgb(38, 47, 66); border-radius: 0.5rem; padding: 8px;" },
         mini(
           VehicleSubFormDataVal.val,
-          () => { document.getElementById("popup-overlay").style.display = "none"; console.log("close") },
-          (formObj) => { vehicleSubFormsVal.val = [...vehicleSubFormsVal.val, formObj]; console.log(vehicleSubFormsVal.val); document.getElementById("popup-overlay").style.display = "none"; }),
+          test,
+          formSaveBtnCB),
       ),
     )
 
   );
+
 };
 
 
