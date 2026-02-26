@@ -1,24 +1,9 @@
 const { label, div, button, input, img, hr, span, select, option, article, summary, details, h2 , h3 } = van.tags;
 
-export default function PE_SubForm(recLive = null, cancelBtnCallback = null, saveBtnCallback = null) {
-/*{
-  "multiphoto_picker_1": [
-    {
-      "comment": "",
-      "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_abcd7d3a-0ac0-4623-b4b7-12343f4c8bfe.jpg"
-    },
-    {
-      "comment": "",
-      "photo": "151844_4d51c7a9-5fe1-422b-b223-766da0890096_7ac68ab3-5fdb-42f9-a3ef-03dc6c51ecde.jpg"
-    }
-  ],
-  "alpha_1": "bronco sport",
-  "alpha_2": "CJZ8069",
-}*/
-//console.log("Subform data:", recLive);
-  if(!recLive || recLive == null || recLive == undefined) {
+export default function PE_SubForm(rec = null, cancelBtnCallback = null, saveBtnCallback = null, readOnly = false) {
+  if(!rec || rec == null || rec == undefined) {
     //console.log("No data provided to subform, using defaults");
-    recLive = {
+    rec = {
       "multiphoto_picker_1": [
         {
           "comment": "",
@@ -34,9 +19,15 @@ export default function PE_SubForm(recLive = null, cancelBtnCallback = null, sav
     }
   }
 
-  const makeModelVal = van.state(recLive.alpha_1)
-  const plateNumVal = van.state(recLive.alpha_2)
-  //const imagesVal = van.state(recLive.multiphoto_picker_1)
+  const makeModelVal = van.state(rec.alpha_1)
+  const plateNumVal = van.state(rec.alpha_2)
+  //const imagesVal = van.state(rec.multiphoto_picker_1)
+
+  const clearForm = () => {
+    makeModelVal.val = ""
+    plateNumVal.val = ""
+    //imagesVal.val = []
+  }
 
   const returnData = () => { return {
       "multiphoto_picker_1": [
@@ -74,7 +65,7 @@ return div({style: "width: 100%; height: 100%;"},// padding: 8px; background-col
         label("Make/Model:"),
         input({
           class: "", type: "text", style: "display: block; margin-bottom: 5px;", 
-          value: makeModelVal.val, onchange: e => makeModelVal.val = e.target.value //disabled: true
+          value: makeModelVal.val, onchange: e => makeModelVal.val = e.target.value, ...(readOnly ? {disabled: true} : {})
         },
         ),
       ),
@@ -82,17 +73,17 @@ return div({style: "width: 100%; height: 100%;"},// padding: 8px; background-col
       div({ style: "position: relative; flex-grow: 1; flex-shrink: 1;" },
         label("Plate Number:"),
         input({
-          class: "", type: "text", style: "display: block; margin-bottom: 5px;",
+          class: "", type: "text", style: "display: block; margin-bottom: 5px;", ...(readOnly ? {disabled: true} : {}),
           value: plateNumVal.val, onchange: e => plateNumVal.val = e.currentTarget.value.toUpperCase()
         },
         ),
       ),
 
 
-      div({class: "buttonbox"},
-        button({onclick: cancelBtnCallback, style: 'width: 110px;' },"Cancel"),
-        button({onclick: () => saveBtnCallback(returnData()), style: 'width: 110px;' },"Save"),
-      ),  
+      !readOnly ? div({class: "buttonbox"},
+        button({onclick: () => {cancelBtnCallback(); clearForm()}, style: 'width: 110px;' },"Cancel"),
+        button({onclick: () => {saveBtnCallback(returnData()); clearForm()}, style: 'width: 110px;' },"Save"),
+      ) : div({class: "buttonbox"},),  
     )
 };
 

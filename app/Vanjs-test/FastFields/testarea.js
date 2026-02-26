@@ -6,83 +6,19 @@ const { label, div, button, input, img, hr, span, select, option, article, summa
 
 export default async function fftest() {
 
-  const updateToggle = van.state(0)
   const guardNameVal = van.state("")
   const reportDateStrVal = van.state(new Date().toLocaleDateString('en-CA'))
-
-  const vehicleSubFormsVal = van.state([
-      {
-        "multiphoto_picker_1": [
-          {
-            "comment": "",
-            "photo": ""
-          },
-          {
-            "comment": "",
-            "photo": ""
-          }
-        ],
-        "alpha_1": "1111", // make/model
-        "alpha_2": "2222", // plate number
-      }
-    ,{
-        "multiphoto_picker_1": [
-          {
-            "comment": "",
-            "photo": ""
-          },
-          {
-            "comment": "",
-            "photo": ""
-          }
-        ],
-        "alpha_1": "333", // make/model
-        "alpha_2": "444", // plate number
-      }
-  ])
-
+  const vehicleSubFormsVal = van.state([])
   const VehicleSubFormDataVal = van.state(null)
 
-  
-
-
-  ////////////////////////////////////////////////////////////////////////////
-
-  function subFormsList(xxx) {
-    var retVal =xxx.map(subf => 
-      Accord({ isOpen: false },
-        div({ style: "display: flex; justify-content: space-between; align-items: center; white-space: nowrap; width: 100%;" },
-          // div({class: "rec-routecolorbox", style: `background-color: red; display: flex; align-items: center; justify-content: center;`}, ),
-          span({ style: "font-size: 20px; font-weight: bold; padding-left: 8px;" }, `${"4"}: ${'Mazda 323'} - ${'ABC1234'}`),
-          img({ src: "../images/car.jpg", style: "height: 40px; width: 40px; border-radius: 4px" })
-        ),
-        mini(subf, () => { }, () => { })
-      )
-    )
-    
-    console.log("render list ----------------------------", retVal);
-    return retVal
+  const closePopup = () => {
+    document.getElementById("popup-overlay").style.display = "none"
   }
 
-  // Accord({isOpen: true },
-  //   div({style: "display: flex; justify-content: space-between; align-items: center; white-space: nowrap; width: 100%;"},
-  //     // div({class: "rec-routecolorbox", style: `background-color: red; display: flex; align-items: center; justify-content: center;`}, ),
-  //     span({style: "font-size: 20px; font-weight: bold; padding-left: 8px;"}, `${"4"}: ${'Mazda 323'} - ${'ABC1234'}`),
-  //     img({ src: "../images/car.jpg", style: "height: 40px; width: 40px; border-radius: 4px" })
-  //   ),
-  //   mini(),
-  // ),
-
-    const test = () => {
-    document.getElementById("popup-overlay").style.display = "none"; console.log("close")
+  function formSaveBtnCB(formObj) {
+    vehicleSubFormsVal.val = [...vehicleSubFormsVal.val, formObj]
+    closePopup()
   }
-
-function formSaveBtnCB(formObj) {
-  vehicleSubFormsVal.val = [...vehicleSubFormsVal.val, formObj];
-  console.log(vehicleSubFormsVal.val);
-  document.getElementById("popup-overlay").style.display = "none";
-  updateToggle.val++;
-}
 
   return div({ class: "container", style: "margin-top: 80px; padding: 6px;" },
     //{ "aria-busy": "true" },
@@ -99,45 +35,31 @@ function formSaveBtnCB(formObj) {
       label("Guard Name:"),
       input({
         class: "", type: "text", style: "display: block; margin-bottom: 5px;",
-        value: updateToggle.val, onchange: e => guardNameVal.val = e.target.value
+        value: guardNameVal.val, onchange: e => guardNameVal.val = e.target.value
       }),
     ),
 
     hr(),
 
-    article({ style: `padding: 0px 8px; padding-bottom: 8px; background-color: #ff0000${updateToggle.val}0` },
+    article({ style: `padding: 0px 8px; padding-bottom: 8px;`},
 
       summary({ style: "padding-left: 8px; height: 35px; border-radius: 4px; line-height: 35px; margin-bottom: 5px; overflow: hidden;" },
-        "Reported Vehicles",
+        "Reported Vehicles:",
       ),
       div({style: "display: flex; flex-direction: column; gap: 8px;" },
-        subFormsList(vehicleSubFormsVal.val)
+        () => div(vehicleSubFormsVal.val.length ? vehicleSubFormsVal.val.map((subForm, idx) => 
+          Accord({ isOpen: false },
+            div({ style: "display: flex; justify-content: space-between; align-items: center; white-space: nowrap; width: 100%;" },
+              // div({class: "rec-routecolorbox", style: `background-color: red; display: flex; align-items: center; justify-content: center;`}, ),
+              span({ style: "font-size: 20px; font-weight: bold; padding-left: 8px;" }, `${idx + 1}: ${subForm.alpha_1} - ${subForm.alpha_2}`),
+              img({ src: "../images/car.jpg", style: "height: 40px; width: 40px; border-radius: 4px" })
+            ),
+            mini(subForm, () => { }, () => { },true)
+          )
+        ) : div({style: "padding: 8px; text-align: center;" },"No vehicles reported yet.")
+        )
       ),
     ),
-
-    // () => Accord({isOpen: true },
-    //   div({style: "display: flex; justify-content: space-between; align-items: center; white-space: nowrap; width: 100%;"},
-    //     // div({class: "rec-routecolorbox", style: `background-color: red; display: flex; align-items: center; justify-content: center;`}, ),
-    //     span({style: "font-size: 20px; font-weight: bold; padding-left: 8px;"}, `${"4"}: ${'Mazda 323'} - ${'ABC1234'}`),
-    //     img({ src: "../images/car.jpg", style: "height: 40px; width: 40px; border-radius: 4px" })
-    //   ),
-    //   mini(
-    //     {
-    //       "multiphoto_picker_1": [
-    //         {
-    //           "comment": "",
-    //           "photo": ""
-    //         },
-    //         {
-    //           "comment": "",
-    //           "photo": ""
-    //         }
-    //       ],
-    //       "alpha_1": "", // make/model
-    //       "alpha_2": "", // plate number
-    //     }),() => { },() => { }),
-
-
 
     //// OUT OF POSITION
     // background: conic-gradient(#000 0% 25%, #8a08aa 0% 50%, #000 0% 75%, #8a08aa 0% 100%);
@@ -177,12 +99,11 @@ function formSaveBtnCB(formObj) {
       img({ src: "../images/plus.svg" })
     ),
 
-
     div({ id: "popup-overlay", style: `background-color: rgba(0, 0, 0, 0.80); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; justify-content: center; align-items: center;` },
       article({ style: "width: 90vw; background-color: rgb(38, 47, 66); border-radius: 0.5rem; padding: 8px;" },
         mini(
           VehicleSubFormDataVal.val,
-          test,
+          closePopup,
           formSaveBtnCB),
       ),
     )

@@ -1,4 +1,4 @@
-const { label, div, button, input, img, hr, span, select, option, article, summary, details, h2 , h3 } = van.tags;
+const {article, summary, details} = van.tags;
 
 export default function Accordion(options, bar, content) {
 
