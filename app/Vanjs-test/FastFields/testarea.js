@@ -8,11 +8,44 @@ export default async function fftest() {
 
   const guardNameVal = van.state("")
   const reportDateStrVal = van.state(new Date().toLocaleDateString('en-CA'))
-  const vehicleSubFormsVal = van.state([])
+  const vehicleSubFormsVal = van.state([
+    {
+      "multiphoto_picker_1": [
+        {
+          "comment": "photo 1 comment",
+          "photo": "../images/car.jpg"
+        },
+        {
+          "comment": "photo 2 comment",
+          "photo": "../images/AOGPDF (1).svg"
+        }
+      ],
+      "alpha_1": "Ford F-150",
+      "alpha_2": "ABC123",
+    },
+    {
+      "multiphoto_picker_1": [
+        {
+          "comment": "photo 1 comment",
+          "photo": "../images/car.jpg"
+        },
+        {
+          "comment": "photo 2 comment",
+          "photo": "../images/AOGPDF (1).svg"
+        }
+      ],
+      "alpha_1": "Tesla Model 3",
+      "alpha_2": "XYZ789",
+    }
+  ])
   const VehicleSubFormDataVal = van.state(null)
 
   const closePopup = () => {
     document.getElementById("popup-overlay").style.display = "none"
+  }
+
+  const openPopup = () => {
+    document.getElementById("popup-overlay").style.display = "flex"
   }
 
   function formSaveBtnCB(formObj) {
@@ -52,7 +85,7 @@ export default async function fftest() {
             div({ style: "display: flex; justify-content: space-between; align-items: center; white-space: nowrap; width: 100%;" },
               // div({class: "rec-routecolorbox", style: `background-color: red; display: flex; align-items: center; justify-content: center;`}, ),
               span({ style: "font-size: 20px; font-weight: bold; padding-left: 8px;" }, `${idx + 1}: ${subForm.alpha_1} - ${subForm.alpha_2}`),
-              img({ src: "../images/car.jpg", style: "height: 40px; width: 40px; border-radius: 4px" })
+              div(subForm.multiphoto_picker_1[0].photo ? img({ src: subForm.multiphoto_picker_1[0].photo, style: "height: 40px; width: 40px; border-radius: 4px" }) : null)
             ),
             mini(subForm, () => { }, () => { },true)
           )
@@ -91,7 +124,7 @@ export default async function fftest() {
       style: "position: fixed; bottom: 8%; right: 50%; transform: translateX(50%); border-radius: 50%; height: 60px; width: 60px;",
       onclick: () => {
         VehicleSubFormDataVal.val = null
-        document.getElementById("popup-overlay").style.display = "flex"
+        openPopup()
         console.log("open new")
       }
 
@@ -106,8 +139,8 @@ export default async function fftest() {
           closePopup,
           formSaveBtnCB),
       ),
-    )
-
+    ),
+    
   );
 
 };
