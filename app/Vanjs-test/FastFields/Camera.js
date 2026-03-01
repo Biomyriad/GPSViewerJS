@@ -1,146 +1,161 @@
-const {h2, video, canvas, img, a, div, button, input,p,hr,span,select,option,article,summary} = van.tags;
+import PinchZoom from "/app/libs/3rd/pinch-zoom.js"
 
+const {video,div, button,fieldset } = van.tags;
 
-  //https://shamsfiroz.medium.com/capturing-photos-with-javascriptusing-accessing-the-camera-8aefb5e6fa5f
+//https://shamsfiroz.medium.com/capturing-photos-with-javascriptusing-accessing-the-camera-8aefb5e6fa5f
 export default function Camera() {
-  const photoScrVal = van.state("")
+  const consoleVal = van.state(["kkk", "test"])
+  const mediaListVal = van.state([])
+  
+  // Create element references
+  let videoElem, vidDiv
 
+  const zoomLevel = van.state(1);
+  const isCameraActive = van.state(false);
 
   async function startCamera() {
-    const video = document.getElementById('video');
     console.log("Starting camera...");
+
+
+    // https://stackoverflow.com/questions/78769178/is-there-an-html5-api-to-control-camera-focus-and-zoom-on-iphone
     try {
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-            video: { 
-                facingMode: 'environment' 
-            } 
-        });
-        video.srcObject = stream;
+      //get media devices list
+      if (!navigator.mediaDevices?.enumerateDevices) {
+        console.log("enumerateDevices() not supported.");
+      } else {
+        // List cameras and microphones.
+        try {
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          console.log( "Media devices found: " + devices);
+          devices.forEach((device) => {
+            mediaListVal.val.push(`${device.kind}: ${device.label} id = ${device.deviceId}`);
+            consoleVal.val
+          });
+          console.log("Available media devices:\n" + mediaListVal.val)
+          //alert("Available media devices:\n" + mediaListVal.val)
+        } catch (err) {
+          console.error(`${err.name}: ${err.message}`);
+        }
+      }
+    
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: 'environment',  // dont use
+          // deviceId: myPreferredCameraDeviceId,
+          // deviceId: { exact: myExactCameraOrBustDeviceId }, // same as above, but throws error if not found instead of just ignoring
+          // width: { min: 640, ideal: 1280, max: 1920 }, 
+          // height: { min: 480, ideal: 720, max: 1080 }, 
+          // resizeMode: "crop-and-scale", aspectRatio: 16/9
+          frameRate: { ideal: 10, max: 15 },
+          // facingMode: front ? "user" : "environment"
+          zoom: true,
+
+        }
+      });
+      videoElem.srcObject = stream;
+      const [track] = stream.getVideoTracks();
+      const capabilities = track.getCapabilities();
+      const settings = track.getSettings();
+      console.log(track,capabilities,settings)
+
+      await videoElem.play();
     } catch (err) {
-        console.error("Error accessing the camera", err);
-        alert("Error accessing the camera: " + err.message);
+      console.error("Error accessing the camera", err);
+      alert("Error accessing the camera: " + err.message);
     }
   }
 
   async function stopCamera() {
     console.log("Stopping camera...");
-    const video = document.getElementById('video');
-    const stream = video.srcObject;
-    const tracks = stream.getTracks();
-    tracks.forEach(track => track.stop());
-    video.srcObject = null;
+    const stream = videoElem.srcObject;
+    if (stream) {
+      const tracks = stream.getTracks();
+      tracks.forEach(track => track.stop());
+      videoElem.srcObject = null;
+    }
   }
 
-  async function capturePhoto() {
-    console.log("Capturing photo...");
-
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    const imageDataUrl = canvas.toDataURL('image/jpeg');
-    photoScrVal.val = imageDataUrl;
-
-    console.log("Photo captured:", canvas.width, canvas.height, imageDataUrl );
-    return imageDataUrl;
+async function capturePhoto(mediaStreamTrack) {
+  try {
+    const imageCapture = new ImageCapture(mediaStreamTrack);
+    const blob = await imageCapture.takePhoto();
+    return blob;
+  } catch (error) {
+    console.error("Error capturing photo:", error);
+    throw error;
   }
-
-  return div({},
-
-    // <h1>Camera Access and Photo Capture</h1>
-    // <video id="video" autoplay playsinline></video>
-    // <br>
-    // <button id="captureButton">Take Photo</button>
-    // <canvas id="canvas" style="display:none;"></canvas>
-    // <img id="photo" alt="Captured photo will appear here"></img>
-    div({},
-      h2("Camera Access and Photo Capture"),
-      video({ id: "video", playsinline: true, autoplay: true, style: "width: 100%; border-radius: 4px;" }),
-      hr(),
-      button({ id: "captureButton", onclick: capturePhoto}, "Take Photo"),
-      button({ id: "startButton", onclick: startCamera, style: "margin-left: 8px;" }, "Start Camera"),
-      canvas({ id: "canvas", type: "hidden", style: "display:none;" }),
-      hr(),
-      img({ id: "photo", src: photoScrVal.val, alt: "Captured photo will appear here" }),
-    )
-    
-  )
 }
 
-// const {h2, video, canvas, img, a, div, button, input,p,hr,span,select,option,article,summary} = van.tags;
+  // return div({},
+  //   div({},
+  //     h2("Camera Access and Photo Capture"),
+  //     videoElem = video({ 
+  //       playsinline: true, 
+  //       autoplay: true, 
+  //       style: "width: 100%; max-width: 350px; max-height: 270px; border-radius: 4px; background: #000;" 
+  //     }),
+  //     hr(),
+  //     button({ onclick: startCamera }, "Start"),
+  //     button({ onclick: async () => { photoScrVal.val = URL.createObjectURL(await capturePhoto(videoElem.srcObject.getVideoTracks()[0])); }, style: "margin-left: 8px;" }, "Take Photo"),
+  //     button({ onclick: stopCamera, style: "margin-left: 8px;" }, "Stop"),
+  //     canvasElem = canvas({ style: "display:none;" }),
+  //     hr(),
+  //     img({ src: () => photoScrVal.val, alt: "Captured photo will appear here", style: "max-width: 100%;" }),
+  //   )
+  // )
 
+  startCamera()
+  return div(
+    {style: "display: flex; flex-direction: column; gap: 1rem; align-items: center;"},
+    vidDiv = div(
+      {id: 'camera-container',
+        style: () => `
+        width: 100%;
+        max-width: 400px;
+        aspect-ratio: 1;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        background: #000;
+        `,
+        //position: relative;
+        //touch-action: pinch-zoom;
+        onwheel: (e) => {
+          e.preventDefault();
+          zoomLevel.val = Math.max(1, Math.min(5, zoomLevel.val + (e.deltaY > 0 ? -0.1 : 0.1)));
+        },
+        ontouchend: (e) => {
+        //   e.stopPropagation()
+        if (e.touches.length === 1) {
 
-//   //https://shamsfiroz.medium.com/capturing-photos-with-javascriptusing-accessing-the-camera-8aefb5e6fa5f
-// export default function Camera() {
-//   const photoScrVal = van.state("")
-  
-//   // Create element references
-//   let videoElem, canvasElem;
-
-//   async function startCamera() {
-//     console.log("Starting camera...");
-//     try {
-//         const stream = await navigator.mediaDevices.getUserMedia({ 
-//             video: { 
-//                 facingMode: 'environment' 
-//             } 
-//         });
-//         videoElem.srcObject = stream;
-//         await videoElem.play();
-//     } catch (err) {
-//         console.error("Error accessing the camera", err);
-//         alert("Error accessing the camera: " + err.message);
-//     }
-//   }
-
-//   async function stopCamera() {
-//     console.log("Stopping camera...");
-//     const stream = videoElem.srcObject;
-//     if (stream) {
-//       const tracks = stream.getTracks();
-//       tracks.forEach(track => track.stop());
-//       videoElem.srcObject = null;
-//     }
-//   }
-
-//   async function capturePhoto() {
-//     console.log("Capturing photo...");
-
-//     if (!videoElem.videoWidth || !videoElem.videoHeight) {
-//       alert("Camera is not ready yet. Please start the camera first.");
-//       return;
-//     }
-
-//     canvasElem.width = videoElem.videoWidth;
-//     canvasElem.height = videoElem.videoHeight;
-//     canvasElem.getContext('2d').drawImage(videoElem, 0, 0, canvasElem.width, canvasElem.height);
-//     const imageDataUrl = canvasElem.toDataURL('image/jpeg');
-//     photoScrVal.val = imageDataUrl;
-
-//     console.log("Photo captured:", canvasElem.width, canvasElem.height, imageDataUrl.substring(0, 50) + "..." );
-//     return imageDataUrl;
-//   }
-
-//   return div({},
-//     div({},
-//       h2("Camera Access and Photo Capture"),
-//       videoElem = video({ 
-//         playsinline: true, 
-//         autoplay: true, 
-//         style: "width: 100%; max-width: 640px; border-radius: 4px; background: #000;" 
-//       }),
-//       hr(),
-//       button({ onclick: startCamera }, "Start Camera"),
-//       button({ onclick: capturePhoto, style: "margin-left: 8px;" }, "Take Photo"),
-//       button({ onclick: stopCamera, style: "margin-left: 8px;" }, "Stop Camera"),
-//       canvasElem = canvas({ style: "display:none;" }),
-//       hr(),
-//       img({ src: () => photoScrVal.val, alt: "Captured photo will appear here", style: "max-width: 100%;" }),
-//     )
-    
-//   )
-// }
+        //     console.log(e.touches[0])
+        //     const touch1 = e.touches[0];
+        //     const touch2 = e.touches[1];
+        //     const distance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+        //     zoomLevel.val = Math.max(1, Math.min(5, zoomLevel.val + (distance > 50 ? 0.1 : -0.1)));
+          }
+        },
+      },
+      videoElem = video({
+        playsinline: true,
+        autoplay: true,
+        style: () => `
+          touch-action: none;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transform: scale(${zoomLevel.val});
+        `,
+      }),
+      button({style: "position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.25rem 0.5rem; font-size: 0.875rem;",
+          onclick: () => {},},"==]"),
+    ),
+    div(
+      {style: "display: flex; justify-content: space-between; gap: 1rem; width: 100%; max-width: 400px;"},
+      button({onclick: () => {isCameraActive.val = false;}},"Cancel"),
+      button({ onclick: () => { } }, "Capture"),
+    ),
+    div(() => zoomLevel.val + "x zoom")    
+  );
+}
 
 

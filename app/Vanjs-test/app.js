@@ -34,6 +34,8 @@ import testForm from "./comp/DispatchReports.js"
 import fftest from "./FastFields/testarea.js"
 import MainTabs from "./comp/MainTabs-vanui.js"
 
+import Camera from "./FastFields/Camera.js"
+
 const {a, div, button, input,p,hr,span,select,option,article,summary} = van.tags;
 
 const App = async () => {
@@ -56,7 +58,7 @@ const App = async () => {
       "Settings": "settings.svg",
     },{
       //"1": await vjs({rec: rec.rec, errCol: "transparent"}),
-      "1": await fftest(),
+      "1": Camera(), //await fftest(),
       //"2": await Reports(),
       "2": div(p("First Page, 'Shift Summary', updates, Initial report data, etc ")),
       "3": div(p("Home, The page to be left on (mostly). has info about current prop if you on one or info for the next if in transit. check to see if calls to dispatch or other events have occurred. (like just arriving on a prop to confirm time-in).")),
@@ -72,4 +74,3 @@ const App = async () => {
 };
 
 van.add(document.body, await App())
-

@@ -2,10 +2,14 @@
 <html lang="en" style="height: 100%" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>AOG Home</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.6.0.nomodule.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.14/dist/van-ui.nomodule.js"></script>
+
+
     <link rel="stylesheet" href="../css/styles.css">
 
   <script src="../libs/airtableapi.js" ></script>
@@ -13,11 +17,13 @@
   <!-- <script src="../reports/datarecord.js" ></script> -->
   <script src="../reports/database.js" ></script>
   <script src="../reports/incidentreports.js" ></script>
+  <!-- <script type="module">
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        import('/app/libs/3rd/MobileConsole/hnl.mobileconsole.js');
+    }
+  </script> -->
+  <script src="/app/libs/3rd/MobileConsole/hnl.mobileconsole.js" type="module"></script>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.6.0.nomodule.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.14/dist/van-ui.nomodule.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="../Vanjs-test/FastFields/FastFields.js"></script>
   <script src="app.js" type="module" defer></script>
 </head>
