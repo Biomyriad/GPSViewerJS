@@ -1,6 +1,4 @@
-import PinchZoom from "/app/libs/3rd/pinch-zoom.js"
-
-const {video,div, button,fieldset } = van.tags;
+const {video,div, button,fieldset,img } = van.tags;
 
 //https://shamsfiroz.medium.com/capturing-photos-with-javascriptusing-accessing-the-camera-8aefb5e6fa5f
 export default function Camera() {
@@ -106,7 +104,7 @@ async function capturePhoto(mediaStreamTrack) {
 
   startCamera()
   return div(
-    {style: "display: flex; flex-direction: column; gap: 1rem; align-items: center;"},
+    {style: "display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 10px"},
     vidDiv = div(
       {id: 'camera-container',
         style: () => `
@@ -145,16 +143,22 @@ async function capturePhoto(mediaStreamTrack) {
           object-fit: cover;
           transform: scale(${zoomLevel.val});
         `,
-      }),
-      button({style: "position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.25rem 0.5rem; font-size: 0.875rem;",
-          onclick: () => {},},"==]"),
+      }, 
+    ),
+      button({style: "height: 40px; width: 40px; position: absolute; top: 14px; right: 14px; padding: 0; border-radius: 8px", 
+        onclick: (e) => {},
+      },
+        img({src: "/app/images/flash-on.svg", alt: "Stop Camera", style: "width: 24px; height: 24px; filter: invert(1);"})
+      ),
+      div({style: "height: 24px; width: 104px; display: flex; justify-content: center; align-items: center; position: relative; bottom: 36px; left: 50%; transform: translateX(-50%); font-size: 14px; z-index: 10; color: #fff; background: rgba(0, 0, 0, 0.5); border-radius: 4px;"},
+        div(() => zoomLevel.val.toFixed(1) + "x zoom"),    
+      ), 
     ),
     div(
-      {style: "display: flex; justify-content: space-between; gap: 1rem; width: 100%; max-width: 400px;"},
+      {style: "display: flex; justify-content: space-between; gap: 16px; width: 100%; max-width: 400px;"},
       button({onclick: () => {isCameraActive.val = false;}},"Cancel"),
       button({ onclick: () => { } }, "Capture"),
     ),
-    div(() => zoomLevel.val + "x zoom")    
   );
 }
 
