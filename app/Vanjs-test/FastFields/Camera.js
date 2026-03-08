@@ -1,8 +1,7 @@
-const {video,div, button,fieldset,img } = van.tags;
+const {video,div, button,fieldset,img,input } = van.tags;
 
 //https://shamsfiroz.medium.com/capturing-photos-with-javascriptusing-accessing-the-camera-8aefb5e6fa5f
 export default function Camera() {
-  const consoleVal = van.state(["kkk", "test"])
   const mediaListVal = van.state([])
   
   // Create element references
@@ -27,7 +26,6 @@ export default function Camera() {
           console.log( "Media devices found: " + devices);
           devices.forEach((device) => {
             mediaListVal.val.push(`${device.kind}: ${device.label} id = ${device.deviceId}`);
-            consoleVal.val
           });
           console.log("Available media devices:\n" + mediaListVal.val)
           //alert("Available media devices:\n" + mediaListVal.val)
@@ -104,19 +102,19 @@ async function capturePhoto(mediaStreamTrack) {
 
   startCamera()
   return div(
-    {style: "display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 10px"},
+    {style: "display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 10px;"},
     vidDiv = div(
       {id: 'camera-container',
         style: () => `
+        position: relative;
         width: 100%;
-        max-width: 400px;
-        aspect-ratio: 1;
-        overflow: hidden;
         border-radius: 0.5rem;
         background: #000;
+        aspect-ratio: 1;
+        overflow: hidden;
         `,
-        //position: relative;
         //touch-action: pinch-zoom;
+        //position: relative;
         onwheel: (e) => {
           e.preventDefault();
           zoomLevel.val = Math.max(1, Math.min(5, zoomLevel.val + (e.deltaY > 0 ? -0.1 : 0.1)));
@@ -133,6 +131,7 @@ async function capturePhoto(mediaStreamTrack) {
           }
         },
       },
+
       videoElem = video({
         playsinline: true,
         autoplay: true,
@@ -143,17 +142,20 @@ async function capturePhoto(mediaStreamTrack) {
           object-fit: cover;
           transform: scale(${zoomLevel.val});
         `,
-      }, 
-    ),
-      button({style: "height: 40px; width: 40px; position: absolute; top: 14px; right: 14px; padding: 0; border-radius: 8px", 
-        onclick: (e) => {},
-      },
+        }, 
+      ),
+
+      button({style: "height: 40px; width: 40px; position: absolute; top: 8px; right: 8px; padding: 0; border-radius: 8px", 
+          onclick: (e) => {},
+        },
         img({src: "/app/images/flash-on.svg", alt: "Stop Camera", style: "width: 24px; height: 24px; filter: invert(1);"})
       ),
-      div({style: "height: 24px; width: 104px; display: flex; justify-content: center; align-items: center; position: relative; bottom: 36px; left: 50%; transform: translateX(-50%); font-size: 14px; z-index: 10; color: #fff; background: rgba(0, 0, 0, 0.5); border-radius: 4px;"},
+
+      div({style: "height: 24px; width: 104px; display: flex; justify-content: center; align-items: center; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 14px; z-index: 10; color: #fff; background: rgba(0, 0, 0, 0.5); border-radius: 4px;"},
         div(() => zoomLevel.val.toFixed(1) + "x zoom"),    
       ), 
     ),
+    input({type: "range", min: "0", max: "100", value: "50", id: "range", name: "range"}),
     div(
       {style: "display: flex; justify-content: space-between; gap: 16px; width: 100%; max-width: 400px;"},
       button({onclick: () => {isCameraActive.val = false;}},"Cancel"),
