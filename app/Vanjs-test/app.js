@@ -65,7 +65,7 @@ const App = async () => {
       "6": div(p(
               p("app and account settings, preferences, etc."),
               hr(),
-              a({ href: "//" + window.location.host +"/GPSViewerJS/app/gps/"}, "GPS")
+              a({ href: "//" + window.location.host +"/app/gps/"}, "GPS")
             )),
     })
   );
